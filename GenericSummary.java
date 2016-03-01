@@ -10,7 +10,7 @@ public class GenericSummary {
         if(args == null || args.length < 1){
             return;
         }
-//        rootFile = new File("/Users/wangheng/Documents/笔记");
+        //        rootFile = new File("/Users/wangheng/Documents/笔记");
         rootFile = new File(args[0]);
         rootPath = rootFile.getAbsolutePath();
         File summaryFile = new File(rootFile,"SUMMARY.md");
@@ -30,7 +30,7 @@ public class GenericSummary {
     }
     
     private static final String getSummaryString(File dir) throws IOException{
-        if(dir == null || !dir.exists()){
+        if(dir == null || !dir.exists() || (dir.isHidden() && dir != rootFile)){
             return null;
         }
         String absolutePath = dir.getAbsolutePath();
@@ -78,17 +78,18 @@ public class GenericSummary {
             File files[] = dir.listFiles();
             for(File f : files){
                 String fileName = f.getName();
-                if(".DS_Store".equals(fileName) 
-                        || "README.md".equals(fileName)
-                        || "SUMMARY.md".equals(fileName)
-                        || "_book".equals(fileName)
-                        || "源代码".equals(fileName)){
+                if(".DS_Store".equals(fileName)
+                   || "README.md".equals(fileName)
+                   || "SUMMARY.md".equals(fileName)
+                   || "_book".equals(fileName)
+                   || "源代码".equals(fileName)){
                     continue;
                 }
                 if(f.isFile() && !fileName.endsWith(".md")){
                     continue;
                 }
-                sb.append(getSummaryString(f));
+                String str = getSummaryString(f);
+                sb.append(str == null ? "" : str);
             }
             
             return sb.toString();
@@ -96,5 +97,5 @@ public class GenericSummary {
         
     }
     
-
+    
 }
