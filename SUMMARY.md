@@ -56,6 +56,7 @@
 * [工具使用](工具使用/README.md)
    * [AllInOne](工具使用/AllInOne/README.md)
       * [Android性能分析工具整理汇总](工具使用/AllInOne/Android性能分析工具整理汇总.md)
+      * [值得推荐的Android应用性能检测工具列表](工具使用/AllInOne/值得推荐的Android应用性能检测工具列表.md)
       * [加速你的Android应用](工具使用/AllInOne/加速你的Android应用.md)
    * [BlockCanary](工具使用/BlockCanary/README.md)
       * [BlockCanary-轻松找出AndroidApp界面卡顿元凶](工具使用/BlockCanary/BlockCanary-轻松找出AndroidApp界面卡顿元凶.md)
