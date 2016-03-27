@@ -39,13 +39,13 @@ MemoryFile是一个非常trickly的东西，由于并不占用Java堆内存，�
 
 在4.4及其以上的系统中，如果在应用中使用了MemoryFile，那么在dumpsys meminfo的时候，可以看到多了一项Ashmem的值：
 
-![](MemoryFile-1.png)
+![](MemoryFile/MemoryFile-1.png)
 
 可以看出来虽然MemoryFile申请的内存不计入Java堆也不计入Native堆中，但是占用了Ashmem的内存，这个实际上是算入了app当前占用的内存当中
 
 但是在4.4以下的机器中时，使用MemoryFile申请的内存居然是不算入app的内存中的：
 
-![](MemoryFile-2.jpg)
+![](MemoryFile/MemoryFile-2.jpg)
 
 而且这里我也算过，也是不算入Native Heap中的，另外，这个时候去系统设置里面看进程的内存占用，也可以看出来其实并没有计入Ashmem的内存的
 

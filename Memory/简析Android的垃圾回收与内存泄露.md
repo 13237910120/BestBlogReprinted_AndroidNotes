@@ -20,7 +20,7 @@
    * **Shallow heap**表示当前对象所消耗的内存
    * **Retained heap**表示当前对象所消耗的内存加上它引用的内存总合
 
-![](gc-and-memory-leak-1.jpeg)
+![](gc-and-memory-leak/gc-and-memory-leak-1.jpeg)
 
 <center><i>Google I/O 2011: Memory management for Android Apps</i></center>
 
@@ -34,7 +34,7 @@ Java GC（Garbage Collection，垃圾收集，垃圾回收）机制，是Java与
 
 网上有很多文档介绍可达的关系了，如图，在第六行的时候，o2改变了指向，Obj2就不再引用main的了，即他它们是不可达的，Obj2就可能在下次的GC中被回收。
 
-![](gc-and-memory-leak-2.jpeg)
+![](gc-and-memory-leak/gc-and-memory-leak-2.jpeg)
 
 <center><i>developerWorks Java technology</i></center>
 
@@ -66,7 +66,7 @@ public class SampleActivity extends Activity {
 
 * 在java中，非静态的内部Class与匿名Class对它们外部的Class有强引用。static inner class除外。
 
-![](gc-and-memory-leak-3.jpeg)
+![](gc-and-memory-leak/gc-and-memory-leak-3.jpeg)
 
 现在，我们尝试运行如下代码
 

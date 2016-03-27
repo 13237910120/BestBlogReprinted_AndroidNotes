@@ -7,7 +7,7 @@
 
 booking.com android客户端在新版本的增加了一个新功能：酒店的图片集合
 
-![](booking-image-reused-1.png)
+![](booking-image/booking-image-reused-1.png)
 
 不幸的是，增加了这个新功能后，发现这个应用的内存消耗增长了20%。图片集的界面的滑动有明显的卡顿，经定位，我们发现viewpager加载图片时的gc问题造成了以上的问题。由于应用的图片资源多；控件布局层次复杂；数据量较大，造成内存的申请很容易触发GC。
 
@@ -27,7 +27,7 @@ GC_FOR_ALLOC freed <1K, 20% free 31778K/39280K, paused 74ms, total 74ms
 
 为了管理bitmap内存，需要为bitmap进行引用计数，引用技术的接口是这样的； 
 
-![](booking-image-reused-2.png)
+![](booking-image/booking-image-reused-2.png)
 
 ```
 package com.booking.util.bitmap;
@@ -167,7 +167,7 @@ Booking.com客户端的网络通信层使用Vollery框架，默认情况下，Vo
 
 与volley的结构图是这样的：
 
-![](booking-image-reused-3.png)
+![](booking-image/booking-image-reused-3.png)
 
 ## 其他工作
 
