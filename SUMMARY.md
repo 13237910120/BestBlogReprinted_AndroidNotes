@@ -54,6 +54,8 @@
    * [使用SWIG自动生成JNI代码](NDK/使用SWIG自动生成JNI代码.md)
    * [基础](NDK/基础.md)
 * [Optimization](Optimization/README.md)
+   * [Android性能优化典范](Optimization/Android性能优化典范/README.md)
+      * [Android性能优化典范-第5季](Optimization/Android性能优化典范/Android性能优化典范-第5季.md)
    * [ApkSize](Optimization/ApkSize/README.md)
       * [Android APP终极瘦身指南](Optimization/ApkSize/Android APP终极瘦身指南.md)
       * [APK瘦身实践](Optimization/ApkSize/APK瘦身实践.md)
