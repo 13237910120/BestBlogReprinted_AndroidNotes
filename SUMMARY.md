@@ -87,6 +87,8 @@
       * [Android界面性能调优手册](工具使用/AllInOne/Android界面性能调优手册.md)
       * [值得推荐的Android应用性能检测工具列表](工具使用/AllInOne/值得推荐的Android应用性能检测工具列表.md)
       * [加速你的Android应用](工具使用/AllInOne/加速你的Android应用.md)
+   * [AndroidStudio](工具使用/AndroidStudio/README.md)
+      * [使用新版AndroidStudio检测内存泄露和性能](工具使用/AndroidStudio/使用新版AndroidStudio检测内存泄露和性能.md)
    * [BatteryHistorian](工具使用/BatteryHistorian/README.md)
       * [使用BatteryHistorian分析应用的电量](工具使用/BatteryHistorian/使用BatteryHistorian分析应用的电量.md)
    * [BlockCanary](工具使用/BlockCanary/README.md)
