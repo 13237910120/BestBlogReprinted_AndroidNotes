@@ -22,11 +22,11 @@ Java 提供的反射機制允許您於執行時期動態載入類別、檢視類
 
 ## 入门
 
-### 1.Android动态加载dex技术初探
+### [1.Android动态加载dex技术初探](入门/Android动态加载dex技术初探.md)
 
 Android使用Dalvik虚拟机加载可执行程序，所以不能直接加载基于class的jar，而是需要将class转化为dex字节码，从而执行代码。优化后的字节码文件可以存在一个*.jar中，只要其内部存放的是*.dex即可使用。
 
-### 2.Android插件化入门
+### [2.Android插件化入门](入门/Android插件化基础.md)
 
 开发者将插件代码封装成Jar或者APK。宿主下载或者从本地加载Jar或者APK到宿主中。将宿主调用插件中的算法或者Android特定的Class（如Activity）
 
@@ -153,35 +153,35 @@ Android系统通过Binder机制给应用程序提供了一系列的系统服务�
 
 ## 类库
 
-### 1.DroidPlugin
+### [1.DroidPlugin](https://github.com/Qihoo360/DroidPlugin)
 
 是360手机助手在Android系统上实现了一种新的插件机制
 
-### 2.Android-Plugin-Framework
+### [2.Android-Plugin-Framework](https://github.com/limpoxe/Android-Plugin-Framework)
 
 此项目是Android插件开发框架完整源码及示例。用来通过动态加载的方式在宿主程序中运行插件APK。
 
-### 3.Small
+### [3.Small](https://github.com/wequick/Small)
 
 世界那么大，组件那么小。Small，做最轻巧的跨平台插件化框架。里面有很详细的文档
 
-### 4.dynamic-load-apk
+### [4.dynamic-load-apk](https://github.com/singwhatiwanna/dynamic-load-apk)
 
 Android 使用动态加载框架DL进行插件化开发
 
-### 5.AndroidDynamicLoader
+### [5.AndroidDynamicLoader](https://github.com/mmin18/AndroidDynamicLoader)
 
 Android 动态加载框架，他不是用代理 Activity 的方式实现而是用 Fragment 以及 Schema 的方式实现
 
-### 6.DynamicAPK
+### [6.DynamicAPK](https://github.com/CtripMobile/DynamicAPK)
 
 实现Android App多apk插件化和动态加载，支持资源分包和热修复.携程App的插件化和动态加载框架.
 
-### 7.ACDD
+### [7.ACDD](https://github.com/bunnyblue/ACDD/blob/master/README-Zh.md)
 
 非代理Android动态部署框架
 
-### 8.android-pluginmgr
+### [8.android-pluginmgr](https://github.com/houkx/android-pluginmgr)
 
 不需要插件规范的apk动态加载框架。
 
