@@ -1,0 +1,118 @@
+# 深入浅出RenderThread
+
+来源:[http://blog.chengdazhi.com/](http://blog.chengdazhi.com/index.php/190#rd?sukey=3903d1d3b699c2086450294c5a54d0b7ed7d8616108cfeaa1bea65636fe8571fbcd9e9958f110f461f38543d037b5bff)
+
+[TOC]
+
+原文链接：[https://medium.com/@workingkills/understanding-the-renderthread-4dc17bcaf979#.950cwydhj](https://medium.com/@workingkills/understanding-the-renderthread-4dc17bcaf979#.950cwydhj)
+
+RenderThread是Android Lollipop中引入的新组件，相关文档很少。事实上，在我写这篇文章的时候，只找到三篇相关引用，以及下面这个很模糊的定义：
+
+> RenderThread是一个新的由系统控制的处理线程，它可以在UI线程阻塞时保持动画平滑。
+
+为了理解其真实功能，我们需要先介绍几个概念。
+
+- - - - 
+
+当设备开启硬件加速时，Android不再在每一帧内都执行绘制任务，而是使用一个叫做“展示列表”的（隐藏的）组件，它通过RenderNode类（曾经是DisplayList类）记录绘制操作集合。
+
+这种间接的方式可以带来诸多好处：
+
+* 一个展示列表可以被多次绘制，而不需要重新执行业务逻辑。
+* 特定的操作（如转换、放缩等等）可以覆盖整个列表，无需重新安排某个绘制操作。
+* 一旦所有的绘制操作已知，就可以进行优化：比如，如果可能，所有的文字都一起绘制。
+* 展示列表的处理工作可能可以分发给另一个线程执行。
+
+上面的第四点正是RenderThread的工作之一：**处理优化操作与GPU分发，减轻UI线程的压力。**
+
+在Lollipop之前你可能会注意到，进行如Activity切换等重量级工作时，想要使View属性动画平滑进行是不可能的。而在Lollipop以后，这些动画，包括如水波等其他效果在相同场景下竟可以流畅进行，其中就依靠RenderThread的帮助。
+
+渲染的真正执行者是GPU，而它自己是不懂任何动画的。展示动画的唯一方法就是对于每一帧发布不同的绘制指令，这个逻辑不是GPU可以处理的。当这些逻辑需要在UI线程中执行时，重量级工作会妨碍新的绘制指令及时发布，于是产生卡顿现象，无论在进行哪种动画。
+
+前面提到了， RenderThread可以负责展示列表流水线的部分工作，但要注意展示列表的创建与修改还是需要在UI线程中完成。
+
+那么如何在子线程中更新动画呢？
+
+当通过硬件加速进行绘制时，Canvas的实现类叫做DisplayListCanvas(曾经叫GLES20Canvas)，它有许多绘制方法的重载方法，这些方法不是接收一个直接的参数，而是一个CanvasProperty的引用，这个CanvasProperty封装了需要的参数值。这样一来在UI线程创建的展示列表仍然可以静态地调用绘制方法，而且这些调用的参数可以通过CanvasProperty映射被动态修改（在RenderThread中异步修改）。
+
+之后还有一步：CanvasProperty的值需要通过RenderNodeAnimator来随时间变动，由此动画被配置并启动。
+
+产生的动画有这些有趣的属性：
+
+* 目标DisplayListCanvas：需要被人工设定，且之后不可以再修改。
+* 即发即弃：一旦被启动就只能被取消，也就是说无法暂停/继续。而且不能知道当下的值。
+* 可以提供一个自定义的Interpolator，其代码会在RenderThread中调用。
+* 如有延迟启动，会在RenderThread中进行等待。
+
+### 下面是 能在RenderThread中操作的动画（到现在为止）：
+
+View属性（可以通过View.animate访问）：
+
+* 变换（X、Y、Z）
+* 放缩（X、Y）
+* 旋转（X、Y）
+* 透明度Alpha
+* 圆形展开动画[Circular Reveal](https://developer.android.com/reference/android/view/ViewAnimationUtils.html#createCircularReveal%28android.view.View,%20int,%20int,%20float,%20float%29)
+
+### Canvas方法（通过Canvas属性）
+
+* 画圈drawCircle(centerX, centerY, radius, paint)
+* 画圆角矩形drawRoundRect(left, top, right, bottom, cornerRadiusX, cornerRadiusY, paint)
+
+### Paint属性
+
+* 透明度Alpha
+* 宽度Stroke Width
+
+看起来Google只是封装了所有实现Material Design动画所需的绘制操作。这看起来虽然很有限，但是只需要一点创造力就可以实现各种不同的动画，从各种水波动画到全新的效果。这样的动画操作的好处是可以提供不在UI线程运行的不卡顿的动画。
+
+现在看起来在Android N中RenderThread的能力会被加强（比如AnimatedVectorDrawable将会在其中完成），或许有朝一日它会进入public API。
+
+- - - - -
+
+### 我可以让我自己的动画运行在RenderThread中吗？
+
+官方的简短回答：除了View.animate与ViewAnimationUtils.createCircularReveal提供的动画都不可以。
+
+非官方的长一些的回答：本文所说的每一个组件都是隐藏的，所以如果要使用哪个组件都需要通过反射获得所需类和方法的引用，进行封装以保证类型安全，提供获取失败的回调方法等等。详情见我的这个repo
+
+或许这种方法不应该被实际应用，这一点需要你自己把握。
+
+使用RenderThread很简单，一般有三步：
+
+```
+CanvasProperty<Float> centerXProperty;
+CanvasProperty<Float> centerYProperty;
+CanvasProperty<Float> radiusProperty;
+CanvasProperty<Paint> paintProperty;
+
+Animator radiusAnimator;
+Animator alphaAnimator;
+
+@Override
+protected void onDraw(Canvas canvas) {
+
+    if (!animationInitialised) {
+        // 1. 创建绘制动画所需要的所有CanvasProperty
+        centerXProperty = RenderThread.createCanvasProperty(canvas, initialCenterX);
+        centerYProperty = RenderThread.createCanvasProperty(canvas, initialCenterY);
+        radiusProperty = RenderThread.createCanvasProperty(canvas, initialRadius);
+        paintProperty = RenderThread.createCanvasProperty(canvas, paint);
+
+        // 2. 创建一个或多个Animator，与你想操作的属性对应
+        radiusAnimator = RenderThread.createFloatAnimator(this, canvas, radiusProperty, targetRadius);
+        alphaAnimator = RenderThread.createPaintAlphaAnimator(this, canvas, paintProperty, targetAlpha);
+        radiusAnimator.start();
+        alphaAnimator.start();
+    }
+
+    // 3. 绘制到Canvas上
+    RenderThread.drawCircle(canvas, centerXProperty, centerYProperty, radiusProperty, paintProperty);
+}
+```
+
+在上面的Repo中有完整的示例。
+
+欢迎关注我的公众号“androidway”，将零碎时间都用在刷干货上！
+
+![](http://7xpg2f.com1.z0.glb.clouddn.com/qrcode_for_gh_f9319618373d_430-2.jpg)
