@@ -55,7 +55,7 @@ Google提供的MultiDex方案，会在主线程中执行所有dex的解压、dex
 [proguard_manual]:http://proguard.sourceforge.net/manual/index.html
 首先来回顾下Android是如何进行编译的。请看下图：
 
-![Android是如何进行编译的](xiecheng_android_build_process.png)
+![](1/xiecheng_android_build_process.png)
 
 整个流程庞大而复杂，我们主要关注几个重点环节：`aapt`、`javac`、`proguard`、`dex`。相关环节涉及到的输入输出都在图上重点标粗。
 

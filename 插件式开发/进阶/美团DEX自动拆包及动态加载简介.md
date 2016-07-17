@@ -174,7 +174,7 @@ private static void install(ClassLoader loader, List<File> additionalClassPathEn
 
 我们首先来分析如何解决第一个问题，在使用MultiDex方案时，我们知道BuildTool会自动把代码进行拆成多个DEX包，并且可以通过配置文件来控制哪些代码放到第一个DEX包中， 下图是Android的打包流程示意图：
 
-![Android打包流程示意图](meituan_multidex_android_packing.png)
+![](7/meituan_multidex_android_packing.png)
 
 为了实现产生多个DEX包，我们可以在生成DEX文件的这一步中， 在Ant或gradle中自定义一个Task来干预DEX产生的过程，从而产生多个DEX，下图是在ant和gradle中干预产生DEX的自定task的截图:
 
