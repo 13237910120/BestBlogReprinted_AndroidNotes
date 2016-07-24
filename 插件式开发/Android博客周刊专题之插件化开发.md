@@ -138,21 +138,34 @@ Java程序中，JVM虚拟机是通过类加载器ClassLoader加载.jar文件里�
 ### [13.Weishu---Android插件化原理解析——Hook机制之Binder Hook](weishu系列/3.Android插件化原理解析——Hook机制之BinderHook.md)
 Android系统通过Binder机制给应用程序提供了一系列的系统服务，诸如ActivityManagerService，ClipboardManager， AudioManager等；这些广泛存在系统服务给应用程序提供了诸如任务管理，音频，视频等异常强大的功能。
 
-### 14.Weishu---Android 插件化原理解析——Hook机制之AMS&PMS
+### [14.Weishu---Android 插件化原理解析——Hook机制之AMS&PMS](weishu系列/4.Android插件化原理解析——Hook机制之AMS与PMS.md)
 
 在前面的文章中我们介绍了DroidPlugin的Hook机制，也就是代理方式和Binder Hook；插件框架通过AOP实现了插件使用和开发的透明性。在讲述DroidPlugin如何实现四大组件的插件化之前，有必要说明一下它对AMS以及PMS的Hook方式。
 
-### 15.Weishu---Android 插件化原理解析——Activity生命周期管理
+### [15.Weishu---Android 插件化原理解析——Activity生命周期管理](weishu系列/5.Android插件化原理解析——Activity生命周期管理.md)
 
 之前的 Android插件化原理解析 系列文章揭开了Hook机制的神秘面纱，现在我们手握倚天屠龙，那么如何通过这种技术完成插件化方案呢？具体来说，插件中的Activity，Service等组件如何在Android系统上运行起来？
 
-### 16.Weishu---Android 插件化原理解析——插件加载机制
+### [16.Weishu---Android 插件化原理解析——插件加载机制](weishu系列/6.Android插件化原理解析——插件加载机制.md)
 
 上文 Activity生命周期管理 中我们地完成了『启动没有在AndroidManifest.xml中显式声明的Activity』的任务；通过Hook AMS和拦截ActivityThread中H类对于组件调度我们成功地绕过了AndroidMAnifest.xml的限制。
 
-### 17.Weishu---Android插件化原理解析——广播的管理
+### [17.Weishu---Android插件化原理解析——广播的管理](weishu系列/7.Android插件化原理解析——广播的管理.md)
 
 在Activity生命周期管理 以及 插件加载机制 中我们详细讲述了插件化过程中对于Activity组件的处理方式，为了实现Activity的插件化我们付出了相当多的努力；那么Android系统的其他组件，比如BroadcastReceiver，Service还有ContentProvider，它们又该如何处理呢？
+
+### [18.Weishu---Android 插件化原理解析——Service的插件化](weishu系列/8.Android插件化原理解析——Service的插件化.md)
+在 Activity生命周期管理 以及 广播的管理 中我们详细探讨了Android系统中的Activity、BroadcastReceiver组件的工作原理以及它们的插件化方案，相信读者已经对Android Framework
+
+### [19.Weishu---Android插件化原理解析——ContentProvider的插件化](weishu系列/9.Android插件化原理解析——ContentProvider的插件化.md)
+
+目前为止我们已经完成了Android四大组件中Activity，Service以及BroadcastReceiver的插件化，这几个组件各不相同，我们根据它们的特点定制了不同的插件化方案；那么对于ContentProvider，它又有什么特点？应该如何实现它的插件化？
+
+
+### [20.Weishu---Android插件化原理解析——DroidPlugin插件通信机制](weishu系列/10.Android插件化原理解析——DroidPlugin插件通信机制.md)
+### [21.Weishu---Android插件化原理解析——插件机制之资源管理](weishu系列/11.Android插件化原理解析——插件机制之资源管理.md)
+### [22.Weishu---Android插件化原理解析——不同插件框架方案对比](weishu系列/12.Android插件化原理解析——不同插件框架方案对比.md)
+### [23.Weishu---Android插件化原理解析——插件化的未来](weishu系列/13.Android插件化原理解析——插件化的未来.md)
 
 ## 类库
 
@@ -194,8 +207,12 @@ Android 动态加载框架，他不是用代理 Activity 的方式实现而是�
 
 阿里技术沙龙第十六期《android插件化及动态部署》视频
 
+
+### [2.android插件化及动态部署](http://v.youku.com/v_show/id_XNTMzMjYzMzM2.html) 
+
+阿里技术沙龙第十六期《android插件化及动态部署》视频
+
 微信公众号：Android博客周刊 
 ![](http://www.androidblog.cn/Public/home/img/android_blog_wx.jpg)
-
 微   博：[陆镇生_Jomeslu](http://weibo.com/2106134235/profile?profile_ftype=1&is_all=1#_0)<br/>
 邮   箱：luzhensheng72@gmail.com
