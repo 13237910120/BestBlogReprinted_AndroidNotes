@@ -27,7 +27,7 @@ Android适配的问题太多，有屏幕尺寸的适配、屏幕分辨率的适�
 
 表示屏幕密度是指每英寸上的像素点数。Android将根据不同的dpi将Android设备分成多个显示级别。具体如下：
 
-![](drawable/1.png)
+![](3/1.png)
 
 正如drawable目录和mipmap目录有ldpi、mdpi、hdpi、xhdpi、xxhdpi之分。
 
@@ -51,7 +51,7 @@ Android适配的问题太多，有屏幕尺寸的适配、屏幕分辨率的适�
 
 也叫dip(density independent pixel)直译为密度无关的像素。我们猜测如果使用了这个单位，在不同屏幕密度的设备上显示的长度就会是相同的。那么在屏幕上显示图像时都是在屏幕上填充像素点，而使用这种与密度无关的像素（我们在布局文件中使用的 dp/dip 就是与密度无关的像素）是如何转换成像素的呢？其实在Android中，将屏幕密度为160dpi的中密度设备屏幕作为基准屏幕，在这个屏幕中，1dp=1px。其他屏幕密度的设备按照比例换算，具体如下表：
 
-![](drawable/2.png)
+![](3/2.png)
 
 由上表不难计算1dp在hdpi设备下等于1.5px，同样的在xxhdpi设备下1dp=3px。这里我们从dp到px解释了Android中不同屏幕密度之间的像素比例关系。
 
@@ -83,7 +83,7 @@ Android适配的问题太多，有屏幕尺寸的适配、屏幕分辨率的适�
 
 屏幕尺寸和屏幕分辨率，这两个值是可以直接得到的。屏幕密度需要我们计算得到。例如我的手机的分辨率是1200×1920，屏幕尺寸是7寸的。根据屏幕尺寸、屏幕分辨率和屏幕密度定义不难看出他们之间的关系如下图：
 
-![](drawable/3.png)
+![](3/3.png)
 
 根据勾股定理，我们得出对角线的像素数大约是2264，那么用2264除以7就是此屏幕的密度了，计算结果是323。
 
@@ -114,7 +114,7 @@ float ydpi = displayMetrics.ydpi;//高度方向上的dpi
 
 其中xdpi = ydpi = densityDpi.打印结果如下：
 
-![](drawable/4.png)
+![](3/4.png)
 
 上面计算的我的设备的dpi为323。这里系统给定的屏幕密度dpi为320。
 
@@ -160,15 +160,15 @@ if (drawable != null) {
 
 放在drawable-mhdpi文件夹下：
 
-![](drawable/5.png)
+![](3/5.png)
 
 放在drawable-xxhdpi文件夹下：
 
-![](drawable/6.png)
+![](3/6.png)
 
 汇总结果（原图600×960像素）：
 
-![](drawable/7.png)
+![](3/7.png)
 
 接下来我们来分析两个问题：
 
@@ -318,4 +318,4 @@ inPreferredConfig的类型为Bitmap.Config默认值为Bitmap.Config.ARGB_8888。
 
 欢迎长按下图 -> 识别图中二维码或者扫一扫关注我的公众号：
 
-![](drawable/8.png)
+![](3/8.png)

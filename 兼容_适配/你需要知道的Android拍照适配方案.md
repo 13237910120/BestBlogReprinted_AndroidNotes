@@ -52,7 +52,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 try-catch 这种粗暴的方式大家肯定很熟悉了，那么要如何检测系统有没有相机 app 可用呢？系统在`PackageManager`里为我们提供这样一个 API
 
-![](camera-jianshu/1.png)
+![](2/1.png)
 
 通过这样一个 API ，可以知道系统是否存在 action 为 **MediaStore.ACTION_IMAGE_CAPTURE** 的 intent 可以唤起的拍照界面，具体实现代码如下：
 
@@ -73,11 +73,11 @@ public boolean hasCamera() {
 ## 拍出来的照片“歪了”！！！
 经常会遇到一种情况，拍照时看到照片是正的，但是当我们的 app 获取到这张照片时，却发现旋转了 90 度（也有可能是180、270，不过90度比较多见，貌似都是由于手机传感器导致的）。很多童鞋对此感到很困扰，因为不是所有手机都会出现这种情况，就算会是出现这种情况的手机上，也并非每次必现。要怎么解决这个问题呢？从解决的思路上看，只要获取到照片旋转的角度，利用 Matrix 来进行角度纠正即可。那么问题来了，**要怎么知道照片旋转的角度呢？**细心的童鞋可能会发现，拍完一张照片去到相册点击属性查看，能看到下面这样一堆关于照片的属性数据
 
-![](camera-jianshu/2.png)
+![](2/2.png)
 
 没错，这里面就有一个旋转角度，倘若拍照后保存的成像照片文件发生了角度旋转，这个图片的属性参数就能告诉我们到底旋转了多少度。只要获取到这个角度值，我们就能进行纠正的工作了。 Android 系统提供了 ExifInterface 类来满足获取图片各个属性的操作
 
-![](camera-jianshu/3.png)
+![](2/3.png)
 
 通过 ExifInterface 类拿到 TAG_ORIENTATION 属性对应的值，即为我们想要得到旋转角度。再根据利用 Matrix 进行旋转纠正即可。实现代码大致如下：
 
@@ -166,7 +166,7 @@ protected void onRestoreInstanceState(Bundle savedInstanceState) {
 
 到这里，可能有童鞋要问，这种闪退并不能保证复现，我要怎么知道问题所在和是否修复了呢？我们可以去到开发者选项里开启**不保留活动**这一项进行调试验证
 
-![](camera-jianshu/4.png)
+![](2/4.png)
 
 它作用是保留当前和用户接触的 Activity ，并将目前无法和用户交互 Activity 进行销毁回收。打开这个调试选项就可以满足验证的需求，当你的 app 的某个 Activity 跳转到拍照的 Activity 后，这个 Activity 立马就会被系统销毁回收，这样就可以很好的完全复现闪退的场景，帮助开发者确认问题有没有修复了。
 
@@ -188,6 +188,8 @@ protected void onRestoreInstanceState(Bundle savedInstanceState) {
 
 * 猜测二：Bitmap太大了，无法显示？<br/>
 直接在 AS 的 log 控制台仔细的观察了一下系统 log ，发现了一些蛛丝马迹
+
+![](2/5.png)
 
 ```
 OpenGLRenderer: Bitmap too large to be uploaded into a texture
@@ -279,7 +281,7 @@ public static Bitmap decodeBitmapFromFile(String imagePath, int requestWidth, in
 
 运行打印出来的日志如下：
 
-![](camera-jianshu/6.png)
+![](2/6.png)
 
 图片原来的宽高居然都是 -1 ，真是奇葩了！难怪，inSampleSize 经过处理之后结果还是 1 。狠狠的吐槽了之后，总是要回来解决问题的。那么，图片的宽高信息都丢失了，我去哪里找啊？ 像下面这样？
 
@@ -301,7 +303,7 @@ public static Bitmap decodeBitmapFromFile(String imagePath,
 
 no，此方案行不通，inJustDecodeBounds = true 时，BitmapFactory 获得 Bitmap 对象是 null；那要怎样才能获图片的宽高呢？前面提到的 ExifInterface 再次帮了我们大忙，通过它的下面两个属性即可拿到图片真正的宽高
 
-![](camera-jianshu/7.png)
+![](2/7.png)
 
 顺手吐槽一下，为什么高不是 **TAG_IMAGE_HEIGHT** 而是 **TAG_IMAGE_LENGTH**。改良过后的代码实现如下：
 
@@ -351,7 +353,7 @@ public static Bitmap decodeBitmapFromFile(String imagePath,
 
 再看一下，打印出来的log
 
-![](camera-jianshu/8.png)
+![](2/8.png)
 
 这样就可以解决问题啦。
 
@@ -360,7 +362,7 @@ public static Bitmap decodeBitmapFromFile(String imagePath,
 
 以上的示例代码已经整理到：[https://github.com/D-clock/AndroidStudyCode](https://github.com/D-clock/AndroidStudyCode) ，主要的代码在下面红圈部分
 
-![](camera-jianshu/9.png)
+![](2/9.png)
 
 ## 打个广告
 

@@ -16,15 +16,15 @@ android的权限系统一直是首要的安全概念，因为这些权限只在�
 
 android小组也知道这事儿。7年了！权限系统终于被重新设计了。在android6.0棉花糖，app将不会在安装的时候授予权限。取而代之的是，app不得不在运行时一个一个询问用户授予权限。
 
-![](m-permission/1.jpg)
+![](1/1.jpg)
 
 注意权限询问对话框不会自己弹出来。开发者不得不自己调用。如果开发者要调用的一些函数需要某权限而用户又拒绝授权的话，函数将抛出异常直接导致程序崩溃。
 
-![](m-permission/2.jpg)
+![](1/2.jpg)
 
 另外，用户也可以随时在设置里取消已经授权的权限。
 
-![](m-permission/3.jpg)
+![](1/3.jpg)
 
 或许已经感觉到背后生出一阵寒意。。。如果你是个android开发者，意味着要完全改变你的程序逻辑。你不能像以前那样直接调用方法了，你不得不为每个需要的地方检察权限，否则app就崩溃了！
 
@@ -38,17 +38,17 @@ android小组也知道这事儿。7年了！权限系统终于被重新设计了
 
 莫慌张，放轻松。android小队又不傻，肯定考虑到了这情况。**如果app的targetSdkVersion 低于 23，那将被认为app没有用23新权限测试过，那将被继续使用旧有规则：用户在安装的时候不得不接受所有权限，安装后app就有了那些权限咯！**
 
-![](m-permission/4.jpg)
+![](1/4.jpg)
 
 然后app像以前一样奔跑！**注意，此时用户依然可以取消已经同意的授权！用户取消授权时，android 6.0系统会警告，但这不妨碍用户取消授权。**
 
-![](m-permission/5.jpg)
+![](1/5.jpg)
 
 问题又来了，这时候你的app崩溃吗？
 
 *善意的主把这事也告诉了android小组，当我们在targetSdkVersion 低于23的app调用一个需要权限的函数时，这个权限如果被用户取消授权了的话，不抛出异常。但是他将啥都不干，结果导致函数返回值是null或者0.*
 
-![](m-permission/6.jpg)
+![](1/6.jpg)
 
 别高兴的太早。尽管app不会调用这个函数时崩溃，返回值null或者0可能接下来依然导致崩溃。
 
@@ -173,7 +173,7 @@ private void insertDummyContact() {
 
 权限被分组了，如下表：
 
-![](m-permission/7.png)
+![](1/7.png)
 
 同一组的任何一个权限被授权了，其他权限也自动被授权。例如，一旦`WRITE_CONTACTS`被授权了，app也有`READ_CONTACTS`和`GET_ACCOUNTS`权限了。
 
@@ -195,7 +195,7 @@ private void insertDummyContactWrapper() {
 
 如果已有权限，`insertDummyContact()`会执行。否则，`requestPermissions`被执行来弹出请求授权对话框，如下：
 
-![](m-permission/8.jpg)
+![](1/8.jpg)
 
 不论用户同意还是拒绝，activity的`onRequestPermissionsResult`会被回调来通知结果（通过第三个参数），`grantResults`,如下：
 
@@ -230,7 +230,7 @@ public void onRequestPermissionsResult(int requestCode,
 
 如果用户拒绝某授权。下一次弹框，用户会有一个“不再提醒”的选项的来防止app以后继续请求授权。
 
-![](m-permission/9.jpg)
+![](1/9.jpg)
 
 如果这个选项在拒绝授权前被用户勾选了。下次为这个权限请求`requestPermissions`时，对话框就不弹出来了，结果就是，app啥都不干。
 
@@ -278,7 +278,7 @@ private void showMessageOKCancel(String message,
 
 最后一种情况，`onRequestPermissionsResult`会收到`PERMISSION_DENIED`，系统询问对话框不展示。
 
-![](m-permission/10.jpg)
+![](1/10.jpg)
 
 搞定！
 
@@ -444,7 +444,7 @@ private void insertDummyContactWrapper() {
 
 权限随时可以被撤销。
 
-![](m-permission/11.jpg)
+![](1/11.jpg)
 
 当app开着的时候被撤消了会发生什么呢？我试过了发现这时app会突然终止 terminated。app中的一切都被简单粗暴的停止了，因为terminated！对我来说这可以理解，因为系统如果允许它继续运行（没有某权限），这会召唤弗雷迪到我的噩梦里。或许更糟…
 
