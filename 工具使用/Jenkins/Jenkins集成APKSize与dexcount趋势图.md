@@ -41,7 +41,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 现在，如果编译你的工程，这个插件将会在每次 build 时，输出 dex 方法数与字段数。
 
-![](./dexcount_image/2016-06-01 22-43-33.jpg)
+![](./3/2016-06-01 22-43-33.jpg)
 
 以上已经非常有帮助了 :-)
 如果你不用 Jenkins 的话，可以不用继续往下看了。
@@ -50,11 +50,11 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 接下来，让我们看看 Plot 这个 Jenkins 插件。给 Jenkins 安装 [Plot 插件](https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin)，并为你的 build 配置它。
 
-![](./dexcount_image/2016-06-01 22-55-22.jpg)
+![](./3/2016-06-01 22-55-22.jpg)
 
 注意根据你的工程调整 CSV 文件路径，debug 与 release build 各有不同的文件名。如果准备就绪，在你的 build 任务里点击 Plots（注意应该先跑 1~2 次 build 任务），应该可以看到一个漂亮的图表。来看看我们现在有什么了？
 
-![](./dexcount_image/2016-06-01 22-58-10.jpg)
+![](./3/2016-06-01 22-58-10.jpg)
 
 现在让我们来看看 APK size，打开 Jenkins build 配置，在 build 的最后，加一小段脚本。
 
@@ -67,11 +67,11 @@ stat -f%z flinc/app/build/outputs/apk/app-release.apk >> $OUTFILE
 
 同时添加新的 plot 变量：'Add Plot' 按钮 （ 不是 'Add' 按钮，这个也会被添加到同样的图表中）。注意我在 group 字段里，填写了与之前一样的 'APK info'。
 
-![](./dexcount_image/2016-06-01 22-59-00.jpg)
+![](./3/2016-06-01 22-59-00.jpg)
 
 让我们来看看最终效果吧：
 
-![](./dexcount_image/2016-06-01 22-59-15.jpg)
+![](./3/2016-06-01 22-59-15.jpg)
 
 超赞！
 

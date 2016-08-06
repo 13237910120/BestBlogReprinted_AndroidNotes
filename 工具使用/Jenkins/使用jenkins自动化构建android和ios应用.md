@@ -50,22 +50,22 @@ Branch -> */master，选定一个要编译的分支代码。
 
 如下：
 
-![](jenkins-android-ios/jenkins-1.png)
+![](1/jenkins-1.png)
 
 如果是私有的仓库（比如git://xxxxx.git）,点击Credentials - Add，弹出对话框，配置sshkey最简单了：
 
-![](jenkins-android-ios/jenkins-2.png)
+![](1/jenkins-2.png)
 
 ## 配置自动拉取最新代码
 在构建触发器中，有两种自动拉取代码并编译的策略:
 
 * 设置Poll SCM，设置定时器，定时检查代码更新，有更新则编译，否则不编译（我暂时用的是这个）。
 
-![](jenkins-android-ios/jenkins-3.png)
+![](1/jenkins-3.png)
 
 * 也可以设置Build periodically，周期性的执行编译任务。
 
-![](jenkins-android-ios/jenkins-4.png)
+![](1/jenkins-4.png)
 
 关于定时器的格式，我只能从网上摘抄一段稍微靠谱一点的说明：
 
@@ -105,7 +105,7 @@ In addition, @yearly, @annually, @monthly, @weekly, @daily, @midnight, @hourly a
 
 如果安装gradle插件成功的话，应该会出现下图的Invoke Gradle script，配置一下:
 
-![](jenkins-android-ios/jenkins-5.png)
+![](1/jenkins-5.png)
 
 ${WORKSPACE}表示当前job下的workspace目录，主要是存放代码。更多的环境变量请参考文末附录。
 这样，就能自动在project下的app的build/outputs/apk下生成相应的apk.
@@ -140,7 +140,7 @@ sdk.dir=xx/xx/android-sdk
 
 安装Xcode插件后，可看到如下图界面，并配置：
 
-![](jenkins-android-ios/jenkins-6.png)
+![](1/jenkins-6.png)
 
 这里有两个地方需要注意。
 
