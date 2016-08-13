@@ -113,6 +113,7 @@
       * [Jenkins中Jelly邮件模板的配置](工具使用/Jenkins/Jenkins中Jelly邮件模板的配置.md)
       * [Jenkins使用学习笔记](工具使用/Jenkins/Jenkins使用学习笔记.md)
       * [jenkins如何做到触发远程构建](工具使用/Jenkins/jenkins如何做到触发远程构建.md)
+      * [Jenkins学习四-Jenkins邮件配置](工具使用/Jenkins/Jenkins学习四-Jenkins邮件配置.md)
       * [Jenkins构建的版本包如何发布成可下载的资源__IIS发布方式](工具使用/Jenkins/Jenkins构建的版本包如何发布成可下载的资源__IIS发布方式.md)
       * [Jenkins的环境变量的使用](工具使用/Jenkins/Jenkins的环境变量的使用.md)
       * [Jenkins自编邮件模板](工具使用/Jenkins/Jenkins自编邮件模板.md)
