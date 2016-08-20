@@ -2,7 +2,7 @@
 
 来源:[微信团队](http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&mid=207151651&idx=1&sn=9eab282711f4eb2b4daf2fbae5a5ca9a&3rd=MzA3MDU4NTYzMw==&scene=6#rd)
 
-![](wechat-plugin-multidex/wechat-multidex-banner.png)
+![](2/wechat-multidex-banner.png)
 
 对于Android大型程序来说，64k方法数与线性内存的限制都是必须要考虑的问题。对于它们的原理与分析，可参考下面这篇文章：[預防 Android Dex 64k Method Size Limit](http://ingramchen.io/blog/2014/09/prevention-of-android-dex-64k-method-size-limit.html)。同时Android官方也推出了自己的解决方案，但却不能满足所有应用的需求。
 
@@ -25,7 +25,7 @@ defaultConfig {
                                               
 为什么要以`classes(..N).dex`，而不是我们常见的放于`assets`?这是为了5.0以上系统在安装过程中的art阶段就将所有的`classes(..N).dex`合并到一个单独的oat文件(5.0以下只能苦逼的启动时加载)。对于Art相关知识，可以参考[老罗的系列文章](http://blog.csdn.net/luoshengyang/article/details/39307813)。
 
-![](wechat-plugin-multidex/wechat-multidex-oat.png)
+![](2/wechat-multidex-oat.png)
 
 上图即为一个oat文件的格式图。Android采取这种方式，明显也是为了擦之前的屁股。另一方面，**最新报告5.0以上已经占了超过9%**，这说明是非常有必要采用这种方式以减少首次启动的耗时。
 
@@ -82,7 +82,7 @@ public class HelloMultiDexApplication extends Application {
 
 `attachBaseContext`究竟处于生命周期的哪一步？可看下图:
 
-![](wechat-plugin-multidex/wechat-multidex-attachBaseContext.png)
+![](2/wechat-multidex-attachBaseContext.png)
 
 事实上，若我们在`attachBaseContext`中调用`Multidex.install`，我们只需引入`Application`的直接引用类即可，`mainDexClasses`将`Activity`、`ContentProvider`、`Service`等的直接引用类也引入，主要是满足需要在非`attachBaseContent`加载多dex的需求。另一方面，若存在以下代码，将出现`NoClassDefFoundError`错误。
 
@@ -176,7 +176,7 @@ secondary-2.dex.jar e7d2a4a181f579784a4286193feaf457 secondary.dex02.Canary
 ### 3. 加载Dex的方式
 加载dex逻辑也非常简单，由于`NodexSplashActivity`的`intent-filter`指定为`Main`与`LAUNCHER`。首先拉起`nodex`进程，然后初始化`NodexSplashActivityActivity`，若此时`Dex`已经初始化过，即直接跳转到主页面。
 
-![](wechat-plugin-multidex/wechat-multidex-facebook.png)
+![](2/wechat-multidex-facebook.png)
 
 这种方式好处在于依赖集非常简单，同时首次加载`Dex`时也不会卡死。但是它的缺点也很明显，即每次启动主进程时，都需先启动`nodex`进程。尽管`nodex`进程逻辑非常简单，这也需`100ms`以上。若微信对启动时间非常敏感，很难会去采用这个方案。
 
@@ -192,15 +192,15 @@ secondary-2.dex.jar e7d2a4a181f579784a4286193feaf457 secondary.dex02.Canary
 ### 3. 加载Dex的方式
 回到重点，我们应该通过什么加载方案去实现这样的分包规则。首先若是点击图标，我们的确无须再起一个进程，即下面是可行的：
 
-![](wechat-plugin-multidex/wechat-multidex-test-1.png)
+![](2/wechat-multidex-test-1.png)
 
 但是问题就在于在`Application`初始化时，或是在`attachBaseContext`时，我们无法确保即将进入的是主界面`Activity`。可能系统要起的是某一个`Service`或`Receiver`，这种跳转方式是不行的。例如下图中的红色部分，我们无法知道将跳转到哪里：
 
-![](wechat-plugin-multidex/wechat-multidex-test-2.png)
+![](2/wechat-multidex-test-2.png)
 
 能不能换种思路，即假设发现Dex没有初始化，在`attachBaseContext`的时候挂起主进程，然后起另外一个`loaddex`进程去加载`Dex`。等`loaddex`进程加载完后，我们再通知主进程继续往下走。
 
-![](wechat-plugin-multidex/wechat-multidex-test-3.png)
+![](2/wechat-multidex-test-3.png)
 
 现在转化为两个问题：
 
@@ -210,7 +210,7 @@ b.挂住主进程过程中，是否会产生ANR？
 
 进程同步可以使用`pthread_mutex_xxx`、 `pthread_cond_xxx`,但是`mutex`或`cond`要放于共享内存中，过于复杂。或者由于在主进程访问远端`Service`，也是同步的，这应该也是一种不错的方法。但是我最后测试时采用的是一个最简单的方法，即检测到没有加载`dex`时,会在`com.tencent.mm`下新建一个临时文件，每隔100ms去询问文件是否存在。而在`loaddex`结束后，即主动的删除该文件。
 
-![](wechat-plugin-multidex/wechat-multidex-test-4.png)
+![](2/wechat-multidex-test-4.png)
 
 那会不会出现ANR呢？事实上是不会的，因为主进程已经不是前台进程了，经过测试，在`attachBaseContext`，无论将要启动的`Activity`、`Broadcast`还是`Service`，尽管卡住100s，也不会出现ANR(回想ANR的几个原因，按键消息、`Broadcast onReceiver`或者`Service`)。
 

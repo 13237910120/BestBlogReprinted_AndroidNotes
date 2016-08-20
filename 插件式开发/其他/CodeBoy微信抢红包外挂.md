@@ -4,14 +4,14 @@
 
 [sourcecode]:https://github.com/lendylongli/qianghongbao
 [apk-baidu]:http://t.cn/RbrdRHe
-[apk-local]:wechat-hongbao/wechat-hongbao-plugin-sample.apk
+[apk-local]:1/wechat-hongbao-plugin-sample.apk
 [accessibility-official]:http://developer.android.com/guide/topics/ui/accessibility/index.html
 [accessibility-api]:http://developer.android.com/guide/topics/ui/accessibility/apps.html
 [googleplay]:https://play.google.com/store/apps/details?id=com.leon.assistivetouch.main
 [yingyongbao]:http://android.myapp.com/myapp/detail.htm?apkName=com.leon.assistivetouch.main
 [AccessibilityServiceInfo]:http://developer.android.com/reference/android/accessibilityservice/AccessibilityServiceInfo.html
 
-![](wechat-hongbao/wechat-hongbao-plugin-1.gif)
+![](1/wechat-hongbao-plugin-1.gif)
 
 源码下载地址:[https://github.com/lendylongli/qianghongbao][sourcecode]
 
@@ -59,11 +59,11 @@ Codeboy微信抢红包是我在2015年春节过年期间编写的一个开源的
 
 以下是通过DDMS工具里的`Dump View Hierarchy For UI Automator`去分析微信UI结构。
 
-![](wechat-hongbao/wechat-hongbao-plugin-2.jpg)
+![](1/wechat-hongbao-plugin-2.jpg)
 
-![](wechat-hongbao/wechat-hongbao-plugin-3.jpg)
+![](1/wechat-hongbao-plugin-3.jpg)
 
-![](wechat-hongbao/wechat-hongbao-plugin-4.jpg)
+![](1/wechat-hongbao-plugin-4.jpg)
 
 ### 使用AccessibilityService去一步步监听微信的动作
 
