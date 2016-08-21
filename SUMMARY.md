@@ -191,6 +191,7 @@
       * [Jenkins集成APKSize与dexcount趋势图](插件式开发/入门/Jenkins集成APKSize与dexcount趋势图.md)
       * [插件化开发—动态加载技术加载已安装和未安装的apk](插件式开发/入门/插件化开发—动态加载技术加载已安装和未安装的apk.md)
    * [其他](插件式开发/其他/README.md)
+      * [Android关于Dex拆分技术详解](插件式开发/其他/Android关于Dex拆分技术详解.md)
       * [Android拆分与加载Dex的多种方案对比](插件式开发/其他/Android拆分与加载Dex的多种方案对比.md)
       * [CodeBoy微信抢红包外挂](插件式开发/其他/CodeBoy微信抢红包外挂.md)
       * [dexopt的源码跟踪](插件式开发/其他/dexopt的源码跟踪.md)
