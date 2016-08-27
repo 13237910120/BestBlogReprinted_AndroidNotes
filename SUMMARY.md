@@ -66,6 +66,7 @@
    * [ApkSize](优化/ApkSize/README.md)
       * [Android APP终极瘦身指南](优化/ApkSize/Android APP终极瘦身指南.md)
       * [APK瘦身实践](优化/ApkSize/APK瘦身实践.md)
+      * [APK瘦身记-如何实现高达百分之五十三的压缩效果](优化/ApkSize/APK瘦身记-如何实现高达百分之五十三的压缩效果.md)
    * [Principle](优化/Principle/README.md)
       * [写出高质量代码的10个Tips](优化/Principle/写出高质量代码的10个Tips.md)
       * [资深谷歌安卓工程师对安卓应用开发的建议](优化/Principle/资深谷歌安卓工程师对安卓应用开发的建议.md)
