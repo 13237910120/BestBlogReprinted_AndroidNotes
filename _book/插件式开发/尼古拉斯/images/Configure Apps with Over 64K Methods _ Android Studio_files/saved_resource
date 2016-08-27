@@ -1,0 +1,152 @@
+
+
+(function (globals) {
+
+  var django = globals.django || (globals.django = {});
+
+  
+  django.pluralidx = function (count) { return (count == 1) ? 0 : 1; };
+  
+
+  
+  /* gettext library */
+
+  django.catalog = {
+    "%(count)s results": "%(count)s \u6761\u7ed3\u679c", 
+    "All %(count)s results": "\u5168\u90e8 %(count)s \u6761\u7ed3\u679c", 
+    "Cancel": "\u53d6\u6d88", 
+    "Click to insert your credentials": "\u70b9\u51fb\u5373\u53ef\u63d2\u5165\u60a8\u7684\u51ed\u636e", 
+    "Could not load project credentials.": "\u65e0\u6cd5\u52a0\u8f7d\u9879\u76ee\u51ed\u636e\u3002", 
+    "Could not load projects list.": "\u65e0\u6cd5\u52a0\u8f7d\u9879\u76ee\u5217\u8868\u3002", 
+    "Could not save your project selection.": "\u65e0\u6cd5\u4fdd\u5b58\u60a8\u7684\u9879\u76ee\u504f\u597d\u8bbe\u7f6e\u3002", 
+    "Credentials": "\u51ed\u636e", 
+    "History Preferences": "\u8bb0\u5f55\u504f\u597d\u8bbe\u7f6e", 
+    "How can we improve this page?": "\u6b64\u9875\u8be5\u5982\u4f55\u6539\u8fdb\uff1f", 
+    "Insert": "\u63d2\u5165", 
+    "Insert credential": "\u63d2\u5165\u51ed\u636e", 
+    "It doesn't have what I need.": "\u7f51\u9875\u4e2d\u6ca1\u6709\u6211\u9700\u8981\u7684\u4fe1\u606f\u3002", 
+    "It's inaccurate.": "\u7f51\u9875\u4fe1\u606f\u6709\u8bef\u3002", 
+    "Loading credentials...": "\u6b63\u5728\u52a0\u8f7d\u51ed\u636e\u2026", 
+    "Loading projects...": "\u6b63\u5728\u52a0\u8f7d\u9879\u76ee\u2026", 
+    "Loading your history...": "\u6b63\u5728\u52a0\u8f7d\u60a8\u7684\u8bb0\u5f55\u2026", 
+    "Most Recently Visited": "\u6700\u8fd1\u8bbf\u95ee\u8fc7\u7684\u7f51\u9875", 
+    "My Most Visited": "\u6700\u5e38\u8bbf\u95ee\u7684\u7f51\u9875", 
+    "Other (use text area above)": "\u5176\u4ed6\uff08\u8bf7\u5728\u4e0a\u65b9\u6587\u672c\u533a\u57df\u4e2d\u8bf4\u660e\uff09", 
+    "Project": "\u9879\u76ee", 
+    "Sign in to insert your credentials.": "\u767b\u5f55\u5373\u53ef\u63d2\u5165\u60a8\u7684\u51ed\u636e\u3002", 
+    "Sign in to view your recently visited pages.": "\u767b\u5f55\u5373\u53ef\u67e5\u770b\u60a8\u6700\u8fd1\u8bbf\u95ee\u8fc7\u7684\u7f51\u9875\u3002", 
+    "Sorry. We couldn't load the credentials for this project. You can visit the %(start_link)sDevelopers Console%(end_link)s to see them.": "Sorry. We couldn't load the credentials for this project. You can visit the %(start_link)sDevelopers Console%(end_link)s to see them.", 
+    "Sorry. We couldn't load your projects. You can visit the %(start_link)sDevelopers Console%(end_link)s to see them.": "Sorry. We couldn't load your projects. You can visit the %(start_link)sDevelopers Console%(end_link)s to see them.", 
+    "The Google Developers website now saves the pages you visit when you are logged into Google. You can quickly access them via the history icon at the top of the site. %(link_html)sManage History%(end_link_html)s": "\u5982\u679c\u60a8\u767b\u5f55\u4e86 Google \u5e10\u6237\uff0cGoogle Developers \u7f51\u7ad9\u73b0\u5728\u4f1a\u4fdd\u5b58\u60a8\u8bbf\u95ee\u8fc7\u7684\u7f51\u9875\u3002\u60a8\u53ea\u8981\u70b9\u51fb\u7f51\u7ad9\u9876\u90e8\u7684\u5386\u53f2\u8bb0\u5f55\u56fe\u6807\uff0c\u5373\u53ef\u5feb\u901f\u8bbf\u95ee\u8fd9\u4e9b\u7f51\u9875\u3002%(link_html)s\u7ba1\u7406\u5386\u53f2\u8bb0\u5f55%(end_link_html)s", 
+    "There's a typo, broken link, or layout problem.": "\u7f51\u9875\u4e2d\u5b58\u5728\u9519\u522b\u5b57\u3001\u635f\u574f\u7684\u94fe\u63a5\u6216\u5e03\u5c40\u95ee\u9898\u3002", 
+    "This project has no appropriate credentials. You can add one in the %(start_link)sDevelopers Console%(end_link)s.": "This project has no appropriate credentials. You can add one in the %(start_link)sDevelopers Console%(end_link)s.", 
+    "Turn on %(begin_link_html)shistory%(end_link_html)s to view recently visited pages.": "\u542f\u7528%(begin_link_html)s\u5386\u53f2\u8bb0\u5f55%(end_link_html)s\u529f\u80fd\u5373\u53ef\u67e5\u770b\u60a8\u6700\u8fd1\u8bbf\u95ee\u8fc7\u7684\u7f51\u9875\u3002", 
+    "You have no projects. You can create one in the %(start_link)sDevelopers Console%(end_link)s.": "You have no projects. You can create one in the %(start_link)sDevelopers Console%(end_link)s.", 
+    "Your browsing history on Google Developers will appear here.": "\u60a8\u5728 Google Developers \u4e0a\u7684\u6d4f\u89c8\u8bb0\u5f55\u5c06\u663e\u793a\u5728\u8fd9\u91cc\u3002"
+  };
+
+  django.gettext = function (msgid) {
+    var value = django.catalog[msgid];
+    if (typeof(value) == 'undefined') {
+      return msgid;
+    } else {
+      return (typeof(value) == 'string') ? value : value[0];
+    }
+  };
+
+  django.ngettext = function (singular, plural, count) {
+    var value = django.catalog[singular];
+    if (typeof(value) == 'undefined') {
+      return (count == 1) ? singular : plural;
+    } else {
+      return value[django.pluralidx(count)];
+    }
+  };
+
+  django.gettext_noop = function (msgid) { return msgid; };
+
+  django.pgettext = function (context, msgid) {
+    var value = django.gettext(context + '\x04' + msgid);
+    if (value.indexOf('\x04') != -1) {
+      value = msgid;
+    }
+    return value;
+  };
+
+  django.npgettext = function (context, singular, plural, count) {
+    var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+    if (value.indexOf('\x04') != -1) {
+      value = django.ngettext(singular, plural, count);
+    }
+    return value;
+  };
+  
+
+  django.interpolate = function (fmt, obj, named) {
+    if (named) {
+      return fmt.replace(/%\(\w+\)s/g, function(match){return String(obj[match.slice(2,-2)])});
+    } else {
+      return fmt.replace(/%s/g, function(match){return String(obj.shift())});
+    }
+  };
+
+
+  /* formatting library */
+
+  django.formats = {
+    "DATETIME_FORMAT": "Y\u5e74n\u6708j\u65e5 H:i", 
+    "DATETIME_INPUT_FORMATS": [
+      "%Y/%m/%d %H:%M", 
+      "%Y-%m-%d %H:%M", 
+      "%Y\u5e74%n\u6708%j\u65e5 %H:%M", 
+      "%Y/%m/%d %H:%M:%S", 
+      "%Y-%m-%d %H:%M:%S", 
+      "%Y\u5e74%n\u6708%j\u65e5 %H:%M:%S", 
+      "%Y/%m/%d %H:%M:%S.%f", 
+      "%Y-%m-%d %H:%M:%S.%f", 
+      "%Y\u5e74%n\u6708%j\u65e5 %H:%n:%S.%f", 
+      "%Y-%m-%d"
+    ], 
+    "DATE_FORMAT": "Y\u5e74n\u6708j\u65e5", 
+    "DATE_INPUT_FORMATS": [
+      "%Y/%m/%d", 
+      "%Y-%m-%d", 
+      "%Y\u5e74%n\u6708%j\u65e5"
+    ], 
+    "DECIMAL_SEPARATOR": ".", 
+    "FIRST_DAY_OF_WEEK": "1", 
+    "MONTH_DAY_FORMAT": "m\u6708j\u65e5", 
+    "NUMBER_GROUPING": "4", 
+    "SHORT_DATETIME_FORMAT": "Y\u5e74n\u6708j\u65e5 H:i", 
+    "SHORT_DATE_FORMAT": "Y\u5e74n\u6708j\u65e5", 
+    "THOUSAND_SEPARATOR": "", 
+    "TIME_FORMAT": "H:i", 
+    "TIME_INPUT_FORMATS": [
+      "%H:%M", 
+      "%H:%M:%S", 
+      "%H:%M:%S.%f"
+    ], 
+    "YEAR_MONTH_FORMAT": "Y\u5e74n\u6708"
+  };
+
+  django.get_format = function (format_type) {
+    var value = django.formats[format_type];
+    if (typeof(value) == 'undefined') {
+      return format_type;
+    } else {
+      return value;
+    }
+  };
+
+  /* add to global namespace */
+  globals.pluralidx = django.pluralidx;
+  globals.gettext = django.gettext;
+  globals.ngettext = django.ngettext;
+  globals.gettext_noop = django.gettext_noop;
+  globals.pgettext = django.pgettext;
+  globals.npgettext = django.npgettext;
+  globals.interpolate = django.interpolate;
+  globals.get_format = django.get_format;
+
+}(this));
+

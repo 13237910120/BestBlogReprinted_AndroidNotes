@@ -1,0 +1,5026 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Android中插件开发篇之----动态加载Activity | 开源项目</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.4">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----应用换肤原理解析.html" />
+    
+    
+    <link rel="prev" href="../../插件式开发/猿是一种能够改变世界的动物/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="12.8.1"
+        data-chapter-title="Android中插件开发篇之----动态加载Activity"
+        data-filepath="插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----动态加载Activity.md"
+        data-basepath="../.."
+        data-revision="Sat Aug 27 2016 17:12:28 GMT+0800 (CST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="Android基础/index.html">
+            
+                
+                    <a href="../../Android基础/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Android基础
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="Android基础/AsyncTask/index.html">
+            
+                
+                    <a href="../../Android基础/AsyncTask/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        AsyncTask
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1.1" data-path="Android基础/AsyncTask/AsyncTask源码剖析-API-23.html">
+            
+                
+                    <a href="../../Android基础/AsyncTask/AsyncTask源码剖析-API-23.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.1.</b>
+                        
+                        AsyncTask源码剖析-API-23
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.2" data-path="Android基础/AsyncTask/你真的了解AsyncTask.html">
+            
+                
+                    <a href="../../Android基础/AsyncTask/你真的了解AsyncTask.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.2.</b>
+                        
+                        你真的了解AsyncTask
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="Android基础/DownloadManager/index.html">
+            
+                
+                    <a href="../../Android基础/DownloadManager/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        DownloadManager
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Android基础/DownloadManager/Android中DownloadManager的使用.html">
+            
+                
+                    <a href="../../Android基础/DownloadManager/Android中DownloadManager的使用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.1.</b>
+                        
+                        Android中DownloadManager的使用
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="Android基础/Fragment/index.html">
+            
+                
+                    <a href="../../Android基础/Fragment/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.</b>
+                        
+                        Fragment
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="Android基础/Fragment/Fragment之我的解决方案-Fragmentation.html">
+            
+                
+                    <a href="../../Android基础/Fragment/Fragment之我的解决方案-Fragmentation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.1.</b>
+                        
+                        Fragment之我的解决方案-Fragmentation
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="Android基础/Fragment/Fragment全解析系列1-那些年踩过的坑.html">
+            
+                
+                    <a href="../../Android基础/Fragment/Fragment全解析系列1-那些年踩过的坑.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.2.</b>
+                        
+                        Fragment全解析系列1-那些年踩过的坑
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="Android基础/Fragment/Fragment全解析系列2-正确的使用姿势.html">
+            
+                
+                    <a href="../../Android基础/Fragment/Fragment全解析系列2-正确的使用姿势.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.3.3.</b>
+                        
+                        Fragment全解析系列2-正确的使用姿势
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="Android基础/View/index.html">
+            
+                
+                    <a href="../../Android基础/View/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.</b>
+                        
+                        View
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="Android基础/View/Android中View的getViewTreeObserver方法.html">
+            
+                
+                    <a href="../../Android基础/View/Android中View的getViewTreeObserver方法.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.4.1.</b>
+                        
+                        Android中View的getViewTreeObserver方法
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="Android基础/你造么,Android中程序的停止状态.html">
+            
+                
+                    <a href="../../Android基础/你造么,Android中程序的停止状态.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.5.</b>
+                        
+                        你造么,Android中程序的停止状态
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="Android基础/动画/index.html">
+            
+                
+                    <a href="../../Android基础/动画/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.</b>
+                        
+                        动画
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="Android基础/动画/一种新的Activity转换动画实现方式.html">
+            
+                
+                    <a href="../../Android基础/动画/一种新的Activity转换动画实现方式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.1.</b>
+                        
+                        一种新的Activity转换动画实现方式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="Android基础/动画/实现Activity间的共享控件转场动画.html">
+            
+                
+                    <a href="../../Android基础/动画/实现Activity间的共享控件转场动画.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.6.2.</b>
+                        
+                        实现Activity间的共享控件转场动画
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="Android基础/动画基础.html">
+            
+                
+                    <a href="../../Android基础/动画基础.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.7.</b>
+                        
+                        动画基础
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="Android基础/常识/index.html">
+            
+                
+                    <a href="../../Android基础/常识/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.</b>
+                        
+                        常识
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="Android基础/常识/移动开发需要知道的像素知识.html">
+            
+                
+                    <a href="../../Android基础/常识/移动开发需要知道的像素知识.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.8.1.</b>
+                        
+                        移动开发需要知道的像素知识
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="Android基础/特殊效果/index.html">
+            
+                
+                    <a href="../../Android基础/特殊效果/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.</b>
+                        
+                        特殊效果
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="Android基础/特殊效果/Android悬浮窗TYPE_TOAST小结-源码分析.html">
+            
+                
+                    <a href="../../Android基础/特殊效果/Android悬浮窗TYPE_TOAST小结-源码分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.1.</b>
+                        
+                        Android悬浮窗TYPE_TOAST小结-源码分析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="Android基础/特殊效果/Android无需权限显示悬浮窗---兼谈逆向分析app.html">
+            
+                
+                    <a href="../../Android基础/特殊效果/Android无需权限显示悬浮窗---兼谈逆向分析app.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.2.</b>
+                        
+                        Android无需权限显示悬浮窗---兼谈逆向分析app
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="Android基础/特殊效果/Android逆向实践-使用Smali注入改造YD词典悬浮窗.html">
+            
+                
+                    <a href="../../Android基础/特殊效果/Android逆向实践-使用Smali注入改造YD词典悬浮窗.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.9.3.</b>
+                        
+                        Android逆向实践-使用Smali注入改造YD词典悬浮窗
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="Android基础/理解Android中垃圾回收日志信息.html">
+            
+                
+                    <a href="../../Android基础/理解Android中垃圾回收日志信息.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.10.</b>
+                        
+                        理解Android中垃圾回收日志信息
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="Android基础/组件/index.html">
+            
+                
+                    <a href="../../Android基础/组件/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.11.</b>
+                        
+                        组件
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="Android基础/组件/Android中Notification捕捉点击事件的替代方式.html">
+            
+                
+                    <a href="../../Android基础/组件/Android中Notification捕捉点击事件的替代方式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.11.1.</b>
+                        
+                        Android中Notification捕捉点击事件的替代方式
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="Android基础/经验/index.html">
+            
+                
+                    <a href="../../Android基础/经验/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.</b>
+                        
+                        经验
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="Android基础/经验/Android开发中，那些让你相见恨晚的方法、类或接口.html">
+            
+                
+                    <a href="../../Android基础/经验/Android开发中，那些让你相见恨晚的方法、类或接口.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.1.</b>
+                        
+                        Android开发中，那些让你相见恨晚的方法、类或接口
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="Android基础/经验/Android日常开发总结的技术经验60条.html">
+            
+                
+                    <a href="../../Android基础/经验/Android日常开发总结的技术经验60条.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.2.</b>
+                        
+                        Android日常开发总结的技术经验60条
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="Android基础/经验/你应该知道的那些Android小经验.html">
+            
+                
+                    <a href="../../Android基础/经验/你应该知道的那些Android小经验.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.3.</b>
+                        
+                        你应该知道的那些Android小经验
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="Android基础/经验/开发中必须避免的基础问题.html">
+            
+                
+                    <a href="../../Android基础/经验/开发中必须避免的基础问题.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.12.4.</b>
+                        
+                        开发中必须避免的基础问题
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="Android基础/绘图/index.html">
+            
+                
+                    <a href="../../Android基础/绘图/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.13.</b>
+                        
+                        绘图
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="Android基础/绘图/Xfermode/index.html">
+            
+                
+                    <a href="../../Android基础/绘图/Xfermode/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.13.1.</b>
+                        
+                        Xfermode
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1.1" data-path="Android基础/绘图/Xfermode/Xfermode in android.html">
+            
+                
+                    <a href="../../Android基础/绘图/Xfermode/Xfermode in android.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.13.1.1.</b>
+                        
+                        Xfermode in android
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="Memory/index.html">
+            
+                
+                    <a href="../../Memory/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Memory
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="Memory/Basic/index.html">
+            
+                
+                    <a href="../../Memory/Basic/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Basic
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="Memory/Basic/android系统不释放内存吗.html">
+            
+                
+                    <a href="../../Memory/Basic/android系统不释放内存吗.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.1.</b>
+                        
+                        android系统不释放内存吗
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.2" data-path="Memory/Basic/booking.com-android客户端的bitmap复用.html">
+            
+                
+                    <a href="../../Memory/Basic/booking.com-android客户端的bitmap复用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.2.</b>
+                        
+                        booking.com-android客户端的bitmap复用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.3" data-path="Memory/Basic/java里的totalMemory、maxMemory、freeMemory究竟是什么.html">
+            
+                
+                    <a href="../../Memory/Basic/java里的totalMemory、maxMemory、freeMemory究竟是什么.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.3.</b>
+                        
+                        java里的totalMemory、maxMemory、freeMemory究竟是什么
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.4" data-path="Memory/Basic/如何偷Android的内存－Tricking Android MemoryFile.html">
+            
+                
+                    <a href="../../Memory/Basic/如何偷Android的内存－Tricking Android MemoryFile.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.4.</b>
+                        
+                        如何偷Android的内存－Tricking Android MemoryFile
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.5" data-path="Memory/Basic/简析Android的垃圾回收与内存泄露.html">
+            
+                
+                    <a href="../../Memory/Basic/简析Android的垃圾回收与内存泄露.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.5.</b>
+                        
+                        简析Android的垃圾回收与内存泄露
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="Memory/Bitmap/index.html">
+            
+                
+                    <a href="../../Memory/Bitmap/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                        Bitmap
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="Memory/Bitmap/Android开发绕不过的坑-你的 Bitmap 究竟占多大内存.html">
+            
+                
+                    <a href="../../Memory/Bitmap/Android开发绕不过的坑-你的 Bitmap 究竟占多大内存.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.1.</b>
+                        
+                        Android开发绕不过的坑-你的 Bitmap 究竟占多大内存
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="Memory/Bitmap/Android性能优化之Bitmap的内存优化.html">
+            
+                
+                    <a href="../../Memory/Bitmap/Android性能优化之Bitmap的内存优化.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.2.</b>
+                        
+                        Android性能优化之Bitmap的内存优化
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="Memory/Bitmap/Android高清加载巨图方案-拒绝压缩图片.html">
+            
+                
+                    <a href="../../Memory/Bitmap/Android高清加载巨图方案-拒绝压缩图片.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.3.</b>
+                        
+                        Android高清加载巨图方案-拒绝压缩图片
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="Memory/MemoryLeak/index.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                        MemoryLeak
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.3.1" data-path="Memory/MemoryLeak/aliyun-Android内存泄漏总结.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/aliyun-Android内存泄漏总结.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.1.</b>
+                        
+                        aliyun-Android内存泄漏总结
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.2" data-path="Memory/MemoryLeak/Android Weak Handler：可以避免内存泄漏的Handler库.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android Weak Handler：可以避免内存泄漏的Handler库.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.2.</b>
+                        
+                        Android Weak Handler：可以避免内存泄漏的Handler库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.3" data-path="Memory/MemoryLeak/Android5.1Webview内存泄漏新场景.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android5.1Webview内存泄漏新场景.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.3.</b>
+                        
+                        Android5.1Webview内存泄漏新场景
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.4" data-path="Memory/MemoryLeak/Android中导致内存泄漏的竟然是它----Dialog.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android中导致内存泄漏的竟然是它----Dialog.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.4.</b>
+                        
+                        Android中导致内存泄漏的竟然是它----Dialog
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.5" data-path="Memory/MemoryLeak/Android内存泄露之Handler.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android内存泄露之Handler.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.5.</b>
+                        
+                        Android内存泄露之Handler
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.6" data-path="Memory/MemoryLeak/Android内存泄露之Thread.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android内存泄露之Thread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.6.</b>
+                        
+                        Android内存泄露之Thread
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.7" data-path="Memory/MemoryLeak/Android内存泄露之资源.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android内存泄露之资源.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.7.</b>
+                        
+                        Android内存泄露之资源
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.8" data-path="Memory/MemoryLeak/Android内存泄露开篇.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/Android内存泄露开篇.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.8.</b>
+                        
+                        Android内存泄露开篇
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.9" data-path="Memory/MemoryLeak/GCRoot.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/GCRoot.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.9.</b>
+                        
+                        GCRoot
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3.10" data-path="Memory/MemoryLeak/一个内存泄漏引发的血案-Square.html">
+            
+                
+                    <a href="../../Memory/MemoryLeak/一个内存泄漏引发的血案-Square.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.10.</b>
+                        
+                        一个内存泄漏引发的血案-Square
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="NDK/index.html">
+            
+                
+                    <a href="../../NDK/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        NDK
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="NDK/Android使用NDK-STACK来恢复Cocos2d-x错误堆栈信息.html">
+            
+                
+                    <a href="../../NDK/Android使用NDK-STACK来恢复Cocos2d-x错误堆栈信息.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        Android使用NDK-STACK来恢复Cocos2d-x错误堆栈信息
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="NDK/与原生代码通信.html">
+            
+                
+                    <a href="../../NDK/与原生代码通信.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                        与原生代码通信
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="NDK/使用SWIG自动生成JNI代码.html">
+            
+                
+                    <a href="../../NDK/使用SWIG自动生成JNI代码.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                        使用SWIG自动生成JNI代码
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="NDK/基础.html">
+            
+                
+                    <a href="../../NDK/基础.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.4.</b>
+                        
+                        基础
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="优化/index.html">
+            
+                
+                    <a href="../../优化/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        优化
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="优化/Android性能优化典范/index.html">
+            
+                
+                    <a href="../../优化/Android性能优化典范/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                        Android性能优化典范
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="优化/Android性能优化典范/Android性能优化典范-第5季.html">
+            
+                
+                    <a href="../../优化/Android性能优化典范/Android性能优化典范-第5季.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.1.</b>
+                        
+                        Android性能优化典范-第5季
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="优化/ApkSize/index.html">
+            
+                
+                    <a href="../../优化/ApkSize/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                        ApkSize
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="优化/ApkSize/Android APP终极瘦身指南.html">
+            
+                
+                    <a href="../../优化/ApkSize/Android APP终极瘦身指南.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.1.</b>
+                        
+                        Android APP终极瘦身指南
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="优化/ApkSize/APK瘦身实践.html">
+            
+                
+                    <a href="../../优化/ApkSize/APK瘦身实践.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.2.</b>
+                        
+                        APK瘦身实践
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="优化/Principle/index.html">
+            
+                
+                    <a href="../../优化/Principle/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.</b>
+                        
+                        Principle
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="优化/Principle/写出高质量代码的10个Tips.html">
+            
+                
+                    <a href="../../优化/Principle/写出高质量代码的10个Tips.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.1.</b>
+                        
+                        写出高质量代码的10个Tips
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="优化/Principle/资深谷歌安卓工程师对安卓应用开发的建议.html">
+            
+                
+                    <a href="../../优化/Principle/资深谷歌安卓工程师对安卓应用开发的建议.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.3.2.</b>
+                        
+                        资深谷歌安卓工程师对安卓应用开发的建议
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="优化/UI-Optimization/index.html">
+            
+                
+                    <a href="../../优化/UI-Optimization/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.</b>
+                        
+                        UI-Optimization
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.4.1" data-path="优化/UI-Optimization/Android-UI性能优化详解.html">
+            
+                
+                    <a href="../../优化/UI-Optimization/Android-UI性能优化详解.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.1.</b>
+                        
+                        Android-UI性能优化详解
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.2" data-path="优化/UI-Optimization/facebook新闻页ListView优化.html">
+            
+                
+                    <a href="../../优化/UI-Optimization/facebook新闻页ListView优化.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.2.</b>
+                        
+                        facebook新闻页ListView优化
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4.3" data-path="优化/UI-Optimization/Instagram是如何提升TextView渲染性能的.html">
+            
+                
+                    <a href="../../优化/UI-Optimization/Instagram是如何提升TextView渲染性能的.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.4.3.</b>
+                        
+                        Instagram是如何提升TextView渲染性能的
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="优化/启动速度/index.html">
+            
+                
+                    <a href="../../优化/启动速度/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.</b>
+                        
+                        启动速度
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.5.1" data-path="优化/启动速度/Android端应用秒开优化体验.html">
+            
+                
+                    <a href="../../优化/启动速度/Android端应用秒开优化体验.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.1.</b>
+                        
+                        Android端应用秒开优化体验
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5.2" data-path="优化/启动速度/怎么计算apk的启动时间.html">
+            
+                
+                    <a href="../../优化/启动速度/怎么计算apk的启动时间.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.5.2.</b>
+                        
+                        怎么计算apk的启动时间
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="优化/深入浅出RenderThread.html">
+            
+                
+                    <a href="../../优化/深入浅出RenderThread.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.6.</b>
+                        
+                        深入浅出RenderThread
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="兼容_适配/index.html">
+            
+                
+                    <a href="../../兼容_适配/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        兼容_适配
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="兼容_适配/Android M 新的运行时权限开发者需要知道的一切.html">
+            
+                
+                    <a href="../../兼容_适配/Android M 新的运行时权限开发者需要知道的一切.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                        Android M 新的运行时权限开发者需要知道的一切
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="兼容_适配/Android6.0以下判断摄像头是否可用.html">
+            
+                
+                    <a href="../../兼容_适配/Android6.0以下判断摄像头是否可用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                        Android6.0以下判断摄像头是否可用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="兼容_适配/你需要知道的Android拍照适配方案.html">
+            
+                
+                    <a href="../../兼容_适配/你需要知道的Android拍照适配方案.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                        你需要知道的Android拍照适配方案
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="兼容_适配/如何检测程序是否获得了某项权限.html">
+            
+                
+                    <a href="../../兼容_适配/如何检测程序是否获得了某项权限.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.4.</b>
+                        
+                        如何检测程序是否获得了某项权限
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="兼容_适配/那些值得你去细细研究的Drawable适配.html">
+            
+                
+                    <a href="../../兼容_适配/那些值得你去细细研究的Drawable适配.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.5.</b>
+                        
+                        那些值得你去细细研究的Drawable适配
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="内核/index.html">
+            
+                
+                    <a href="../../内核/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        内核
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="内核/Android 体系架构.html">
+            
+                
+                    <a href="../../内核/Android 体系架构.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.1.</b>
+                        
+                        Android 体系架构
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="内核/Android子线程真的不能更新UI么.html">
+            
+                
+                    <a href="../../内核/Android子线程真的不能更新UI么.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.2.</b>
+                        
+                        Android子线程真的不能更新UI么
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="内核/View的工作原理.html">
+            
+                
+                    <a href="../../内核/View的工作原理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.3.</b>
+                        
+                        View的工作原理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="内核/源码分析/index.html">
+            
+                
+                    <a href="../../内核/源码分析/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.</b>
+                        
+                        源码分析
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.4.1" data-path="内核/源码分析/Activity的绘制流程简单分析.html">
+            
+                
+                    <a href="../../内核/源码分析/Activity的绘制流程简单分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.4.1.</b>
+                        
+                        Activity的绘制流程简单分析
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="单元测试/index.html">
+            
+                
+                    <a href="../../单元测试/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        单元测试
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="单元测试/Android单元测试研究与实践.html">
+            
+                
+                    <a href="../../单元测试/Android单元测试研究与实践.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.1.</b>
+                        
+                        Android单元测试研究与实践
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="工具使用/index.html">
+            
+                
+                    <a href="../../工具使用/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        工具使用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="工具使用/adb/index.html">
+            
+                
+                    <a href="../../工具使用/adb/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.</b>
+                        
+                        adb
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="工具使用/adb/Android通过adb命令查看内存，CPU，启动时间，电量等信息.html">
+            
+                
+                    <a href="../../工具使用/adb/Android通过adb命令查看内存，CPU，启动时间，电量等信息.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.1.1.</b>
+                        
+                        Android通过adb命令查看内存，CPU，启动时间，电量等信息
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="工具使用/AllInOne/index.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.</b>
+                        
+                        AllInOne
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.2.1" data-path="工具使用/AllInOne/Android内存泄漏终极解决篇-上下篇.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/Android内存泄漏终极解决篇-上下篇.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.1.</b>
+                        
+                        Android内存泄漏终极解决篇-上下篇
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.2" data-path="工具使用/AllInOne/Android客户端性能优化--魅族资深工程师毫无保留奉献.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/Android客户端性能优化--魅族资深工程师毫无保留奉献.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.2.</b>
+                        
+                        Android客户端性能优化--魅族资深工程师毫无保留奉献
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.3" data-path="工具使用/AllInOne/Android性能分析工具整理汇总.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/Android性能分析工具整理汇总.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.3.</b>
+                        
+                        Android性能分析工具整理汇总
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.4" data-path="工具使用/AllInOne/Android界面性能调优手册.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/Android界面性能调优手册.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.4.</b>
+                        
+                        Android界面性能调优手册
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.5" data-path="工具使用/AllInOne/使用StrictMode和MAT分析Android内存泄露.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/使用StrictMode和MAT分析Android内存泄露.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.5.</b>
+                        
+                        使用StrictMode和MAT分析Android内存泄露
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.6" data-path="工具使用/AllInOne/值得推荐的Android应用性能检测工具列表.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/值得推荐的Android应用性能检测工具列表.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.6.</b>
+                        
+                        值得推荐的Android应用性能检测工具列表
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2.7" data-path="工具使用/AllInOne/加速你的Android应用.html">
+            
+                
+                    <a href="../../工具使用/AllInOne/加速你的Android应用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.2.7.</b>
+                        
+                        加速你的Android应用
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="工具使用/AndroidStudio/index.html">
+            
+                
+                    <a href="../../工具使用/AndroidStudio/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.</b>
+                        
+                        AndroidStudio
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.3.1" data-path="工具使用/AndroidStudio/使用新版AndroidStudio检测内存泄露和性能.html">
+            
+                
+                    <a href="../../工具使用/AndroidStudio/使用新版AndroidStudio检测内存泄露和性能.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.3.1.</b>
+                        
+                        使用新版AndroidStudio检测内存泄露和性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="工具使用/BatteryHistorian/index.html">
+            
+                
+                    <a href="../../工具使用/BatteryHistorian/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.</b>
+                        
+                        BatteryHistorian
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.4.1" data-path="工具使用/BatteryHistorian/使用BatteryHistorian分析应用的电量.html">
+            
+                
+                    <a href="../../工具使用/BatteryHistorian/使用BatteryHistorian分析应用的电量.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.4.1.</b>
+                        
+                        使用BatteryHistorian分析应用的电量
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="工具使用/BlockCanary/index.html">
+            
+                
+                    <a href="../../工具使用/BlockCanary/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.</b>
+                        
+                        BlockCanary
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.5.1" data-path="工具使用/BlockCanary/BlockCanary-轻松找出AndroidApp界面卡顿元凶.html">
+            
+                
+                    <a href="../../工具使用/BlockCanary/BlockCanary-轻松找出AndroidApp界面卡顿元凶.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.5.1.</b>
+                        
+                        BlockCanary-轻松找出AndroidApp界面卡顿元凶
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.6" data-path="工具使用/gradle/index.html">
+            
+                
+                    <a href="../../工具使用/gradle/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.</b>
+                        
+                        gradle
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.6.1" data-path="工具使用/gradle/更优雅的Android发布自动版本号方案.html">
+            
+                
+                    <a href="../../工具使用/gradle/更优雅的Android发布自动版本号方案.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.6.1.</b>
+                        
+                        更优雅的Android发布自动版本号方案
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7" data-path="工具使用/Jenkins/index.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.</b>
+                        
+                        Jenkins
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.7.1" data-path="工具使用/Jenkins/Jenkins+Gradle+checkstyle对Android工程源码进行静态代码分析.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins+Gradle+checkstyle对Android工程源码进行静态代码分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.1.</b>
+                        
+                        Jenkins+Gradle+checkstyle对Android工程源码进行静态代码分析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.2" data-path="工具使用/Jenkins/Jenkins+Gradle+findbugs对Android工程源码进行静态代码分析.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins+Gradle+findbugs对Android工程源码进行静态代码分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.2.</b>
+                        
+                        Jenkins+Gradle+findbugs对Android工程源码进行静态代码分析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.3" data-path="工具使用/Jenkins/Jenkins+Gradle+Lint对Android工程源码进行静态代码分析.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins+Gradle+Lint对Android工程源码进行静态代码分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.3.</b>
+                        
+                        Jenkins+Gradle+Lint对Android工程源码进行静态代码分析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.4" data-path="工具使用/Jenkins/Jenkins+Gradle+pmd对Android工程源码进行静态代码分析.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins+Gradle+pmd对Android工程源码进行静态代码分析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.4.</b>
+                        
+                        Jenkins+Gradle+pmd对Android工程源码进行静态代码分析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.5" data-path="工具使用/Jenkins/Jenkins+Gradle实现android开发持续集成问题汇总.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins+Gradle实现android开发持续集成问题汇总.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.5.</b>
+                        
+                        Jenkins+Gradle实现android开发持续集成问题汇总
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.6" data-path="工具使用/Jenkins/Jenkins中ConsoleOutput中文乱码问题.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins中ConsoleOutput中文乱码问题.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.6.</b>
+                        
+                        Jenkins中ConsoleOutput中文乱码问题
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.7" data-path="工具使用/Jenkins/Jenkins中Jelly邮件模板的配置.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins中Jelly邮件模板的配置.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.7.</b>
+                        
+                        Jenkins中Jelly邮件模板的配置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.8" data-path="工具使用/Jenkins/Jenkins使用学习笔记.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins使用学习笔记.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.8.</b>
+                        
+                        Jenkins使用学习笔记
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.9" data-path="工具使用/Jenkins/jenkins如何做到触发远程构建.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/jenkins如何做到触发远程构建.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.9.</b>
+                        
+                        jenkins如何做到触发远程构建
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.10" data-path="工具使用/Jenkins/Jenkins学习四-Jenkins邮件配置.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins学习四-Jenkins邮件配置.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.10.</b>
+                        
+                        Jenkins学习四-Jenkins邮件配置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.11" data-path="工具使用/Jenkins/Jenkins构建的版本包如何发布成可下载的资源__IIS发布方式.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins构建的版本包如何发布成可下载的资源__IIS发布方式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.11.</b>
+                        
+                        Jenkins构建的版本包如何发布成可下载的资源__IIS发布方式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.12" data-path="工具使用/Jenkins/Jenkins的环境变量的使用.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins的环境变量的使用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.12.</b>
+                        
+                        Jenkins的环境变量的使用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.13" data-path="工具使用/Jenkins/Jenkins自编邮件模板.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins自编邮件模板.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.13.</b>
+                        
+                        Jenkins自编邮件模板
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.14" data-path="工具使用/Jenkins/Jenkins邮件配置.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins邮件配置.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.14.</b>
+                        
+                        Jenkins邮件配置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.15" data-path="工具使用/Jenkins/Jenkins里邮件触发器配置SendtoDevelopers.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins里邮件触发器配置SendtoDevelopers.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.15.</b>
+                        
+                        Jenkins里邮件触发器配置SendtoDevelopers
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.16" data-path="工具使用/Jenkins/jenkins里面使用批处理命令进行自动部署.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/jenkins里面使用批处理命令进行自动部署.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.16.</b>
+                        
+                        jenkins里面使用批处理命令进行自动部署
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.17" data-path="工具使用/Jenkins/Jenkins集成APKSize与dexcount趋势图.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Jenkins集成APKSize与dexcount趋势图.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.17.</b>
+                        
+                        Jenkins集成APKSize与dexcount趋势图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.18" data-path="工具使用/Jenkins/Mac配置Jenkins.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/Mac配置Jenkins.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.18.</b>
+                        
+                        Mac配置Jenkins
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.19" data-path="工具使用/Jenkins/使用jenkins自动化构建android和ios应用.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/使用jenkins自动化构建android和ios应用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.19.</b>
+                        
+                        使用jenkins自动化构建android和ios应用
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.7.20" data-path="工具使用/Jenkins/如何在Jenkins发送的构建邮件中提供版本包的下载.html">
+            
+                
+                    <a href="../../工具使用/Jenkins/如何在Jenkins发送的构建邮件中提供版本包的下载.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.7.20.</b>
+                        
+                        如何在Jenkins发送的构建邮件中提供版本包的下载
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.8" data-path="工具使用/LeakCanary/index.html">
+            
+                
+                    <a href="../../工具使用/LeakCanary/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.</b>
+                        
+                        LeakCanary
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.8.1" data-path="工具使用/LeakCanary/用LeakCanary检测内存泄漏.html">
+            
+                
+                    <a href="../../工具使用/LeakCanary/用LeakCanary检测内存泄漏.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.8.1.</b>
+                        
+                        用LeakCanary检测内存泄漏
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9" data-path="工具使用/Lint/index.html">
+            
+                
+                    <a href="../../工具使用/Lint/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.</b>
+                        
+                        Lint
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.9.1" data-path="工具使用/Lint/AndroidStudio使用lint代码检查设置.html">
+            
+                
+                    <a href="../../工具使用/Lint/AndroidStudio使用lint代码检查设置.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.1.</b>
+                        
+                        AndroidStudio使用lint代码检查设置
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.9.2" data-path="工具使用/Lint/Android自定义Lint实践.html">
+            
+                
+                    <a href="../../工具使用/Lint/Android自定义Lint实践.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.9.2.</b>
+                        
+                        Android自定义Lint实践
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.10" data-path="工具使用/MAT/index.html">
+            
+                
+                    <a href="../../工具使用/MAT/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.</b>
+                        
+                        MAT
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.10.1" data-path="工具使用/MAT/Android性能优化之使用MAT分析内存泄露问题.html">
+            
+                
+                    <a href="../../工具使用/MAT/Android性能优化之使用MAT分析内存泄露问题.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.10.1.</b>
+                        
+                        Android性能优化之使用MAT分析内存泄露问题
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.11" data-path="工具使用/Scalpel/index.html">
+            
+                
+                    <a href="../../工具使用/Scalpel/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.</b>
+                        
+                        Scalpel
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.11.1" data-path="工具使用/Scalpel/Scalpel-Jake大神的第三把刀.html">
+            
+                
+                    <a href="../../工具使用/Scalpel/Scalpel-Jake大神的第三把刀.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.11.1.</b>
+                        
+                        Scalpel-Jake大神的第三把刀
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.12" data-path="工具使用/Systrace/index.html">
+            
+                
+                    <a href="../../工具使用/Systrace/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.</b>
+                        
+                        Systrace
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.12.1" data-path="工具使用/Systrace/使用Systrace分析UI性能.html">
+            
+                
+                    <a href="../../工具使用/Systrace/使用Systrace分析UI性能.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.12.1.</b>
+                        
+                        使用Systrace分析UI性能
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.13" data-path="工具使用/TraceView/index.html">
+            
+                
+                    <a href="../../工具使用/TraceView/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.</b>
+                        
+                        TraceView
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.13.1" data-path="工具使用/TraceView/TraceView性能优化工具使用.html">
+            
+                
+                    <a href="../../工具使用/TraceView/TraceView性能优化工具使用.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.13.1.</b>
+                        
+                        TraceView性能优化工具使用
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14" data-path="工具使用/静态检查工具/index.html">
+            
+                
+                    <a href="../../工具使用/静态检查工具/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.</b>
+                        
+                        静态检查工具
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.14.1" data-path="工具使用/静态检查工具/如何更好地利用Pmd与Findbugs和CheckStyle分析结果.html">
+            
+                
+                    <a href="../../工具使用/静态检查工具/如何更好地利用Pmd与Findbugs和CheckStyle分析结果.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.1.</b>
+                        
+                        如何更好地利用Pmd与Findbugs和CheckStyle分析结果
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.14.2" data-path="工具使用/静态检查工具/常用Java静态代码分析工具的分析与比较.html">
+            
+                
+                    <a href="../../工具使用/静态检查工具/常用Java静态代码分析工具的分析与比较.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.14.2.</b>
+                        
+                        常用Java静态代码分析工具的分析与比较
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="开发Tips/index.html">
+            
+                
+                    <a href="../../开发Tips/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        开发Tips
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="开发Tips/Android开发的那些坑和小技巧.html">
+            
+                
+                    <a href="../../开发Tips/Android开发的那些坑和小技巧.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.1.</b>
+                        
+                        Android开发的那些坑和小技巧
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="开发Tips/ListView和SwipeRefreshView冲突解决.html">
+            
+                
+                    <a href="../../开发Tips/ListView和SwipeRefreshView冲突解决.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.2.</b>
+                        
+                        ListView和SwipeRefreshView冲突解决
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="开发Tips/神奇的android:clipChildren属性.html">
+            
+                
+                    <a href="../../开发Tips/神奇的android:clipChildren属性.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.3.</b>
+                        
+                        神奇的android:clipChildren属性
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="扩展知识/index.html">
+            
+                
+                    <a href="../../扩展知识/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        扩展知识
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1" data-path="扩展知识/怎样阅读源代码.html">
+            
+                
+                    <a href="../../扩展知识/怎样阅读源代码.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.1.</b>
+                        
+                        怎样阅读源代码
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="扩展知识/面试时问哪些问题能试出一个Android应用开发者真正的水平.html">
+            
+                
+                    <a href="../../扩展知识/面试时问哪些问题能试出一个Android应用开发者真正的水平.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.2.</b>
+                        
+                        面试时问哪些问题能试出一个Android应用开发者真正的水平
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="批量打包/index.html">
+            
+                
+                    <a href="../../批量打包/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        批量打包
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="11.1" data-path="批量打包/Android打包的那些事.html">
+            
+                
+                    <a href="../../批量打包/Android打包的那些事.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.1.</b>
+                        
+                        Android打包的那些事
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="批量打包/一种为Apk动态写入信息的方案.html">
+            
+                
+                    <a href="../../批量打包/一种为Apk动态写入信息的方案.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.2.</b>
+                        
+                        一种为Apk动态写入信息的方案
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="批量打包/批量打包-gradle-配置Manifest.html">
+            
+                
+                    <a href="../../批量打包/批量打包-gradle-配置Manifest.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.3.</b>
+                        
+                        批量打包-gradle-配置Manifest
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.4" data-path="批量打包/批量打包-使用Gradle.html">
+            
+                
+                    <a href="../../批量打包/批量打包-使用Gradle.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.4.</b>
+                        
+                        批量打包-使用Gradle
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.5" data-path="批量打包/批量打包-使用Python.html">
+            
+                
+                    <a href="../../批量打包/批量打包-使用Python.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.5.</b>
+                        
+                        批量打包-使用Python
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.6" data-path="批量打包/批量打包-美团gradle.html">
+            
+                
+                    <a href="../../批量打包/批量打包-美团gradle.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.6.</b>
+                        
+                        批量打包-美团gradle
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="插件式开发/index.html">
+            
+                
+                    <a href="../../插件式开发/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        插件式开发
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1" data-path="插件式开发/Android博客周刊专题之插件化开发.html">
+            
+                
+                    <a href="../../插件式开发/Android博客周刊专题之插件化开发.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.1.</b>
+                        
+                        Android博客周刊专题之插件化开发
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" data-path="插件式开发/kaedea系列/index.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.</b>
+                        
+                        kaedea系列
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.2.1" data-path="插件式开发/kaedea系列/0-索引.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/0-索引.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.1.</b>
+                        
+                        0-索引
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.2" data-path="插件式开发/kaedea系列/1-简单易懂的介绍方式.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/1-简单易懂的介绍方式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.2.</b>
+                        
+                        1-简单易懂的介绍方式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.3" data-path="插件式开发/kaedea系列/2-ClassLoader的工作机制.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/2-ClassLoader的工作机制.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.3.</b>
+                        
+                        2-ClassLoader的工作机制
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.4" data-path="插件式开发/kaedea系列/3-加载SD卡的SO库.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/3-加载SD卡的SO库.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.4.</b>
+                        
+                        3-加载SD卡的SO库
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.5" data-path="插件式开发/kaedea系列/4-简单加载模式.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/4-简单加载模式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.5.</b>
+                        
+                        4-简单加载模式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.6" data-path="插件式开发/kaedea系列/5-代理Activity模式.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/5-代理Activity模式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.6.</b>
+                        
+                        5-代理Activity模式
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.7" data-path="插件式开发/kaedea系列/6-动态创建Activity模式.html">
+            
+                
+                    <a href="../../插件式开发/kaedea系列/6-动态创建Activity模式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.2.7.</b>
+                        
+                        6-动态创建Activity模式
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" data-path="插件式开发/weishu系列/index.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.</b>
+                        
+                        weishu系列
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.3.1" data-path="插件式开发/weishu系列/1.Android插件化原理解析——概要.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/1.Android插件化原理解析——概要.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.1.</b>
+                        
+                        1.Android插件化原理解析——概要
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.2" data-path="插件式开发/weishu系列/10.Android插件化原理解析——DroidPlugin插件通信机制.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/10.Android插件化原理解析——DroidPlugin插件通信机制.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.2.</b>
+                        
+                        10.Android插件化原理解析——DroidPlugin插件通信机制
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.3" data-path="插件式开发/weishu系列/11.Android插件化原理解析——插件机制之资源管理.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/11.Android插件化原理解析——插件机制之资源管理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.3.</b>
+                        
+                        11.Android插件化原理解析——插件机制之资源管理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.4" data-path="插件式开发/weishu系列/12.Android插件化原理解析——不同插件框架方案对比.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/12.Android插件化原理解析——不同插件框架方案对比.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.4.</b>
+                        
+                        12.Android插件化原理解析——不同插件框架方案对比
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.5" data-path="插件式开发/weishu系列/13.Android插件化原理解析——插件化的未来.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/13.Android插件化原理解析——插件化的未来.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.5.</b>
+                        
+                        13.Android插件化原理解析——插件化的未来
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.6" data-path="插件式开发/weishu系列/2.Android插件化原理解析——Hook机制之动态代理.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/2.Android插件化原理解析——Hook机制之动态代理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.6.</b>
+                        
+                        2.Android插件化原理解析——Hook机制之动态代理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.7" data-path="插件式开发/weishu系列/3.Android插件化原理解析——Hook机制之BinderHook.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/3.Android插件化原理解析——Hook机制之BinderHook.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.7.</b>
+                        
+                        3.Android插件化原理解析——Hook机制之BinderHook
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.8" data-path="插件式开发/weishu系列/4.Android插件化原理解析——Hook机制之AMS与PMS.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/4.Android插件化原理解析——Hook机制之AMS与PMS.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.8.</b>
+                        
+                        4.Android插件化原理解析——Hook机制之AMS与PMS
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.9" data-path="插件式开发/weishu系列/5.Android插件化原理解析——Activity生命周期管理.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/5.Android插件化原理解析——Activity生命周期管理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.9.</b>
+                        
+                        5.Android插件化原理解析——Activity生命周期管理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.10" data-path="插件式开发/weishu系列/6.Android插件化原理解析——插件加载机制.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/6.Android插件化原理解析——插件加载机制.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.10.</b>
+                        
+                        6.Android插件化原理解析——插件加载机制
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.11" data-path="插件式开发/weishu系列/7.Android插件化原理解析——广播的管理.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/7.Android插件化原理解析——广播的管理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.11.</b>
+                        
+                        7.Android插件化原理解析——广播的管理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.12" data-path="插件式开发/weishu系列/8.Android插件化原理解析——Service的插件化.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/8.Android插件化原理解析——Service的插件化.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.12.</b>
+                        
+                        8.Android插件化原理解析——Service的插件化
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.13" data-path="插件式开发/weishu系列/9.Android插件化原理解析——ContentProvider的插件化.html">
+            
+                
+                    <a href="../../插件式开发/weishu系列/9.Android插件化原理解析——ContentProvider的插件化.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.3.13.</b>
+                        
+                        9.Android插件化原理解析——ContentProvider的插件化
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4" data-path="插件式开发/入门/index.html">
+            
+                
+                    <a href="../../插件式开发/入门/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.</b>
+                        
+                        入门
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.4.1" data-path="插件式开发/入门/Android动态加载dex技术初探.html">
+            
+                
+                    <a href="../../插件式开发/入门/Android动态加载dex技术初探.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.1.</b>
+                        
+                        Android动态加载dex技术初探
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.2" data-path="插件式开发/入门/Android动态加载技术三个关键问题详解.html">
+            
+                
+                    <a href="../../插件式开发/入门/Android动态加载技术三个关键问题详解.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.2.</b>
+                        
+                        Android动态加载技术三个关键问题详解
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.3" data-path="插件式开发/入门/Android插件化基础.html">
+            
+                
+                    <a href="../../插件式开发/入门/Android插件化基础.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.3.</b>
+                        
+                        Android插件化基础
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.4" data-path="插件式开发/入门/Jenkins集成APKSize与dexcount趋势图.html">
+            
+                
+                    <a href="../../插件式开发/入门/Jenkins集成APKSize与dexcount趋势图.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.4.</b>
+                        
+                        Jenkins集成APKSize与dexcount趋势图
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.5" data-path="插件式开发/入门/插件化开发—动态加载技术加载已安装和未安装的apk.html">
+            
+                
+                    <a href="../../插件式开发/入门/插件化开发—动态加载技术加载已安装和未安装的apk.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.4.5.</b>
+                        
+                        插件化开发—动态加载技术加载已安装和未安装的apk
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5" data-path="插件式开发/其他/index.html">
+            
+                
+                    <a href="../../插件式开发/其他/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.</b>
+                        
+                        其他
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.5.1" data-path="插件式开发/其他/Android关于Dex拆分技术详解.html">
+            
+                
+                    <a href="../../插件式开发/其他/Android关于Dex拆分技术详解.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.1.</b>
+                        
+                        Android关于Dex拆分技术详解
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5.2" data-path="插件式开发/其他/Android拆分与加载Dex的多种方案对比.html">
+            
+                
+                    <a href="../../插件式开发/其他/Android拆分与加载Dex的多种方案对比.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.2.</b>
+                        
+                        Android拆分与加载Dex的多种方案对比
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5.3" data-path="插件式开发/其他/CodeBoy微信抢红包外挂.html">
+            
+                
+                    <a href="../../插件式开发/其他/CodeBoy微信抢红包外挂.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.3.</b>
+                        
+                        CodeBoy微信抢红包外挂
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5.4" data-path="插件式开发/其他/dexopt的源码跟踪.html">
+            
+                
+                    <a href="../../插件式开发/其他/dexopt的源码跟踪.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.4.</b>
+                        
+                        dexopt的源码跟踪
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5.5" data-path="插件式开发/其他/其实你不知道MultiDex到底有多坑.html">
+            
+                
+                    <a href="../../插件式开发/其他/其实你不知道MultiDex到底有多坑.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.5.</b>
+                        
+                        其实你不知道MultiDex到底有多坑
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5.6" data-path="插件式开发/其他/各大热补丁方案分析和比较.html">
+            
+                
+                    <a href="../../插件式开发/其他/各大热补丁方案分析和比较.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.6.</b>
+                        
+                        各大热补丁方案分析和比较
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5.7" data-path="插件式开发/其他/当Field邂逅65535.html">
+            
+                
+                    <a href="../../插件式开发/其他/当Field邂逅65535.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.5.7.</b>
+                        
+                        当Field邂逅65535
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.6" data-path="插件式开发/基础/index.html">
+            
+                
+                    <a href="../../插件式开发/基础/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.6.</b>
+                        
+                        基础
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.6.1" data-path="插件式开发/基础/代理模式及Java实现动态代理.html">
+            
+                
+                    <a href="../../插件式开发/基础/代理模式及Java实现动态代理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.6.1.</b>
+                        
+                        代理模式及Java实现动态代理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.6.2" data-path="插件式开发/基础/反射原理.html">
+            
+                
+                    <a href="../../插件式开发/基础/反射原理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.6.2.</b>
+                        
+                        反射原理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.6.3" data-path="插件式开发/基础/深入探讨Java类加载器.html">
+            
+                
+                    <a href="../../插件式开发/基础/深入探讨Java类加载器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.6.3.</b>
+                        
+                        深入探讨Java类加载器
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7" data-path="插件式开发/尼古拉斯/index.html">
+            
+                
+                    <a href="../../插件式开发/尼古拉斯/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.</b>
+                        
+                        尼古拉斯
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.7.1" data-path="插件式开发/尼古拉斯/Android中插件开发篇之----动态加载Activity-免安装运行程序.html">
+            
+                
+                    <a href="../../插件式开发/尼古拉斯/Android中插件开发篇之----动态加载Activity-免安装运行程序.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.1.</b>
+                        
+                        Android中插件开发篇之----动态加载Activity-免安装运行程序
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7.2" data-path="插件式开发/尼古拉斯/Android中插件开发篇之----应用换肤原理解析.html">
+            
+                
+                    <a href="../../插件式开发/尼古拉斯/Android中插件开发篇之----应用换肤原理解析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.2.</b>
+                        
+                        Android中插件开发篇之----应用换肤原理解析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7.3" data-path="插件式开发/尼古拉斯/Android中插件开发篇之----类加载器.html">
+            
+                
+                    <a href="../../插件式开发/尼古拉斯/Android中插件开发篇之----类加载器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.3.</b>
+                        
+                        Android中插件开发篇之----类加载器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7.4" data-path="插件式开发/尼古拉斯/Android中的动态加载机制.html">
+            
+                
+                    <a href="../../插件式开发/尼古拉斯/Android中的动态加载机制.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.4.</b>
+                        
+                        Android中的动态加载机制
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7.5" data-path="插件式开发/尼古拉斯/images/index.html">
+            
+                
+                    <a href="../../插件式开发/尼古拉斯/images/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.7.5.</b>
+                        
+                        images
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8" data-path="插件式开发/猿是一种能够改变世界的动物/index.html">
+            
+                
+                    <a href="../../插件式开发/猿是一种能够改变世界的动物/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.</b>
+                        
+                        猿是一种能够改变世界的动物
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="12.8.1" data-path="插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----动态加载Activity.html">
+            
+                
+                    <a href="../../插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----动态加载Activity.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.1.</b>
+                        
+                        Android中插件开发篇之----动态加载Activity
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8.2" data-path="插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----应用换肤原理解析.html">
+            
+                
+                    <a href="../../插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----应用换肤原理解析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.2.</b>
+                        
+                        Android中插件开发篇之----应用换肤原理解析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8.3" data-path="插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----类加载器.html">
+            
+                
+                    <a href="../../插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----类加载器.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.3.</b>
+                        
+                        Android中插件开发篇之----类加载器
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8.4" data-path="插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇总结和概述.html">
+            
+                
+                    <a href="../../插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇总结和概述.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.4.</b>
+                        
+                        Android中插件开发篇总结和概述
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8.5" data-path="插件式开发/猿是一种能够改变世界的动物/Android中的动态加载机制.html">
+            
+                
+                    <a href="../../插件式开发/猿是一种能够改变世界的动物/Android中的动态加载机制.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.8.5.</b>
+                        
+                        Android中的动态加载机制
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9" data-path="插件式开发/进阶/index.html">
+            
+                
+                    <a href="../../插件式开发/进阶/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.</b>
+                        
+                        进阶
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.9.1" data-path="插件式开发/进阶/5/index.html">
+            
+                
+                    <a href="../../插件式开发/进阶/5/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.1.</b>
+                        
+                        5
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.2" data-path="插件式开发/进阶/Android-apk动态加载机制的研究.html">
+            
+                
+                    <a href="../../插件式开发/进阶/Android-apk动态加载机制的研究.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.2.</b>
+                        
+                        Android-apk动态加载机制的研究
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.3" data-path="插件式开发/进阶/Android-APK资源加载和activity生命周期管理.html">
+            
+                
+                    <a href="../../插件式开发/进阶/Android-APK资源加载和activity生命周期管理.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.3.</b>
+                        
+                        Android-APK资源加载和activity生命周期管理
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.4" data-path="插件式开发/进阶/Android插件化的一种实现.html">
+            
+                
+                    <a href="../../插件式开发/进阶/Android插件化的一种实现.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.4.</b>
+                        
+                        Android插件化的一种实现
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.5" data-path="插件式开发/进阶/APK动态加载框架DL解析.html">
+            
+                
+                    <a href="../../插件式开发/进阶/APK动态加载框架DL解析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.5.</b>
+                        
+                        APK动态加载框架DL解析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.6" data-path="插件式开发/进阶/DynamicLoadApk源码解析.html">
+            
+                
+                    <a href="../../插件式开发/进阶/DynamicLoadApk源码解析.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.6.</b>
+                        
+                        DynamicLoadApk源码解析
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.7" data-path="插件式开发/进阶/动态加载APK原理分享.html">
+            
+                
+                    <a href="../../插件式开发/进阶/动态加载APK原理分享.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.7.</b>
+                        
+                        动态加载APK原理分享
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.8" data-path="插件式开发/进阶/携程Android应用插件化和动态加载实践.html">
+            
+                
+                    <a href="../../插件式开发/进阶/携程Android应用插件化和动态加载实践.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.8.</b>
+                        
+                        携程Android应用插件化和动态加载实践
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.9" data-path="插件式开发/进阶/美团DEX自动拆包及动态加载简介.html">
+            
+                
+                    <a href="../../插件式开发/进阶/美团DEX自动拆包及动态加载简介.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.9.</b>
+                        
+                        美团DEX自动拆包及动态加载简介
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.10" data-path="插件式开发/进阶/途牛AndroidApp的插件实现.html">
+            
+                
+                    <a href="../../插件式开发/进阶/途牛AndroidApp的插件实现.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.10.</b>
+                        
+                        途牛AndroidApp的插件实现
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.11" data-path="插件式开发/进阶/那些年蘑菇街Android组件与插件化背后的故事--插件篇1.html">
+            
+                
+                    <a href="../../插件式开发/进阶/那些年蘑菇街Android组件与插件化背后的故事--插件篇1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.11.</b>
+                        
+                        那些年蘑菇街Android组件与插件化背后的故事--插件篇1
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.9.12" data-path="插件式开发/进阶/那些年蘑菇街Android组件与插件化背后的故事--插件篇2.html">
+            
+                
+                    <a href="../../插件式开发/进阶/那些年蘑菇街Android组件与插件化背后的故事--插件篇2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.9.12.</b>
+                        
+                        那些年蘑菇街Android组件与插件化背后的故事--插件篇2
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="架构模式/index.html">
+            
+                
+                    <a href="../../架构模式/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        架构模式
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1" data-path="架构模式/设计原则/index.html">
+            
+                
+                    <a href="../../架构模式/设计原则/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.</b>
+                        
+                        设计原则
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1.1" data-path="架构模式/设计原则/oop_design_priciple.html">
+            
+                
+                    <a href="../../架构模式/设计原则/oop_design_priciple.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.1.</b>
+                        
+                        oop_design_priciple
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.1.2" data-path="架构模式/设计原则/S-代表着单一职责原则.html">
+            
+                
+                    <a href="../../架构模式/设计原则/S-代表着单一职责原则.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.1.2.</b>
+                        
+                        S-代表着单一职责原则
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="架构模式/软件架构/index.html">
+            
+                
+                    <a href="../../架构模式/软件架构/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.</b>
+                        
+                        软件架构
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.1" data-path="架构模式/软件架构/mvp/index.html">
+            
+                
+                    <a href="../../架构模式/软件架构/mvp/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.1.</b>
+                        
+                        mvp
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.1.1" data-path="架构模式/软件架构/mvp/Android应用架构.html">
+            
+                
+                    <a href="../../架构模式/软件架构/mvp/Android应用架构.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.1.1.</b>
+                        
+                        Android应用架构
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2.2" data-path="架构模式/软件架构/mvvm/index.html">
+            
+                
+                    <a href="../../架构模式/软件架构/mvvm/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.2.</b>
+                        
+                        mvvm
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.2.1" data-path="架构模式/软件架构/mvvm/Android-MVVM到底是啥-看完就明白了.html">
+            
+                
+                    <a href="../../架构模式/软件架构/mvvm/Android-MVVM到底是啥-看完就明白了.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.2.1.</b>
+                        
+                        Android-MVVM到底是啥-看完就明白了
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2.3" data-path="架构模式/软件架构/使用/index.html">
+            
+                
+                    <a href="../../架构模式/软件架构/使用/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.3.</b>
+                        
+                        使用
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.3.1" data-path="架构模式/软件架构/使用/选择恐惧症的福音！教你认清MVC，MVP和MVVM.html">
+            
+                
+                    <a href="../../架构模式/软件架构/使用/选择恐惧症的福音！教你认清MVC，MVP和MVVM.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.3.1.</b>
+                        
+                        选择恐惧症的福音！教你认清MVC，MVP和MVVM
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2.4" data-path="架构模式/软件架构/架构设计/index.html">
+            
+                
+                    <a href="../../架构模式/软件架构/架构设计/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.4.</b>
+                        
+                        架构设计
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.4.1" data-path="架构模式/软件架构/架构设计/Android简洁架构设计.html">
+            
+                
+                    <a href="../../架构模式/软件架构/架构设计/Android简洁架构设计.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.4.1.</b>
+                        
+                        Android简洁架构设计
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2.4.2" data-path="架构模式/软件架构/架构设计/解析Android架构设计原则.html">
+            
+                
+                    <a href="../../架构模式/软件架构/架构设计/解析Android架构设计原则.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.4.2.</b>
+                        
+                        解析Android架构设计原则
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2.5" data-path="架构模式/软件架构/案例/index.html">
+            
+                
+                    <a href="../../架构模式/软件架构/案例/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.5.</b>
+                        
+                        案例
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.5.1" data-path="架构模式/软件架构/案例/Repository设计模式.html">
+            
+                
+                    <a href="../../架构模式/软件架构/案例/Repository设计模式.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.5.1.</b>
+                        
+                        Repository设计模式
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2.6" data-path="架构模式/软件架构/笔记-Android应用架构-Android-Dev-Summit-2015.html">
+            
+                
+                    <a href="../../架构模式/软件架构/笔记-Android应用架构-Android-Dev-Summit-2015.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.2.6.</b>
+                        
+                        笔记-Android应用架构-Android-Dev-Summit-2015
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="架构模式/重构/index.html">
+            
+                
+                    <a href="../../架构模式/重构/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.3.</b>
+                        
+                        重构
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.3.1" data-path="架构模式/重构/关于烂代码的那些事/index.html">
+            
+                
+                    <a href="../../架构模式/重构/关于烂代码的那些事/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.3.1.</b>
+                        
+                        关于烂代码的那些事
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.3.1.1" data-path="架构模式/重构/关于烂代码的那些事/关于烂代码的那些事情-上.html">
+            
+                
+                    <a href="../../架构模式/重构/关于烂代码的那些事/关于烂代码的那些事情-上.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.3.1.1.</b>
+                        
+                        关于烂代码的那些事情-上
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3.1.2" data-path="架构模式/重构/关于烂代码的那些事/关于烂代码的那些事情-下.html">
+            
+                
+                    <a href="../../架构模式/重构/关于烂代码的那些事/关于烂代码的那些事情-下.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.3.1.2.</b>
+                        
+                        关于烂代码的那些事情-下
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3.1.3" data-path="架构模式/重构/关于烂代码的那些事/关于烂代码的那些事情-中.html">
+            
+                
+                    <a href="../../架构模式/重构/关于烂代码的那些事/关于烂代码的那些事情-中.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.3.1.3.</b>
+                        
+                        关于烂代码的那些事情-中
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="进程保活/index.html">
+            
+                
+                    <a href="../../进程保活/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        进程保活
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.1" data-path="进程保活/Android-Persistent属性研究.html">
+            
+                
+                    <a href="../../进程保活/Android-Persistent属性研究.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.1.</b>
+                        
+                        Android-Persistent属性研究
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="进程保活/关于Android进程保活你需要知道的一切.html">
+            
+                
+                    <a href="../../进程保活/关于Android进程保活你需要知道的一切.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.2.</b>
+                        
+                        关于Android进程保活你需要知道的一切
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="进程保活/微信Android客户端后台保活经验分享.html">
+            
+                
+                    <a href="../../进程保活/微信Android客户端后台保活经验分享.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.3.</b>
+                        
+                        微信Android客户端后台保活经验分享
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="进程保活/怎么让Android程序一直后台运行-像QQ一样不被杀死.html">
+            
+                
+                    <a href="../../进程保活/怎么让Android程序一直后台运行-像QQ一样不被杀死.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.4.</b>
+                        
+                        怎么让Android程序一直后台运行-像QQ一样不被杀死
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="问题解决/index.html">
+            
+                
+                    <a href="../../问题解决/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        问题解决
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="15.1" data-path="问题解决/Ubuntu64位系统无法使用Android命令问题解决.html">
+            
+                
+                    <a href="../../问题解决/Ubuntu64位系统无法使用Android命令问题解决.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.1.</b>
+                        
+                        Ubuntu64位系统无法使用Android命令问题解决
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="项目经验/index.html">
+            
+                
+                    <a href="../../项目经验/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        项目经验
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.1" data-path="项目经验/聚划算客户端/index.html">
+            
+                
+                    <a href="../../项目经验/聚划算客户端/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.1.</b>
+                        
+                        聚划算客户端
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.1.1" data-path="项目经验/聚划算客户端/聚划算android客户端1期教训总结.html">
+            
+                
+                    <a href="../../项目经验/聚划算客户端/聚划算android客户端1期教训总结.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.1.1.</b>
+                        
+                        聚划算android客户端1期教训总结
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.1.2" data-path="项目经验/聚划算客户端/聚划算android客户端2期总结.html">
+            
+                
+                    <a href="../../项目经验/聚划算客户端/聚划算android客户端2期总结.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.1.2.</b>
+                        
+                        聚划算android客户端2期总结
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >开源项目</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="android&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x4E4B;&#x52A8;&#x6001;&#x52A0;&#x8F7D;activity&#x514D;&#x5B89;&#x88C5;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;">Android&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x4E4B;----&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity(&#x514D;&#x5B89;&#x88C5;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;)</h1>
+<p>&#x6765;&#x6E90;:<a href="http://blog.csdn.net/jiangwei0910410003/article/details/48104455" target="_blank">&#x733F;&#x662F;&#x4E00;&#x79CD;&#x80FD;&#x591F;&#x6539;&#x53D8;&#x4E16;&#x754C;&#x7684;&#x52A8;&#x7269;</a></p>
+<h2 id="&#x4E00;&#x3001;&#x524D;&#x8A00;">&#x4E00;&#x3001;&#x524D;&#x8A00;</h2>
+<p>&#x53C8;&#x5230;&#x5468;&#x672B;&#x4E86;&#xFF0C;&#x65F6;&#x95F4;&#x8FC7;&#x7684;&#x5F88;&#x5FEB;&#xFF0C;&#x4ECA;&#x5929;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;Android&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x7684;&#x6700;&#x540E;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x7684;&#x5185;&#x5BB9;&#xFF1A;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity(&#x514D;&#x5B89;&#x88C5;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;)&#xFF0C;&#x5728;&#x4E0A;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#x8BF4;&#x9053;&#x4E86;&#xFF0C;&#x5982;&#x4F55;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x8D44;&#x6E90;(&#x5E94;&#x7528;&#x6362;&#x80A4;&#x539F;&#x7406;&#x89E3;&#x6790;)&#xFF0C;&#x6CA1;&#x770B;&#x8FC7;&#x7684;&#x540C;&#x5B66;&#xFF0C;&#x53EF;&#x4EE5;&#x8F6C;&#x6218;&#xFF1A;</p>
+<p><a href="Android&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x4E4B;----&#x5E94;&#x7528;&#x6362;&#x80A4;&#x539F;&#x7406;&#x89E3;&#x6790;.html">Android&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x4E4B;----&#x5E94;&#x7528;&#x6362;&#x80A4;&#x539F;&#x7406;&#x89E3;&#x6790;</a></p>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x4ECA;&#x5929;&#x8BF4;&#x9053;&#x7684;&#x5185;&#x5BB9;&#x8FD8;&#x8FD9;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x6709;&#x5173;&#x7CFB;&#x3002;&#x5173;&#x4E8E;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x7F51;&#x4E0A;&#x4E5F;&#x662F;&#x6709;&#x5F88;&#x591A;&#x6587;&#x7AE0;&#x4ECB;&#x7ECD;&#x4E86;&#x3002;&#x4F46;&#x662F;&#x4ED6;&#x4EEC;&#x53EF;&#x80FD;&#x5927;&#x90E8;&#x5206;&#x90FD;&#x662F;&#x4ECB;&#x7ECD;&#x901A;&#x8FC7;&#x4EE3;&#x7406;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4ECA;&#x5929;&#x6211;&#x8981;&#x8BF4;&#x7684;&#x52A0;&#x8F7D;&#x4F1A;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<ul>
+<li>1&#x3001;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x4FEE;&#x6539;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</li>
+<li>2&#x3001;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x7684;&#x65B9;&#x5F0F;</li>
+</ul>
+<p>&#x8FD9;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x90FD;&#x6709;&#x5404;&#x81EA;&#x7684;&#x4F18;&#x7F3A;&#x70B9;&#xFF0C;&#x6211;&#x4F1A;&#x5728;&#x540E;&#x9762;&#x7684;&#x6587;&#x7AE0;&#x8BE6;&#x7EC6;&#x89E3;&#x8BF4;&#x3002;</p>
+<h2 id="&#x4E8C;&#x3001;&#x6280;&#x672F;&#x4ECB;&#x7ECD;">&#x4E8C;&#x3001;&#x6280;&#x672F;&#x4ECB;&#x7ECD;</h2>
+<h3 id="1&#x3001;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x4FEE;&#x6539;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x6765;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x52A0;&#x8F7D;activity">1&#x3001;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x4FEE;&#x6539;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x6765;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity</h3>
+<p>&#x9996;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;360&#x5B89;&#x5168;&#x536B;&#x58EB;</p>
+<p><img src="4/1.png" alt="">  <img src="4/2.png" alt=""></p>
+<p>&#x5728;&#x4E3B;&#x754C;&#x9762;&#x6709;&#x4E00;&#x4E2A;&#x6DFB;&#x52A0;&#x66F4;&#x591A;&#x5DE5;&#x5177;&#x7684;&#x83DC;&#x5355;&#xFF0C;&#x70B9;&#x8FDB;&#x53BB;&#x4E4B;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6709;&#x5F88;&#x591A;&#x529F;&#x80FD;&#x9009;&#x9879;&#x3002;&#x6211;&#x4EEC;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x624B;&#x673A;&#x9632;&#x76D7;&#x7684;&#x529F;&#x80FD;&#xFF1A;&#x6709;&#x4E00;&#x4E2A;&#x8FDB;&#x5EA6;&#x6761;&#x5F00;&#x59CB;&#x6DFB;&#x52A0;&#x3002;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x77E5;&#x9053;&#x4ED6;&#x662F;&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x7684;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x53BB;&#x67E5;&#x770B;&#x4ED6;&#x7684;&#x6570;&#x636E;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#xFF1A;</p>
+<p><img src="4/3.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x6709;&#x4E24;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x6BD4;&#x8F83;&#x89C1;&#x540D;&#x77E5;&#x610F;&#xFF1A;</p>
+<blockquote>
+<p>app_plugins_v3<br>
+app_plugins_v3_odex</p>
+</blockquote>
+<p>&#x7B2C;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x662F;&#x5B58;&#x653E;&#x9700;&#x8981;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x7684;&#x529F;&#x80FD;&#x63D2;&#x4EF6;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x76EE;&#x5F55;&#x662F;&#x5B58;&#x653E;&#x52A0;&#x8F7D;&#x4E4B;&#x540E;&#x91CA;&#x653E;&#x7684;dex&#x76EE;&#x5F55;&#x3002;</p>
+<p>&#x4E0A;&#x9762;&#x5206;&#x6790;&#x4E86;360&#x7684;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity&#x529F;&#x80FD;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C31;&#x6765;&#x5B9E;&#x73B0;&#x4EE5;&#x4E0B;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x5427;&#xFF1A;</p>
+<p>&#x4E0D;&#x8FC7;&#x6211;&#x4EEC;&#x8FD8;&#x5F97;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;Android&#x4E2D;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x76F8;&#x5173;&#x77E5;&#x8BC6;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x505A;&#x4ECB;&#x7ECD;&#x4E86;&#xFF1A;&#x6211;&#x5728;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x4E2D;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x4E86;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#xFF1A;</p>
+<p><a href="Android&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x4E4B;----&#x7C7B;&#x52A0;&#x8F7D;&#x5668;.html">hAndroid&#x4E2D;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x4E4B;----&#x7C7B;&#x52A0;&#x8F7D;&#x5668;</a></p>
+<p>&#x6211;&#x4EEC;&#x77E5;&#x9053;PathClassLoader&#x662F;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x9ED8;&#x8BA4;&#x52A0;&#x8F7D;&#x5668;(&#x800C;&#x4E14;&#x4ED6;&#x53EA;&#x80FD;&#x52A0;&#x8F7D;data/app/xxx.apk&#x7684;&#x6587;&#x4EF6;)&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x52A0;&#x8F7D;&#x63D2;&#x4EF6;&#x4E00;&#x822C;&#x4F7F;&#x7528;DexClassLoader&#x52A0;&#x8F7D;&#x5668;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5C31;&#x6709;&#x95EE;&#x9898;&#x4E86;&#xFF0C;&#x5176;&#x5B9E;&#x5982;&#x679C;&#x5BF9;&#x4E8E;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6BCF;&#x4E2A;&#x4EBA;&#x90FD;&#x4F1A;&#x8BA4;&#x4E3A;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x60F3;&#x5230;&#x4F7F;&#x7528;DexClassLoader&#x6765;&#x52A0;&#x8F7D;Activity&#x83B7;&#x53D6;&#x5230;class&#x5BF9;&#x8C61;&#xFF0C;&#x5728;&#x4F7F;&#x7528;Intent&#x542F;&#x52A8;&#xFF0C;&#x8FD9;&#x4E2A;&#x5F88;&#x7B80;&#x5355;&#x5440;&#xFF1F;&#x4F46;&#x662F;&#x5B9E;&#x9645;&#x4E0A;&#x5E76;&#x4E0D;&#x662F;&#x60F3;&#x8C61;&#x7684;&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x3002;<strong>&#x539F;&#x56E0;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x56E0;&#x4E3A;Android&#x4E2D;&#x7684;&#x56DB;&#x5927;&#x7EC4;&#x4EF6;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x7279;&#x70B9;&#x5C31;&#x662F;&#x4ED6;&#x4EEC;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;DexClassLoader&#x52A0;&#x8F7D;&#x8FDB;&#x6765;&#x7684;Activity&#x662F;&#x4E0D;&#x4F1A;&#x6D89;&#x53CA;&#x5230;&#x4EFB;&#x4F55;&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x8BF4;&#x767D;&#x4E86;&#xFF0C;&#x4ED6;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x666E;&#x666E;&#x901A;&#x901A;&#x7684;&#x7C7B;&#x3002;&#x6240;&#x4EE5;&#x542F;&#x52A8;&#x80AF;&#x5B9A;&#x4F1A;&#x51FA;&#x9519;&#x3002;</strong></p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x4E86;&#x95EE;&#x9898;&#x6240;&#x5728;&#xFF0C;&#x89E3;&#x51B3;&#x8D77;&#x6765;&#x4E5F;&#x5C31;&#x7B80;&#x5355;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x8FD8;&#x6709;&#x4E24;&#x79CD;&#x601D;&#x8DEF;&#x53BB;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<h4 id="1-&#x7B2C;&#x4E00;&#x4E2A;&#x601D;&#x8DEF;&#xFF1A;-&#x66FF;&#x6362;loadedapk&#x4E2D;&#x7684;mclassloader">1) &#x7B2C;&#x4E00;&#x4E2A;&#x601D;&#x8DEF;&#xFF1A; &#x66FF;&#x6362;LoadedApk&#x4E2D;&#x7684;mClassLoader</h4>
+<blockquote>
+<p>&#x6211;&#x4EEC;&#x53EA;&#x8981;&#x8BA9;&#x52A0;&#x8F7D;&#x8FDB;&#x6765;&#x7684;Activity&#x6709;&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;&#x5C31;OK&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x770B;&#x4E00;&#x4E0B;&#x4E00;&#x4E2A;Activity&#x7684;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x3002;&#x5F53;&#x7136;&#x8FD9;&#x91CC;&#x4E0D;&#x4F1A;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x4E00;&#x4E2A;Activity&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x90A3;&#x4E2A;&#x592A;&#x590D;&#x6742;&#x4E86;&#xFF0C;&#x800C;&#x4E14;&#x6211;&#x4E5F;&#x8BF4;&#x4E0D;&#x6E05;&#x695A;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x7684;DexClassLoader&#x52A0;&#x8F7D;&#x5668;&#x7ED1;&#x5B9A;&#x5230;&#x7CFB;&#x7EDF;&#x52A0;&#x8F7D;Activity&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x4E0A;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x6211;&#x4EEC;&#x7684;&#x601D;&#x8DEF;&#x3002;&#x4E5F;&#x662F;&#x6700;&#x91CD;&#x8981;&#x7684;&#x7A81;&#x7834;&#x70B9;&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C31;&#x6765;&#x901A;&#x8FC7;&#x6E90;&#x7801;&#x770B;&#x770B;&#x5982;&#x4F55;&#x627E;&#x5230;&#x52A0;&#x8F7D;Activity&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;</p>
+</blockquote>
+<p>&#x52A0;&#x8F7D;Activity&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x91CD;&#x8981;&#x7684;&#x7C7B;&#xFF1A;LoadedApk.java&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x662F;&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;Apk&#x7A0B;&#x5E8F;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x4E00;&#x4E0B;&#x4ED6;&#x7684;&#x6E90;&#x7801;&#xFF1A;</p>
+<p><img src="4/4.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4ED6;&#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A;mClassLoader&#x53D8;&#x91CF;&#xFF0C;&#x4ED6;&#x5C31;&#x662F;&#x8D1F;&#x8D23;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;Apk&#x7A0B;&#x5E8F;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EA;&#x8981;&#x83B7;&#x53D6;&#x5230;&#x8FD9;&#x4E2A;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x4ED6;&#x4E0D;&#x662F;static&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FD8;&#x5F97;&#x83B7;&#x53D6;&#x4E00;&#x4E2A;LoadedApk&#x5BF9;&#x8C61;&#x3002;&#x6211;&#x4EEC;&#x5728;&#x53BB;&#x770B;&#x4E00;&#x4E0B;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x7C7B;&#xFF1A;ActivityThread.java&#x7684;&#x6E90;&#x7801;</p>
+<p><img src="4/5.png" alt=""></p>
+<p>&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;ActivityThread&#x7C7B;&#x4E2D;&#x6709;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7684;static&#x5BF9;&#x8C61;&#xFF0C;&#x7136;&#x540E;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;ArrayMap&#x5B58;&#x653E;Apk&#x5305;&#x540D;&#x548C;LoadedApk&#x6620;&#x5C04;&#x5173;&#x7CFB;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5206;&#x6790;&#x6E05;&#x695A;&#x4E86;&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x6765;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x6765;&#x83B7;&#x53D6;mClassLoader&#x5BF9;&#x8C61;&#x5427;&#x3002;</p>
+<p>&#x53CB;&#x60C5;&#x63D0;&#x793A;&#xFF1A;&#x8FD9;&#x91CC;&#x53EF;&#x80FD;&#x6709;&#x4E9B;&#x540C;&#x5B66;&#x4F1A;&#x56F0;&#x60D1;&#xFF0C;&#x600E;&#x4E48;&#x80FD;&#x591F;&#x627E;&#x5230;&#x8FD9;&#x4E2A;mClassLoader&#x5462;&#x3002;&#x6211;&#x5728;&#x8FD9;&#x91CC;&#x56E0;&#x4E3A;&#x662F;&#x4E3A;&#x4E86;&#x8BB2;&#x89E3;&#x5185;&#x5BB9;&#xFF0C;&#x6240;&#x4EE5;&#x53CD;&#x8FC7;&#x6765;&#x627E;&#x8FD9;&#x4E2A;&#x4E1C;&#x897F;&#x4E86;&#xFF0C;&#x5176;&#x5B9E;&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x627E;&#x5173;&#x4E8E;&#x4E00;&#x4E2A;Apk&#x6216;&#x8005;&#x662F;Activity&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x80AF;&#x5B9A;&#x4F1A;&#x53BB;&#x627E;&#xFF1A;ActivityThread.java&#x8FD9;&#x4E2A;&#x7C7B;&#xFF0C;&#x8FD9;&#x4E2A;&#x7C7B;&#x662F;&#x5F88;&#x91CD;&#x8981;&#x5F88;&#x91CD;&#x8981;&#x7684;&#xFF0C;&#x4E5F;&#x662F;&#x5173;&#x952E;&#x7684;&#x7A81;&#x7834;&#x53E3;&#xFF0C;&#x5B83;&#x5185;&#x90E8;&#x5176;&#x5B9E;&#x6709;&#x5F88;&#x591A;&#x4FE1;&#x606F;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5148;&#x53BB;&#x627E;&#x8FD9;&#x4E2A;ActivityThread,&#x7136;&#x540E;&#x4ECE;&#x8FD9;&#x4E2A;&#x7C7B;&#x4E2D;&#x53D1;&#x73B0;&#x4FE1;&#x606F;&#xFF0C;&#x7136;&#x540E;&#x4F1A;&#x627E;&#x5230;&#x4E86;LoadedApk&#x8FD9;&#x4E2A;&#x7C7B;&#x3002;&#x5173;&#x4E8E;ActivityThread&#x8FD9;&#x4E2A;&#x7C7B;&#xFF0C;&#x4E3A;&#x4F55;&#x5982;&#x6B64;&#x91CD;&#x8981;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5728;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x6E90;&#x7801;&#xFF1A;</p>
+<p><img src="4/6.png" alt=""></p>
+<p>&#x4ED6;&#x6709;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1F;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x770B;&#x5230;&#x5F88;&#x719F;&#x6089;&#x5440;&#xFF1F;&#x4ED6;&#x4E0D;&#x662F;Java&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x7684;&#x5165;&#x53E3;main&#x65B9;&#x6CD5;&#x5417;&#xFF1F;&#x662F;&#x7684;&#xFF0C;<strong>&#x6CA1;&#x9519;&#xFF0C;&#x6240;&#x6709;&#x7684;app&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x5165;&#x53E3;&#x5C31;&#x662F;&#x8FD9;&#x91CC;&#xFF0C;&#x6240;&#x4EE5;&#x4EE5;&#x540E;&#x6709;&#x4EBA;&#x95EE;&#x4F60;Android&#x4E2D;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x7684;&#x5165;&#x53E3;&#x662F;&#x54EA;&#x91CC;&#xFF1F;&#x4E0D;&#x8981;&#x518D;&#x8BF4;&#x662F;Application&#x7684;onCreate&#x65B9;&#x6CD5;&#x4E86;&#xFF0C;&#x5176;&#x5B9E;&#x662F;ActivityThread&#x4E2D;&#x7684;main&#x65B9;&#x6CD5;</strong>&#x3002;</p>
+<p>&#x597D;&#x7684;&#xFF0C;&#x56DE;&#x5230;&#x4E3B;&#x5E72;&#x4E0A;&#x6765;&#xFF0C;&#x6211;&#x4EEC;&#x73B0;&#x5728;&#x5F00;&#x59CB;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#x6765;&#x5B9E;&#x73B0;&#x53CD;&#x5C04;&#x83B7;&#x53D6;mClassLoader&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x66FF;&#x6362;&#x6210;&#x6211;&#x4EEC;&#x7684;DexClassLoader&#x7C7B;&#xFF0C;&#x4E0D;&#x591A;&#x8BF4;&#x4E86;&#xFF0C;&#x770B;&#x4E00;&#x4E0B;Demo&#x5DE5;&#x7A0B;&#x7ED3;&#x6784;&#xFF1A;</p>
+<ul>
+<li>PluginActivity1 ==&#x300B;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;</li>
+<li>DynamicActivityForClassLoader ==&#x300B;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;</li>
+</ul>
+<p>&#x5176;&#x4E2D;PluginActivity1&#x5DE5;&#x7A0B;&#x5F88;&#x7B80;&#x5355;&#x5566;&#xFF0C;&#x5C31;&#x4E00;&#x4E2A;Activiity:</p>
+<pre><code>package com.example.dynamicactivityapk;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+    private static View parentView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(parentView == null){
+            setContentView(R.layout.activity_main);
+        }else{
+            setContentView(parentView);
+        }
+
+        findViewById(R.id.btn).setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View arg0) {
+                Toast.makeText(getApplicationContext(), &quot;I came from &#x63D2;&#x4EF6;~~&quot;, Toast.LENGTH_LONG).show();
+            }});
+
+    }
+
+    public static void setLayoutView(View view){
+        parentView = view;
+    }
+
+}
+</code></pre><p>&#x6211;&#x4EEC;&#x770B;&#x5230;&#x5176;&#x5B9E;&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x4E3A;&#x4F55;&#x8981;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;setLayoutView&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E2A;&#x6211;&#x4EEC;&#x540E;&#x9762;&#x4F1A;&#x8BF4;&#x9053;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x7F16;&#x8BD1;&#x8FD9;&#x4E2A;&#x5DE5;&#x7A0B;&#xFF0C;&#x5F97;&#x5230;PluginActivity1.apk&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<p><img src="4/7.png" alt=""></p>
+<p>&#x4E0B;&#x9762;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;</p>
+<p>&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x5176;&#x5B9E;&#x6700;&#x5927;&#x7684;&#x529F;&#x80FD;&#x5C31;&#x662F;&#x52A0;&#x8F7D;&#x4E0A;&#x9762;&#x7684;PluginActivity1.apk&#xFF0C;&#x7136;&#x540E;&#x542F;&#x52A8;&#x5185;&#x90E8;&#x7684;MainActivity&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x7684;&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#x5C31;&#x662F;&#x5982;&#x4F55;&#x901A;&#x8FC7;&#x53CD;&#x5C04;&#x66FF;&#x6362;&#x7CFB;&#x7EDF;&#x7684;mClassLoader&#x7C7B;&#xFF1A;</p>
+<pre><code>private void loadApkClassLoader(DexClassLoader dLoader){  
+    try{  
+
+        String filesDir = this.getCacheDir().getAbsolutePath();  
+        String libPath = filesDir + File.separator +&quot;PluginActivity1.apk&quot;;  
+
+        // &#x914D;&#x7F6E;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x73AF;&#x5883;  
+        Object currentActivityThread = RefInvoke.invokeStaticMethod(  
+                &quot;android.app.ActivityThread&quot;, &quot;currentActivityThread&quot;,  
+                new Class[] {}, new Object[] {});//&#x83B7;&#x53D6;&#x4E3B;&#x7EBF;&#x7A0B;&#x5BF9;&#x8C61;  
+        String packageName = this.getPackageName();//&#x5F53;&#x524D;apk&#x7684;&#x5305;&#x540D;  
+        ArrayMap mPackages = (ArrayMap) RefInvoke.getFieldOjbect(  
+                &quot;android.app.ActivityThread&quot;, currentActivityThread,  
+                &quot;mPackages&quot;);  
+        WeakReference wr = (WeakReference) mPackages.get(packageName);  
+        RefInvoke.setFieldOjbect(&quot;android.app.LoadedApk&quot;, &quot;mClassLoader&quot;,  
+                wr.get(), dLoader);  
+
+        Log.i(&quot;demo&quot;, &quot;classloader:&quot;+dLoader);  
+
+    }catch(Exception e){  
+        Log.i(&quot;demo&quot;, &quot;load apk classloader error:&quot;+Log.getStackTraceString(e));  
+    }  
+
+}
+</code></pre><p>&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x5C31;&#x662F;&#x9700;&#x8981;&#x66FF;&#x6362;&#x7684;DexClassLoader&#x7684;&#xFF0C;&#x4ECE;&#x5916;&#x90E8;&#x4F20;&#x9012;&#x8FC7;&#x6765;&#xFF0C;&#x7136;&#x540E;&#x8FDB;&#x884C;&#x66FF;&#x6362;&#x3002;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x5916;&#x90E8;&#x5B9A;&#x4E49;&#x7684;DexClassLoader&#x7C7B;&#xFF1A;</p>
+<pre><code>String filesDir = this.getCacheDir().getAbsolutePath();  
+String libPath = filesDir + File.separator +&quot;PluginActivity1.apk&quot;;  
+Log.i(&quot;inject&quot;, &quot;fileexist:&quot;+new File(libPath).exists());  
+
+//loadResources(libPath);  
+
+DexClassLoader loader = new DexClassLoader(libPath, filesDir
+                                ,filesDir, getClassLoader());
+</code></pre><p><strong>&#x8FD9;&#x91CC;&#xFF0C;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;DexClassLoader&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x662F;DexClassLoader&#x7684;parent&#xFF0C;&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x6210;PathClassLoader&#x7C7B;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x4E0A;&#x9762;&#x867D;&#x7136;&#x8BF4;&#x662F;&#x66FF;&#x6362;PathClassLoader&#x4E3A;DexClassLoader&#x3002;&#x4F46;&#x662F;PathClassLoader&#x662F;&#x7CFB;&#x7EDF;&#x672C;&#x8EAB;&#x9ED8;&#x8BA4;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;(&#x4E5F;&#x5C31;&#x662F;mClassLoader&#x53D8;&#x91CF;&#x7684;&#x503C;&#xFF0C;&#x6211;&#x4EEC;&#x5982;&#x679C;&#x5355;&#x72EC;&#x7684;&#x5C06;DexClassLoader&#x8BBE;&#x7F6E;&#x4E3A;mClassLoader&#x7684;&#x503C;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x4F1A;&#x51FA;&#x9519;&#x7684;)&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x5B9A;&#x8981;&#x8BB2;DexClassLoader&#x7684;&#x7236;&#x52A0;&#x8F7D;&#x5668;&#x8BBE;&#x7F6E;&#x6210;PathClassLoader&#xFF0C;&#x56E0;&#x4E3A;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x662F;&#x7B26;&#x5408;&#x53CC;&#x4EB2;&#x59D4;&#x6D3E;&#x673A;&#x5236;&#x7684;&#x3002;</strong></p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x8FD0;&#x884C;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;&#x7A0B;&#x5E8F;&#xFF0C;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x5C06;PluginActivity1.apk&#x653E;&#x5230;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x7684;data/data/cache&#x76EE;&#x5F55;&#x4E0B;&#xFF1A;</p>
+<p><img src="4/8.png" alt=""></p>
+<p>&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#xFF0C;&#x70B9;&#x51FB;&#x52A0;&#x8F7D;&#xFF1A;</p>
+<p><img src="4/9.png" alt=""></p>
+<p><strong>&#x8FD0;&#x884C;&#x53D1;&#x73B0;&#x5931;&#x8D25;&#xFF0C;&#x8BF4;&#x662F;&#x63D2;&#x4EF6;&#x4E2D;&#x7684;&#x90A3;&#x4E2A;MainActivity&#x6CA1;&#x6709;&#x5728;AndroidManifest.xml&#x4E2D;&#x58F0;&#x660E;</strong>&#xFF1F;&#x4E0D;&#x5BF9;&#x5440;&#xFF0C;&#x6211;&#x4EEC;&#x5728;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;&#x4E2D;&#x660E;&#x660E;&#x58F0;&#x660E;&#x4E86;&#x5440;&#xFF0C;&#x4E3A;&#x4F55;&#x4ED6;&#x8FD8;&#x662F;&#x63D0;&#x793A;&#x6CA1;&#x6709;&#x58F0;&#x660E;&#x5462;&#xFF1F;</p>
+<p><img src="4/10.png" alt=""></p>
+<p>&#x54CE;&#xFF0C;&#x5176;&#x5B9E;&#x4ED4;&#x7EC6;&#x60F3;&#x60F3;&#x539F;&#x56E0;&#x5F88;&#x7B80;&#x5355;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;DexClassLoader&#x52A0;&#x8F7D;&#x63D2;&#x4EF6;Apk&#xFF0C;&#x4E0D;&#x4F1A;&#x5C06;&#x5176;xml&#x4E2D;&#x7684;&#x5185;&#x5BB9;&#x52A0;&#x8F7D;&#x8FDB;&#x6765;&#xFF0C;&#x6240;&#x4EE5;&#x5728;&#x63D2;&#x4EF6;&#x4E2D;&#x58F0;&#x660E;&#x662F;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x7528;&#x9014;&#x7684;&#xFF0C;&#x5FC5;&#x987B;&#x5728;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E2D;&#x58F0;&#x660E;&#xFF1A;</p>
+<pre><code>&lt;activity android:name=&quot;com.example.dynamicactivityapk.MainActivity&quot;/&gt;
+</code></pre><p>&#x6211;&#x4EEC;&#x5728;&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#xFF1A;</p>
+<p><img src="4/11.gif" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x70B9;&#x51FB;&#x6309;&#x94AE;&#xFF0C;&#x770B;&#x6548;&#x679C;&#x5566;&#x3002;&#x679C;&#x7136;&#x53EF;&#x4EE5;&#x52A0;&#x8F7D;&#x6210;&#x529F;&#x4E86;&#x5566;&#x5566;&#x5566;&#x3002;&#x5F88;&#x5F00;&#x5FC3;&#x4E86;&#x3002;</p>
+<p>&#x4E0D;&#x8FC7;&#x8FD9;&#x91CC;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x4E24;&#x4E2A;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>1&gt;&#x3001;&#x56E0;&#x4E3A;&#x8981;&#x52A0;&#x8F7D;&#x63D2;&#x4EF6;&#x4E2D;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x8C03;&#x7528;loadResources&#x65B9;&#x6CD5;</li>
+<li>2&gt;&#x3001;&#x5728;&#x6D4B;&#x8BD5;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x53D1;&#x73B0;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;&#x4E2D;setContentView&#x65B9;&#x6CD5;&#x6CA1;&#x6709;&#x6548;&#x679C;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x5C31;&#x5728;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;&#x4E2D;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;static&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x7528;&#x6765;&#x63D0;&#x524D;&#x8BBE;&#x7F6E;&#x89C6;&#x56FE;&#x7684;&#x3002;</li>
+</ul>
+<h4 id="2-&#x7B2C;&#x4E8C;&#x601D;&#x8DEF;&#xFF1A;&#x5408;&#x5E76;pathclassloader&#x548C;dexclassloader&#x4E2D;&#x7684;dexelements&#x6570;&#x7EC4;">2) &#x7B2C;&#x4E8C;&#x601D;&#x8DEF;&#xFF1A;&#x5408;&#x5E76;PathClassLoader&#x548C;DexClassLoader&#x4E2D;&#x7684;dexElements&#x6570;&#x7EC4;</h4>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4ECB;&#x7ECD;&#x4E86;&#x4E00;&#x4E2A;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x6765;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;Activity&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x5230;&#x8FD9;&#x91CC;&#x8FD8;&#x6CA1;&#x6709;&#x7ED3;&#x675F;&#x5462;&#xFF1F;&#x56E0;&#x4E3A;&#x8FD8;&#x8981;&#x4ECB;&#x7ECD;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x8BBE;&#x7F6E;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x9996;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;PathClassLoader&#x548C;DexClassLoader&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x7684;&#x7236;&#x7C7B;BaseDexClassloader&#x7684;&#x6E90;&#x7801;&#xFF1A;</p>
+<p><strong>(&#x8FD9;&#x91CC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;PathClassLoader&#x548C;DexClassLoader&#x7C7B;&#x7684;&#x7236;&#x52A0;&#x8F7D;&#x5668;&#x662F;BootClassLoader,&#x4ED6;&#x4EEC;&#x7684;&#x7236;&#x7C7B;&#x662F;BaseDexClassLoader)</strong></p>
+<p><img src="4/12.png" alt=""></p>
+<p>&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;DexPathList&#x5BF9;&#x8C61;&#xFF0C;&#x5728;&#x6765;&#x770B;&#x4E00;&#x4E0B;DexPathList.java&#x6E90;&#x7801;&#xFF1A;</p>
+<p><img src="4/13.png" alt=""></p>
+<p>&#x9996;&#x5148;&#x770B;&#x4E00;&#x4E0B;&#x8FD9;&#x4E2A;&#x7C7B;&#x7684;&#x63CF;&#x8FF0;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;Elements&#x6570;&#x7EC4;&#xFF0C;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x4ED6;&#x662F;&#x4E13;&#x95E8;&#x5B58;&#x653E;&#x52A0;&#x8F7D;&#x7684;dex&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;&#x7684;&#xFF0C;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x7684;&#x7C7B;&#x52A0;&#x8F7D;&#x5668;&#x662F;PathClassLoader&#xFF0C;&#x672C;&#x8EAB;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x52A0;&#x8F7D;&#x4E4B;&#x540E;&#x4F1A;&#x91CA;&#x653E;&#x4E00;&#x4E2A;dex&#x51FA;&#x6765;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x4F1A;&#x5C06;dex&#x8DEF;&#x5F84;&#x653E;&#x5230;&#x91CC;&#x9762;&#xFF0C;&#x5F53;&#x7136;DexClassLoader&#x4E5F;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x4F1A;&#x60F3;&#x5230;&#xFF0C;&#x6211;&#x4EEC;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x5C06;DexClassLoader&#x4E2D;&#x7684;dexElements&#x548C;PathClassLoader&#x4E2D;&#x7684;dexElements&#x8FDB;&#x884C;&#x5408;&#x5E76;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x8BBE;&#x7F6E;&#x7ED9;PathClassLoader&#x4E2D;&#x5462;&#xFF1F;&#x8FD9;&#x4E5F;&#x662F;&#x4E00;&#x4E2A;&#x601D;&#x8DEF;&#x3002;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>/** 
+ * &#x4EE5;&#x4E0B;&#x662F;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x5B9E;&#x73B0;&#x7684; 
+ * @param loader 
+ */  
+private void inject(DexClassLoader loader){  
+    PathClassLoader pathLoader = (PathClassLoader) getClassLoader();  
+
+    try {  
+        Object dexElements = combineArray(  
+                getDexElements(getPathList(pathLoader)),  
+                getDexElements(getPathList(loader)));  
+        Object pathList = getPathList(pathLoader);  
+        setField(pathList, pathList.getClass(), &quot;dexElements&quot;, dexElements);  
+    } catch (IllegalArgumentException e) {  
+        e.printStackTrace();  
+    } catch (NoSuchFieldException e) {  
+        e.printStackTrace();  
+    } catch (IllegalAccessException e) {  
+        e.printStackTrace();  
+    } catch (ClassNotFoundException e) {  
+        e.printStackTrace();  
+    }  
+}  
+
+private static Object getPathList(Object baseDexClassLoader)  
+        throws IllegalArgumentException, NoSuchFieldException
+        , IllegalAccessException, ClassNotFoundException {  
+    ClassLoader bc = (ClassLoader)baseDexClassLoader;  
+    return getField(baseDexClassLoader, 
+            Class.forName(&quot;dalvik.system.BaseDexClassLoader&quot;), &quot;pathList&quot;);  
+}  
+
+private static Object getField(Object obj, Class&lt;?&gt; cl, String field)  
+        throws NoSuchFieldException, IllegalArgumentException
+                                        , IllegalAccessException {  
+    Field localField = cl.getDeclaredField(field);  
+    localField.setAccessible(true);  
+    return localField.get(obj);  
+}  
+
+private static Object getDexElements(Object paramObject)  
+        throws IllegalArgumentException, NoSuchFieldException
+                                        , IllegalAccessException {  
+    return getField(paramObject, paramObject.getClass(), &quot;dexElements&quot;);  
+}  
+private static void setField(Object obj, Class&lt;?&gt; cl, String field,  
+        Object value) throws NoSuchFieldException,  
+        IllegalArgumentException, IllegalAccessException {  
+
+    Field localField = cl.getDeclaredField(field);  
+    localField.setAccessible(true);  
+    localField.set(obj, value);  
+}  
+
+private static Object combineArray(Object arrayLhs, Object arrayRhs) {  
+    Class&lt;?&gt; localClass = arrayLhs.getClass().getComponentType();  
+    int i = Array.getLength(arrayLhs);  
+    int j = i + Array.getLength(arrayRhs);  
+    Object result = Array.newInstance(localClass, j);  
+    for (int k = 0; k &lt; j; ++k) {  
+        if (k &lt; i) {  
+            Array.set(result, k, Array.get(arrayLhs, k));  
+        } else {  
+            Array.set(result, k, Array.get(arrayRhs, k - i));  
+        }  
+    }  
+    return result;  
+}
+</code></pre><p>&#x6211;&#x4EEC;&#x5728;&#x8FD0;&#x884C;&#x5BBF;&#x4E3B;&#x7A0B;&#x5E8F;&#xFF0C;&#x53D1;&#x73B0;&#x53D1;&#x73B0;&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x7684;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x6F14;&#x793A;&#x4E86;&#xFF0C;&#x6548;&#x679C;&#x90FD;&#x662F;&#x4E00;&#x6837;&#x7684;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<p>&#x6211;&#x4EEC;&#x5728;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x6765;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6709;&#x4E24;&#x4E2A;&#x601D;&#x8DEF;&#xFF1A;</p>
+<ul>
+<li>1&gt;&#x3001;&#x66FF;&#x6362;LoadApk&#x7C7B;&#x4E2D;&#x7684;mClassLoader&#x53D8;&#x91CF;&#x7684;&#x503C;&#xFF0C;&#x5C06;&#x6211;&#x4EEC;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x7C7B;DexClassLoader&#x8BBE;&#x7F6E;&#x4E3A;mClassLoader&#x7684;&#x503C;</li>
+<li>2&gt;&#x3001;&#x5408;&#x5E76;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x52A0;&#x8F7D;&#x5668;PathClassLoader&#x548C;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x5668;DexClassLoader&#x4E2D;&#x7684;dexElements&#x6570;&#x7EC4;</li>
+</ul>
+<p>&#x8FD9;&#x4E24;&#x4E2A;&#x7684;&#x601D;&#x8DEF;&#x539F;&#x7406;&#x90FD;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF1A;&#x5C31;&#x662F;&#x8BA9;&#x6211;&#x4EEC;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x8FDB;&#x6765;&#x7684;Activity&#x80FD;&#x591F;&#x5177;&#x5907;&#x6B63;&#x5E38;&#x7684;&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#x548C;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+<p>&#x9879;&#x76EE;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="http://download.csdn.net/detail/jiangwei0910410003/9063377" target="_blank">http://download.csdn.net/detail/jiangwei0910410003/9063377</a></p>
+<h3 id="2&#x3001;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x52A8;&#x6001;&#x52A0;&#x8F7D;activity&#xFF1A;&#x9759;&#x6001;&#x4EE3;&#x7406;&#x7684;&#x65B9;&#x5F0F;">2&#x3001;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity&#xFF1A;&#x9759;&#x6001;&#x4EE3;&#x7406;&#x7684;&#x65B9;&#x5F0F;</h3>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x4E5F;&#x662F;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;23Code</p>
+<p>&#x8FD9;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x529F;&#x80FD;&#x5C31;&#x662F;&#x5B9E;&#x65F6;&#x7684;&#x5C55;&#x793A;&#x4E00;&#x4E9B;&#x5F00;&#x6E90;&#x7684;UI&#x63A7;&#x4EF6;&#x3002;&#x4ED6;&#x662F;&#x5728;&#x7EBF;&#x4E0B;&#x8F7D;&#xFF0C;&#x7136;&#x540E;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x8FDB;&#x884C;&#x5C55;&#x793A;&#x7684;&#xFF1A;</p>
+<p><img src="4/14.png" alt="">  <img src="4/15.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x770B;&#x5230;&#xFF0C;&#x70B9;&#x51FB;&#x8FD0;&#x884C;Demo&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4ED6;&#x4F1A;&#x53BB;&#x4E0B;&#x8F7D;apk,&#x6211;&#x4EEC;&#x770B;&#x770B;&#x4ED6;&#x7684;&#x6570;&#x636E;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#xFF1A;</p>
+<p><img src="4/16.png" alt=""></p>
+<p>&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4E86;&#xFF0C;&#x4ED6;&#x628A;&#x4E0B;&#x8F7D;&#x4E4B;&#x540E;&#x7684;apk&#x90FD;&#x7528;&#x6BCF;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x529F;&#x80FD;&#x5305;&#x540D;&#x5B58;&#x8D77;&#x6765;&#x7684;&#x3002;</p>
+<p>&#x597D;&#x4E86;&#xFF0C;&#x4E0A;&#x9762;&#x5206;&#x6790;&#x4E86;23Code&#x7684;&#x52A0;&#x8F7D;&#x673A;&#x5236;&#xFF0C;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity</p>
+<p>&#x5148;&#x6765;&#x770B;&#x770B;&#x539F;&#x7406;&#xFF1A;</p>
+<p><img src="4/17.png" alt=""></p>
+<p>&#x6240;&#x4EE5;&#x8BF4;&#xFF0C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x52A0;&#x8F7D;Activity&#x7684;&#x8BDD;&#xFF0C;&#x5176;&#x5B9E;&#x771F;&#x6B63;&#x610F;&#x4E49;&#x4E0A;&#x6BCF;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;Activity&#x90FD;&#x4E0D;&#x518D;&#x662F;&#x60F3;&#x65B9;&#x5F0F;&#x4E00;&#x4E2D;&#x7684;&#x90A3;&#x6837;&#xFF0C;&#x6CA1;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x6CA1;&#x6709;&#x542F;&#x52A8;&#x6D41;&#x7A0B;&#x4E86;&#xFF0C;&#x4ED6;&#x4EEC;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684;Activity&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x6240;&#x6709;&#x4EFB;&#x52A1;&#x90FD;&#x4EA4;&#x7ED9;&#x4EE3;&#x7406;Activity&#x53BB;&#x6267;&#x884C;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x9879;&#x76EE;&#x5DE5;&#x7A0B;&#xFF1A;</p>
+<ul>
+<li>1&#x3001;DynamicActivityForProxy ==&#x300B;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;</li>
+<li>2&#x3001;PluginActivity2 ==&#x300B;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;</li>
+</ul>
+<p>&#x770B;&#x4E00;&#x4E0B;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;</p>
+<p>BaseActivity.java</p>
+<pre><code>package com.example.dynamicactivity;  
+
+import com.example.dynamicactivity.R;  
+
+import android.app.Activity;  
+import android.os.Bundle;  
+import android.view.View;  
+import android.view.View.OnClickListener;  
+import android.widget.Toast;  
+
+public class BaseActivity extends Activity {  
+    protected Activity mProxyActivity;  
+
+    public void setProxy(Activity proxyActivity) {   
+        mProxyActivity = proxyActivity;  
+    }  
+
+    @Override  
+    protected void onCreate(Bundle savedInstanceState) {  
+    }  
+
+    @Override  
+    public void setContentView(int layoutResID) {   
+        if (mProxyActivity != null &amp;&amp; mProxyActivity instanceof Activity) {  
+            mProxyActivity.setContentView(layoutResID);  
+            mProxyActivity.findViewById(R.id.btn).setOnClickListener(  
+                    new OnClickListener() {  
+                        @Override  
+                        public void onClick(View v) {  
+                            Toast.makeText(mProxyActivity, 
+                                    &quot;&#x6211;&#x662F;&#x63D2;&#x4EF6;&#xFF0C;&#x4F60;&#x662F;&#x8C01;!&quot;,Toast.LENGTH_LONG).show();  
+                        }  
+                    });  
+        }  
+    }  
+
+}
+</code></pre><p>&#x8FD9;&#x91CC;&#x4F1A;&#x91CD;&#x5199;setContentView&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x540C;&#x65F6;&#x6709;&#x4E00;&#x4E2A;setProxy&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x5728;&#x6765;&#x770B;&#x4E00;&#x4E0B;MainActivity.java</p>
+<pre><code>package com.example.dynamicactivity;  
+
+import com.example.dynamicactivity.R;  
+
+import android.os.Bundle;  
+import android.util.Log;  
+
+public class MainActivity extends BaseActivity {  
+
+    @Override  
+    protected void onCreate(Bundle savedInstanceState) {  
+        super.onCreate(savedInstanceState);  
+        setContentView(R.layout.activity_main);  
+    }  
+
+    @Override  
+    protected void onDestroy() {  
+        // &#x8FD9;&#x91CC;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF0C;&#x4E0D;&#x80FD;&#x8C03;&#x7528;super.onDestroy&#x7684;&#x65B9;&#x6CD5;&#x4E86;&#xFF0C;
+        // &#x4E0D;&#x7136;&#x62A5;&#x9519;&#xFF0C;&#x539F;&#x56E0;&#x4E5F;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x8FD9;&#x4E2A;Activity&#x5B9E;&#x8D28;&#x4E0A;&#x4E0D;&#x662F;&#x771F;&#x6B63;&#x7684;Activity&#x4E86;&#xFF0C;
+        // &#x6CA1;&#x6709;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x6982;&#x5FF5;&#x4E86;&#xFF0C;&#x8C03;&#x7528;super&#x7684;&#x65B9;&#x6CD5;&#x80AF;&#x5B9A;&#x62A5;&#x9519;  
+        Log.i(&quot;demo&quot;, &quot;onDestory&quot;);  
+    }  
+
+    @Override  
+    protected void onPause() {  
+        Log.i(&quot;demo&quot;, &quot;onPause&quot;);  
+    }  
+
+    @Override  
+    protected void onResume() {  
+        Log.i(&quot;demo&quot;, &quot;onResume&quot;);  
+    }  
+
+    @Override  
+    protected void onStart() {  
+        Log.i(&quot;demo&quot;, &quot;onStart&quot;);  
+    }  
+
+    @Override  
+    protected void onStop() {  
+        Log.i(&quot;demo&quot;, &quot;onStop&quot;);  
+    } 
+}
+</code></pre><p>&#x8FD9;&#x91CC;&#x6253;&#x5370;&#x4E00;&#x4E0B;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5F85;&#x4F1A;&#x9700;&#x8981;&#x9A8C;&#x8BC1;&#x3002;</p>
+<p><strong>&#x6CE8;&#x610F;&#xFF1A;&#x8FD9;&#x91CC;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#x4E0D;&#x80FD;&#x518D;&#x8C03;&#x7528;super.XXX&#x65B9;&#x6CD5;&#x4E86;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x62A5;&#x9519;&#x7684;&#xFF0C;&#x539F;&#x56E0;&#x5F88;&#x7B80;&#x5355;&#x5566;&#x3002;&#x63D2;&#x4EF6;Activity&#x4E0D;&#x5728;&#x662F;&#x771F;&#x6B63;&#x610F;&#x4E49;&#x4E0A;&#x7684;Activity&#x4E86;&#xFF0C;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x58F3;&#x7684;Activity&#x3002;&#x6240;&#x4EE5;&#x8C03;&#x7528;&#x7684;&#x8BDD;&#xFF0C;&#x80AF;&#x5B9A;&#x4F1A;&#x51FA;&#x9519;</strong></p>
+<p>&#x8FD0;&#x884C;&#x63D2;&#x4EF6;&#x5DE5;&#x7A0B;&#xFF0C;&#x5F97;&#x5230;&#x4E00;&#x4E2A;PluginActivity2.apk</p>
+<p>&#x4E0B;&#x9762;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#xFF1A;</p>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x91CD;&#x8981;&#x7684;&#x4EE3;&#x7406;&#x5BF9;&#x8C61;ProxyActiviity</p>
+<pre><code>package com.example.dynamic.activity;  
+
+import java.io.File;  
+import java.lang.reflect.Constructor;  
+import java.lang.reflect.Method;  
+import java.util.HashMap;  
+
+import android.annotation.SuppressLint;  
+import android.app.Activity;  
+import android.os.Bundle;  
+import android.util.Log;  
+import dalvik.system.DexClassLoader;  
+
+public class ProxyActivity extends BaseActivity {  
+
+    private Object pluginActivity;  
+    private Class&lt;?&gt; pluginClass;  
+
+    private HashMap&lt;String, Method&gt; methodMap = new HashMap&lt;String,Method&gt;();  
+
+    @SuppressLint(&quot;NewApi&quot;)  
+    @Override  
+    protected void onCreate(Bundle savedInstanceState) {  
+        super.onCreate(savedInstanceState);  
+        try {  
+            DexClassLoader loader = initClassLoader();  
+
+            //&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x63D2;&#x4EF6;Activity  
+            pluginClass = loader.loadClass(
+                            &quot;com.example.dynamicactivity.MainActivity&quot;);  
+            Constructor&lt;?&gt; localConstructor = pluginClass.getConstructor(
+                                                new Class[] {});  
+            pluginActivity = localConstructor.newInstance(new Object[] {});  
+
+            //&#x5C06;&#x4EE3;&#x7406;&#x5BF9;&#x8C61;&#x8BBE;&#x7F6E;&#x7ED9;&#x63D2;&#x4EF6;Activity  
+            Method setProxy = pluginClass.getMethod(&quot;setProxy&quot;,
+                                    new Class[] { Activity.class });   
+            setProxy.setAccessible(true);  
+            setProxy.invoke(pluginActivity, new Object[] { this });  
+
+            initMethodMap();  
+
+            //&#x8C03;&#x7528;&#x5B83;&#x7684;onCreate&#x65B9;&#x6CD5;  
+            Method onCreate = pluginClass.getDeclaredMethod(&quot;onCreate&quot;,  
+                    new Class[] { Bundle.class });  
+            onCreate.setAccessible(true);  
+            onCreate.invoke(pluginActivity, new Object[] { new Bundle() });  
+
+        } catch (Exception e) {  
+            Log.i(&quot;demo&quot;, &quot;load activity error:&quot;+Log.getStackTraceString(e));  
+        }  
+    }  
+
+    /** 
+     * &#x5B58;&#x50A8;&#x6BCF;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x65B9;&#x6CD5; 
+     */  
+    private void initMethodMap(){  
+        methodMap.put(&quot;onPause&quot;, null);  
+        methodMap.put(&quot;onResume&quot;, null);  
+        methodMap.put(&quot;onStart&quot;, null);  
+        methodMap.put(&quot;onStop&quot;, null);  
+        methodMap.put(&quot;onDestroy&quot;, null);  
+
+        for(String key : methodMap.keySet()){  
+            try{  
+                Method method = pluginClass.getDeclaredMethod(key);  
+                method.setAccessible(true);  
+                methodMap.put(key, method);  
+            }catch(Exception e){  
+                Log.i(&quot;demo&quot;, &quot;get method error:&quot;+Log.getStackTraceString(e));  
+            }  
+        }  
+
+    }  
+
+    @SuppressLint(&quot;NewApi&quot;)  
+    private DexClassLoader initClassLoader(){  
+        String filesDir = this.getCacheDir().getAbsolutePath();  
+        String libPath = filesDir + File.separator +&quot;PluginActivity2.apk&quot;;  
+        Log.i(&quot;inject&quot;, &quot;fileexist:&quot;+new File(libPath).exists());  
+        loadResources(libPath);  
+        DexClassLoader loader = new DexClassLoader(libPath, filesDir
+                                    ,null , getClass().getClassLoader());  
+        return loader;  
+    }  
+
+    @Override  
+    protected void onDestroy() {  
+        super.onDestroy();  
+        Log.i(&quot;demo&quot;, &quot;proxy onDestroy&quot;);  
+        try{  
+            methodMap.get(&quot;onDestroy&quot;).invoke(pluginActivity, new Object[]{});  
+        }catch(Exception e){  
+            Log.i(&quot;demo&quot;, &quot;run destroy error:&quot;+Log.getStackTraceString(e));  
+        }  
+    }  
+
+    @Override  
+    protected void onPause() {  
+        super.onPause();  
+        Log.i(&quot;demo&quot;, &quot;proxy onPause&quot;);  
+        try{  
+            methodMap.get(&quot;onPause&quot;).invoke(pluginActivity, new Object[]{});  
+        }catch(Exception e){  
+            Log.i(&quot;demo&quot;, &quot;run pause error:&quot;+Log.getStackTraceString(e));  
+        }  
+    }  
+
+    @Override  
+    protected void onResume() {  
+        super.onResume();  
+        Log.i(&quot;demo&quot;, &quot;proxy onResume&quot;);  
+        try{  
+            methodMap.get(&quot;onResume&quot;).invoke(pluginActivity, new Object[]{});  
+        }catch(Exception e){  
+            Log.i(&quot;demo&quot;, &quot;run resume error:&quot;+Log.getStackTraceString(e));  
+        }  
+    }  
+
+    @Override  
+    protected void onStart() {  
+        super.onStart();  
+        Log.i(&quot;demo&quot;, &quot;proxy onStart&quot;);  
+        try{  
+            methodMap.get(&quot;onStart&quot;).invoke(pluginActivity, new Object[]{});  
+        }catch(Exception e){  
+            Log.i(&quot;demo&quot;, &quot;run start error:&quot;+Log.getStackTraceString(e));  
+        }  
+    }  
+
+    @Override  
+    protected void onStop() {  
+        super.onStop();  
+        Log.i(&quot;demo&quot;, &quot;proxy onStop&quot;);  
+        try{  
+            methodMap.get(&quot;onStop&quot;).invoke(pluginActivity, new Object[]{});  
+        }catch(Exception e){  
+            Log.i(&quot;demo&quot;, &quot;run stop error:&quot;+Log.getStackTraceString(e));  
+        }  
+    }  
+
+}
+</code></pre><p>&#x8FD9;&#x91CC;&#x4E3B;&#x8981;&#x5C31;&#x662F;&#xFF1A;</p>
+<ul>
+<li>1&#x3001;&#x52A0;&#x8F7D;&#x63D2;&#x4EF6;Activity</li>
+<li>2&#x3001;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x5C06;&#x4EE3;&#x7406;&#x5BF9;&#x8C61;&#x8BBE;&#x7F6E;&#x7ED9;&#x63D2;&#x4EF6;Activity</li>
+<li>3&#x3001;&#x6D4B;&#x8BD5;&#x63D2;&#x4EF6;Activity&#x4E2D;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;</li>
+</ul>
+<p>&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x4E0A;&#x9762;&#x7684;PluginActivity2.apk&#x653E;&#x5230;&#x5BBF;&#x4E3B;&#x7A0B;&#x5E8F;&#x7684;cache&#x76EE;&#x5F55;&#x4E0B;&#xFF1A;</p>
+<p><img src="4/19.png" alt=""></p>
+<p>&#x8FD0;&#x884C;&#xFF1A;</p>
+<p><img src="4/20.gif" alt=""></p>
+<p>&#x4E5F;&#x662F;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x770B;&#x5230;&#x6548;&#x679C;&#x5566;&#x5566;&#xFF0C;&#x540C;&#x65F6;&#x6211;&#x4EEC;&#x6253;&#x5370;&#x4E00;&#x4E0B;Log&#x65E5;&#x5FD7;&#xFF1A;</p>
+<p><img src="4/21.png" alt=""></p>
+<p>&#x63D2;&#x4EF6;Activity&#x7684;&#x6BCF;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x65B9;&#x6CD5;&#x4E5F;&#x662F;&#x90FD;&#x6267;&#x884C;&#x4E86;&#x3002;</p>
+<p>&#x5230;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x5C31;&#x8BB2;&#x89E3;&#x5B8C;&#x4E86;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x5176;&#x5B9E;&#x8FD8;&#x662F;&#x5F88;&#x7B80;&#x5355;&#x7684;&#x3002;</p>
+<p>&#x9879;&#x76EE;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="http://download.csdn.net/detail/jiangwei0910410003/9063483" target="_blank">http://download.csdn.net/detail/jiangwei0910410003/9063483</a></p>
+<p>&#x603B;&#x7B97;&#x662F;&#x8BB2;&#x5B8C;&#x4E86;&#xFF0C;&#x7D2F;&#x6B7B;&#x4E86;&#xFF0C;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x5404;&#x6709;&#x5343;&#x79CB;&#xFF0C;&#x5404;&#x6709;&#x5404;&#x7684;&#x597D;&#x5904;&#x3002;</p>
+<h2 id="&#x4E09;&#x3001;&#x6848;&#x4F8B;&#x5206;&#x6790;">&#x4E09;&#x3001;&#x6848;&#x4F8B;&#x5206;&#x6790;</h2>
+<p>&#x4E0A;&#x9762;&#x8BB2;&#x89E3;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4ECB;&#x7ECD;&#x4E86;&#x4E24;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;&#x4E00;&#x4E2A;&#x662F;360&#x536B;&#x58EB;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;23Code</p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x4F8B;&#x5B50;&#x5462;&#xFF1F;&#x539F;&#x56E0;&#x4E0B;&#x8F7D;&#x8BF4;&#x660E;&#x4E00;&#x4E0B;&#x5566;&#xFF1A;</p>
+<h3 id="1&#x3001;&#x9996;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;360&#x536B;&#x58EB;&#xFF0C;&#x6211;&#x4EEC;&#x6253;&#x5F00;&#x5B83;&#x7684;&#x4E00;&#x4E2A;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF1A;">1&#x3001;&#x9996;&#x5148;&#x6765;&#x770B;&#x4E00;&#x4E0B;360&#x536B;&#x58EB;&#xFF0C;&#x6211;&#x4EEC;&#x6253;&#x5F00;&#x5B83;&#x7684;&#x4E00;&#x4E2A;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#xFF1A;</h3>
+<p>&#x4F7F;&#x7528;&#xFF1A;<code>adb shell dumpsys activity top</code></p>
+<p><img src="4/22.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x518D;&#x6765;&#x770B;&#x4E00;&#x4E0B;&#x4ED6;&#x7684;AndroidManifest.xml&#x5185;&#x5BB9;&#xFF1A;</p>
+<p><img src="4/23.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x4ED6;&#x5728;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E2D;&#x58F0;&#x660E;&#x4E86;&#xFF0C;&#x800C;&#x4E14;&#x6211;&#x4EEC;&#x4F1A;&#x770B;&#x5230;&#x6709;&#x5F88;&#x591A;&#x4E2A;&#x8F85;&#x52A9;&#x529F;&#x80FD;&#x90FD;&#x58F0;&#x660E;&#x4E86;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x65AD;&#x5B9A;&#x4ED6;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x53BB;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6709;&#x4E00;&#x4E2A;&#x4E0D;&#x597D;&#x5C31;&#x662F;&#xFF1A;&#x9700;&#x8981;&#x5728;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E2D;&#x58F0;&#x660E;&#x5F88;&#x591A;&#x4E2A;&#x63D2;&#x4EF6;Activity&#x3002;</p>
+<h3 id="2&#x3001;&#x5728;&#x6765;&#x770B;&#x4E00;&#x4E0B;23code&#x5E94;&#x7528;">2&#x3001;&#x5728;&#x6765;&#x770B;&#x4E00;&#x4E0B;23Code&#x5E94;&#x7528;</h3>
+<p>&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x4E4B;&#x540E;&#xFF0C;&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4ED6;&#x7684;Activity&#x662F;TestActivity</p>
+<p><img src="4/24.png" alt=""></p>
+<p>&#x6211;&#x4EEC;&#x518D;&#x53BB;&#x5207;&#x6362;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x8FD0;&#x884C;&#x4E4B;&#x540E;&#xFF0C;&#x4E5F;&#x662F;&#x53D1;&#x73B0;&#x8FD8;&#x662F;&#x8FD9;&#x4E2A;TestActivity&#x3002;&#x770B;&#x770B;&#x4ED6;&#x7684;AndroidManifest.xml</p>
+<p><img src="4/25.png" alt=""></p>
+<p>&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x65AD;&#x5B9A;&#xFF0C;&#x8FD9;&#x4E2A;TestActivity&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x4EE3;&#x7406;&#x7684;Activity,&#x4ED6;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x7684;&#x3002;
+&#x73B0;&#x5728;&#x77E5;&#x9053;&#x4E3A;&#x4F55;&#x6211;&#x5F00;&#x59CB;&#x7684;&#x65F6;&#x5019;&#x4E3A;&#x4EC0;&#x4E48;&#x7528;&#x8FD9;&#x4E24;&#x4E2A;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E;&#x4E86;&#x5427;&#x3002;</p>
+<h2 id="&#x56DB;&#x3001;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x6BD4;&#x8F83;">&#x56DB;&#x3001;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x6BD4;&#x8F83;</h2>
+<ul>
+<li>&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x673A;&#x5236;&#x6765;&#x5B9E;&#x73B0;<ul>
+<li>&#x4F18;&#x70B9;&#xFF1A;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x592A;&#x591A;&#x7684;&#x5173;&#x5FC3;&#x63D2;&#x4EF6;&#x4E2D;&#x7684;Activity&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x52A0;&#x8F7D;&#x8FDB;&#x6765;&#x4E4B;&#x540E;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x771F;&#x6B63;&#x610F;&#x4E49;&#x4E0A;&#x7684;Activity&#x4E86;</li>
+<li>&#x7F3A;&#x70B9;&#xFF1A;&#x9700;&#x8981;&#x5728;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E2D;&#x8FDB;&#x884C;&#x58F0;&#x660E;&#xFF0C;&#x5982;&#x679C;&#x63D2;&#x4EF6;&#x4E2D;&#x7684;Activity&#x591A;&#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4E0D;&#x7075;&#x6D3B;&#x4E86;&#x3002;</li>
+</ul>
+</li>
+<li>&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;&#x4F7F;&#x7528;&#x4EE3;&#x7406;&#x673A;&#x5236;&#x6765;&#x5B9E;&#x73B0;<ul>
+<li>&#x4F18;&#x70B9;&#xFF1A;&#x4E0D;&#x9700;&#x8981;&#x5728;&#x5BBF;&#x4E3B;&#x5DE5;&#x7A0B;&#x4E2D;&#x8FDB;&#x884C;&#x58F0;&#x660E;&#x592A;&#x591A;&#x7684;Activity&#x4E86;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x4EE3;&#x7406;Activity&#x7684;&#x58F0;&#x660E;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#xFF0C;&#x5F88;&#x7075;&#x6D3B;</li>
+<li>&#x7F3A;&#x70B9;&#xFF1A;&#x9700;&#x8981;&#x7BA1;&#x7406;&#x624B;&#x52A8;&#x7684;&#x53BB;&#x7BA1;&#x7406;&#x63D2;&#x4EF6;&#x4E2D;Activity&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x65B9;&#x6CD5;&#xFF0C;&#x96BE;&#x5EA6;&#x590D;&#x6742;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<h2 id="&#x4E94;&#x3001;&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;">&#x4E94;&#x3001;&#x5B58;&#x5728;&#x7684;&#x95EE;&#x9898;</h2>
+<p>&#x6211;&#x4EEC;&#x770B;&#x5230;&#x4E0A;&#x9762;&#x8BB2;&#x5230;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x53BB;&#x52A8;&#x6001;&#x52A0;&#x8F7D;Activity,&#x5176;&#x5B9E;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x90FD;&#x8FD8;&#x5B58;&#x5728;&#x5F88;&#x591A;&#x95EE;&#x9898;&#xFF1A;</p>
+<ul>
+<li>1&#x3001;&#x5176;&#x4ED6;&#x7EC4;&#x4EF6;&#x7684;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x95EE;&#x9898;(&#x670D;&#x52A1;&#xFF0C;&#x5E7F;&#x64AD;&#xFF0C;ContentProvier)</li>
+<li>2&#x3001;&#x8DE8;&#x8FDB;&#x7A0B;&#x8BBF;&#x95EE;&#x7684;&#x95EE;&#x9898;</li>
+</ul>
+<h2 id="&#x516D;&#x3001;&#x603B;&#x7ED3;">&#x516D;&#x3001;&#x603B;&#x7ED3;</h2>
+<p>&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x8BB2;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x90A3;&#x4E48;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x7BC7;&#x7684;&#x4E09;&#x90E8;&#x66F2;&#x5C31;&#x7B97;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;Android&#x4E2D;&#x7684;&#x63D2;&#x4EF6;&#x5F00;&#x53D1;&#x4E5F;&#x7B97;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x597D;&#x7684;&#x603B;&#x7ED3;&#x4E86;&#xFF0C;&#x4E5F;&#x662F;&#x8BB2;&#x89E3;&#x4E86;&#x73B0;&#x5728;&#x4E3B;&#x6D41;&#x5E02;&#x573A;&#x4E2D;&#x52A0;&#x8F7D;&#x7684;&#x539F;&#x7406;&#x548C;&#x673A;&#x5236;&#x3002;&#x5F53;&#x7136;&#x6211;&#x4EEC;&#x5728;&#x771F;&#x6B63;&#x7684;&#x4F7F;&#x7528;&#x8FC7;&#x7A0B;&#x4E2D;&#x8FD8;&#x4F1A;&#x5B58;&#x5728;&#x5F88;&#x591A;&#x95EE;&#x9898;&#xFF0C;&#x5F53;&#x7136;&#x8FD9;&#x4E2A;&#x5C31;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x81EA;&#x5DF1;&#x53BB;&#x63A2;&#x7D22;&#x548C;&#x89E3;&#x51B3;&#x4E86;&#x3002;</p>
+<p>(PS&#xFF1A;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x9879;&#x76EE;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#x90FD;&#x5728;&#x4E0A;&#x9762;&#x7ED9;&#x51FA;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x5728;&#x8FD0;&#x884C;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x6709;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#x7684;&#x8BDD;&#xFF0C;&#x8BF7;&#x7559;&#x8A00;&#x3002;&#x80FD;&#x5E2E;&#x5C31;&#x5C3D;&#x91CF;&#x5E2E;&#x52A9;&#x89E3;&#x51B3;&#x4E00;&#x4E0B;~~)</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../插件式开发/猿是一种能够改变世界的动物/index.html" class="navigation navigation-prev " aria-label="Previous page: 猿是一种能够改变世界的动物"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../插件式开发/猿是一种能够改变世界的动物/Android中插件开发篇之----应用换肤原理解析.html" class="navigation navigation-next " aria-label="Next page: Android中插件开发篇之----应用换肤原理解析"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
