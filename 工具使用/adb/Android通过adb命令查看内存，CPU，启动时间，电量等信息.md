@@ -293,3 +293,13 @@ Current Battery Service state:
   technology: Li-poly
 shell@android:/ $
 ```
+
+## 5、查看当前显示的Activity
+
+linux:
+
+> adb shell dumpsys activity | grep "mFocusedActivity"
+
+windows:
+
+> adb shell dumpsys activity | findstr "mFocusedActivity"

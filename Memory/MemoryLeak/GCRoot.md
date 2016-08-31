@@ -17,6 +17,6 @@
 
 以下是一张由Java Profiler的标示出哪些是GC roots的示例图：
 
-![](./gc_roots_in_explorer.gif)
+![](6/gc_roots_in_explorer.gif)
 
 译自：[http://www.yourkit.com/docs/80/help/gc_roots.jsp](http://www.yourkit.com/docs/80/help/gc_roots.jsp)

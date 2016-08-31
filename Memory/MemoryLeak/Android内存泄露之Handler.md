@@ -42,7 +42,7 @@ public class HandlerActivity extends Activity {
 
 Eclipse 工具有这样的警告提示 警告: 
 
-![](memory-leak-handler-1.png)
+![](7/1.png)
 
 > This Handler class should be static or leaks might occur (com.example.ta.HandlerActivity.1),意思：class 使用静态声明否者可能出现内存泄露。
 

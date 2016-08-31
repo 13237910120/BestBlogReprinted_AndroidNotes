@@ -59,7 +59,7 @@ Java的内存管理就是对象的分配和释放问题。在 Java 中，程序�
 
 以下，我们举一个例子说明如何用有向图表示内存管理。对于程序的每一个时刻，我们都有一个有向图表示JVM的内存分配情况。以下右图，就是左边程序运行到第6行的示意图。
 
-![](aliyun-memory-leak/1.gif)
+![](4/1.gif)
 
 
 **Java使用有向图的方式进行内存管理，可以消除引用循环的问题，例如有三个对象，相互引用，只要它们和根进程不可达的，那么GC也是可以回收它们的。这种方式的优点是管理内存的精度很高，但是效率较低。另外一种常用的内存管理技术是使用计数器，例如COM模型采用计数器方式管理构件，它与有向图相比，精度行低(很难处理循环引用的问题)，但执行效率很高。**
@@ -72,7 +72,7 @@ Java的内存管理就是对象的分配和释放问题。在 Java 中，程序�
 
 通过分析，我们得知，对于C++，程序员需要自己管理边和顶点，而对于Java程序员只需要管理边就可以了(不需要管理顶点的释放)。通过这种方式，Java提高了编程的效率。
 
-![](aliyun-memory-leak/2.gif)
+![](4/2.gif)
 
 因此，通过以上分析，我们知道在Java中也有内存泄漏，但范围比C++要小一些。因为Java从语言上保证，任何对象都是可达的，所有的不可达对象都由GC管理。
 
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
 将该内部类设为静态内部类或将该内部类抽取出来封装成一个单例，如果需要使用Context，请按照上面推荐的使用Application 的 Context。当然，Application 的 context 不是万能的，所以也不能随便乱用，对于有些地方则必须使用 Activity 的 Context，对于Application，Service，Activity三者的Context的应用场景如下：
 
-![](aliyun-memory-leak/3.png)
+![](4/3.png)
 
 **其中**： NO1表示 Application 和 Service 可以启动一个 Activity，不过需要创建一个新的 task 任务队列。而对于 Dialog 而言，只有在 Activity 中才能创建
 
@@ -222,7 +222,7 @@ public class MainActivity extends Activity {
 
 ref1和ref2的区别是，ref2使用了匿名内部类。我们来看看运行时这两个引用的内存：
 
-![](aliyun-memory-leak/4.png)
+![](4/4.png)
 
 可以看到，ref1没什么特别的。
 
@@ -320,7 +320,7 @@ public class SampleActivity extends Activity {
 
 Java对引用的分类有 Strong reference, SoftReference, WeakReference, PhatomReference 四种。
 
-![](aliyun-memory-leak/5.jpg)
+![](4/5.jpg)
 
 在Android应用的开发中，为了防止内存溢出，在处理一些占用内存大而且声明周期较长的对象时候，可以尽量应用软引用和弱引用技术。
 
@@ -336,7 +336,7 @@ private Map <String, SoftReference<Bitmap>> imageCache = new HashMap <String, So
 
 再来定义一个方法，保存Bitmap的软引用到HashMap。
 
-![](aliyun-memory-leak/6.jpg)
+![](4/6.jpg)
 
 使用软引用以后，在OutOfMemory异常发生之前，这些缓存的图片资源的内存空间可以被释放掉的，从而避免内存达到上限，避免Crash发生。
 
@@ -408,7 +408,7 @@ Java 内存泄漏的分析工具有很多，但众所周知的要数 MAT(Memory 
 
 打开 DDMS 工具，在左边 Devices 视图页面选中“Update Heap”图标，然后在右边切换到 Heap 视图，点击 Heap 视图中的“Cause GC”按钮，到此为止需检测的进程就可以被监视。
 
-![](aliyun-memory-leak/7.jpg)
+![](4/7.jpg)
 
 Heap视图中部有一个Type叫做data object，即数据对象，也就是我们的程序中大量存在的类类型的对象。在data object一行中有一列是“Total Size”，其值就是当前进程中所有Java数据对象的内存总量，一般情况下，这个值的大小决定了是否会有内存泄漏。可以这样判断：
 
@@ -422,19 +422,19 @@ Heap视图中部有一个Type叫做data object，即数据对象，也就是我�
 
 A)Dump出内存泄露当时的内存镜像hprof，分析怀疑泄露的类：
 
-![](aliyun-memory-leak/8.jpg)
+![](4/8.jpg)
 
 B)分析持有此类对象引用的外部对象
 
-![](aliyun-memory-leak/9.png)
+![](4/9.png)
 
 C)分析这些持有引用的对象的GC路径
 
-![](aliyun-memory-leak/10.png)
+![](4/10.png)
 
 D)逐个分析每个对象的GC路径是否正常
 
-![](aliyun-memory-leak/11.png)
+![](4/11.png)
 
 从这个路径可以看出是一个antiRadiationUtil工具类对象持有了MainActivity的引用导致MainActivity无法释放。此时就要进入代码分析此时antiRadiationUtil的引用持有是否合理（如果antiRadiationUtil持有了MainActivity的context导致节目退出后MainActivity无法销毁，那一般都属于内存泄露了）。
 
@@ -448,17 +448,17 @@ B）打开Histogram view.
 
 C）在NavigationHistory view里 (如果看不到就从Window >show view>MAT- Navigation History ), 右击histogram然后选择Add to Compare Basket .
 
-![](aliyun-memory-leak/12.png)
+![](4/12.png)
 
 D）打开第二个HPROF 文件然后重做步骤2和3.
 
 E）切换到Compare Basket view, 然后点击Compare the Results (视图右上角的红色”!”图标)。
 
-![](aliyun-memory-leak/13.png)
+![](4/13.png)
 
 F）分析对比结果
 
-![](aliyun-memory-leak/14.png)
+![](4/14.png)
 
 可以看出两个hprof的数据对象对比结果。
 
@@ -542,7 +542,7 @@ public class ExampleApplication extends Application {
 
 然后你会在通知栏看到这样很漂亮的一个界面:
 
-![](aliyun-memory-leak/15.png)
+![](4/15.png)
 
 以很直白的方式将内存泄露展现在我们的面前。
 

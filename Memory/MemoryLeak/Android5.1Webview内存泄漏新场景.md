@@ -8,7 +8,7 @@
 
 GC roots 如下:
 
-![](webview-5.1/1.JPG)
+![](5/1.JPG)
 
 每新打开一次这个WebViewActivity，就会发生就会发生一次改Webview实例无法释放，新增一个对象。
 

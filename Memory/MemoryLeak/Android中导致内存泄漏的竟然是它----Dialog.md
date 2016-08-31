@@ -2,13 +2,13 @@
 
 来源:[腾讯Bugly-微信](http://bugly.qq.com/bbs/forum.php?mod=viewthread&tid=516#rd)
 
-![](memory-leak-dialog/memory-leak-dialog-1.jpg)
+![](2/memory-leak-dialog-1.jpg)
 
 ## 一，内存泄漏的 Bug 猛增
 
 最近接入了公司组件分析云，在 memory-leak-dialog/memory-leak-dialogApp 进行 mokey 测试的时候顺便检测内存泄漏问题。于是，就在前天的测试中，楼主一瞬间收到了4个这样的 Bug 单，瞬间心理无比纠结，真有千万只羊驼向我奔来。
 
-![](memory-leak-dialog/memory-leak-dialog-2.png)memory-leak-dialog/memory-leak-dialog
+![](2/memory-leak-dialog-2.png)memory-leak-dialog/memory-leak-dialog
 
 登录页面出现内存泄漏？？！！楼主的代码是如此的完美而无懈可击，这么可能出现这么多泄漏的问题？分析云测漏的工具有问题吧！？
 
@@ -21,15 +21,15 @@
 
 *  ① AuthDialog 引用链
 
-![](memory-leak-dialog/memory-leak-dialog-3.png)
+![](2/memory-leak-dialog-3.png)
 
 * ② BrowserFrame 引用链
 
-![](memory-leak-dialog/memory-leak-dialog-4.jpg)
+![](2/memory-leak-dialog-4.jpg)
 
 * ③ IClipboradDataPaste 引用链
 
-![](memory-leak-dialog/memory-leak-dialog-5.png)
+![](2/memory-leak-dialog-5.png)
 
 看来这次情况有点不同！由于 Monkey 测试的机型比较少，这里所有的 Bug 都来自一部三星 GT-I9300@android+4.3 手机。
 
@@ -37,11 +37,11 @@
 
 * 1.CookieSyncManager 是个全局静态单例，操作系统内部使用了 App 的 Activity 作为 Context 构造了它的实例。我们应该在 App 启动的时候，抢先帮系统创建这个单例，而且要用 applicationContext，让它不会引用到 Activity。
 
-![](memory-leak-dialog/memory-leak-dialog-6.png)
+![](2/memory-leak-dialog-6.png)
 
 * 2.使用 WebView 的页面（Activity），在生命周期结束页面退出（`onDestory`）的时候，需要主动调用 `WebView.onPause()`以及`WebView.destory()`以便让系统释放 WebView 相关资源。
 
-![](memory-leak-dialog/memory-leak-dialog-7.png)
+![](2/memory-leak-dialog-7.png)
 
 * 3.WebView 内存泄漏是众所周知的，建议另外启动一个进程专门运行 WebView。不要9998，不要9999，我们要100%！WebView 用完之后就把进程杀死，即使泄漏了也无碍。
 
@@ -57,15 +57,15 @@
 
 c 跟 j 都是 SDK 中继承于 WebView 的一个子类，k 是登录接口的输入参数 Activity。这里创建了 c 对象之后向上塑形赋给了 j 。
 
-![](memory-leak-dialog/memory-leak-dialog-8.png)
+![](2/memory-leak-dialog-8.png)
 
 网上已经有很多例子表明，直接用 Activity 作为参数构建 WebView 就非常有可能导致 Activity 泄漏。
 
-![](memory-leak-dialog/memory-leak-dialog-9.png)
+![](2/memory-leak-dialog-9.png)
 
 不过也看到了代码中，有调用了 WebView 的`destory()`方法释放资源。但是这里似乎无法保证`dismiss()`一定会被执行。
 
-![](memory-leak-dialog/memory-leak-dialog-10.png)
+![](2/memory-leak-dialog-10.png)
 
 问题到这里发现比较麻烦了，SDK 对我们来说是第三方包，我们没法让第三方包不用 WebView，或者让第三方包把 WebView 放在另外一个进程中运行啊！于是，在 App 上面做规避暂时不好实现。于是找了 SDK 的童鞋一起分析了。
 
@@ -75,7 +75,7 @@ c 跟 j 都是 SDK 中继承于 WebView 的一个子类，k 是登录接口的�
 
 不过，问题到这里楼主心理还是有个很严重的疑惑没有解开（是什么疑惑呢？）。于是拿了 Android4.3 的源码又翻了一遍希望找寻这里头的根本原因，做了一点记录，针对 WebView 在 Java 层的结构画了一个不严谨的类图：源码来源：[http://androidxref.com/4.3_r2.1/](http://androidxref.com/4.3_r2.1/)
 
-![](memory-leak-dialog/memory-leak-dialog-11.png)
+![](2/memory-leak-dialog-11.png)
 
 大概情况是这样：WebView 这套结构中，有一个工厂类 WebViewFactory 提供静态方法。
 
@@ -89,7 +89,7 @@ BrowserFrame 本身是一个属于“WebViewCoreThread”线程的 Handler 子�
 
 BrowserFrame 还会调用 CookieSyncManager.createIntance()，这也是系统框架中唯一一处调用的地方！
 
-![](memory-leak-dialog/memory-leak-dialog-12.png)
+![](2/memory-leak-dialog-12.png)
 
 看到这里之后，楼主发现以上所说的，提前帮系统调用
 
@@ -109,7 +109,7 @@ CookieSyncManager 又是什么东西？同样的，它自己也创建一个子�
 Thread->MessageQueue->Message->Handler(BrowserFrame)->Activity
 ```
 
-![](memory-leak-dialog/memory-leak-dialog-13.png)
+![](2/memory-leak-dialog-13.png)
 
 好了，楼主的疑惑是什么？
 
@@ -117,11 +117,11 @@ Thread->MessageQueue->Message->Handler(BrowserFrame)->Activity
 
 我们再来看看 AuthDialog 的引用链。
 
-![](memory-leak-dialog/memory-leak-dialog-14.png)
+![](2/memory-leak-dialog-14.png)
 
 换成 MAT 看会比较清晰：
 
-![](memory-leak-dialog/memory-leak-dialog-15.png)
+![](2/memory-leak-dialog-15.png)
 
 楼主发现，这里 CookieSyncManager 线程，居然直接引用了 Message 对象！这是什么鬼？一般情况下，HandlerThread 持有一个 MessageQueue 对象，MessageQueue 才持有 Message 队列。
 
@@ -134,13 +134,13 @@ Input or output parameters in native code, for example user-defined JNI code or 
 
 AuthDialog 里面有很多内部类：
 
-![](memory-leak-dialog/memory-leak-dialog-16.png)
+![](2/memory-leak-dialog-16.png)
 
-![](memory-leak-dialog/memory-leak-dialog-17.png)
+![](2/memory-leak-dialog-17.png)
 
 如上图，MAT 中的引用链中的 AuthDialog$3 指的就是这里的 OnDismissListener 匿名内部类！接着我们来看看 Dialog.setOnDismissListener 里面做了什么勾搭：
 
-![](memory-leak-dialog/memory-leak-dialog-18.png)
+![](2/memory-leak-dialog-18.png)
 
 纳尼！OnDismissListener 居然被赋给了 Message.obj 成员！
 
@@ -150,13 +150,13 @@ AuthDialog 里面有很多内部类：
 Thread(main) -> MessageQueue->Message -> obj(OnDismissListener) -> AuthDialog -> Activity
 ```
 
-![](memory-leak-dialog/memory-leak-dialog-19.png)
+![](2/memory-leak-dialog-19.png)
 
 可是不对啊，我们所能找到的引用链跟 CookieSyncManager 子线程一点关系都没有！
 
 再对比一下：
 
-![](memory-leak-dialog/memory-leak-dialog-20.png)
+![](2/memory-leak-dialog-20.png)
 
 子线程 CookieSyncManager 拿到了主线程的 Message！！ Oh no !! 这是什么情况？？？这个 Message 被某处地方错误引用了？子线程通过 JNI 在 native 中拿到 Java 层的对象？
 
@@ -172,7 +172,7 @@ Thread(main) -> MessageQueue->Message -> obj(OnDismissListener) -> AuthDialog ->
 
 如下代码使用阻塞队列说明问题：
 
-![](memory-leak-dialog/memory-leak-dialog-21.png)
+![](2/memory-leak-dialog-21.png)
 
 子线程中调用 loop()死循环，不停地从阻塞队列中取出一个 MyMessage 对象并且将对象的引用赋值给局部变量 message，一次 while 循环之后，虚拟机应当结束 while 花括号中的局部变量的生命周期，并且释放对应的堆内存中的 MyMessage 对象。可是，DVM 没有这么做！！
 
@@ -180,7 +180,7 @@ Thread(main) -> MessageQueue->Message -> obj(OnDismissListener) -> AuthDialog ->
 
 这种场景不就是 Android Handler 消息机制的处理方式么？！
 
-![](memory-leak-dialog/memory-leak-dialog-22.png)
+![](2/memory-leak-dialog-22.png)
 
 Looper 不停地从阻塞队列 MessageQueue 中取出下一条消息 Message 并将引用赋给本地变量 msg。一旦一次循环结束了，msg 没有被置为 null，对应的 Message 对象没有被回收，于是就泄漏了。
 
@@ -188,17 +188,17 @@ Looper 不停地从阻塞队列 MessageQueue 中取出下一条消息 Message �
 
 好了，被 CookieSyncManager 子线程的 Looper 轮过一次的 Message 对象也跟其他人一样，被回收并放在了回收池中。这个时候，刚好遇到了 Dialog！！
 
-![](memory-leak-dialog/memory-leak-dialog-23.png)
+![](2/memory-leak-dialog-23.png)
 
 这家伙刚刚好通过 obtainMessage()从回收池中拿到了这个 Message（被 CookieSyncManager 线程的本地变量引用住了），而且Message.obj 变量就是 OnDismissListener。
 
 拿到之后，Dialog 居然据为己有！！作为一个成员宠爱着！
 
-![](memory-leak-dialog/memory-leak-dialog-24.png)
+![](2/memory-leak-dialog-24.png)
 
 Dialog 自从拥有了 mDismissMessage 对象之后就不会让它挂到消息队列中了，每次要用都是拷贝一份而已。Message.obtain(mDismissMessage)，所以这个 Message 再也不会回到回收池中，直到 Dialog 被销毁，mDismissMessage 变量也被置为 null 了。
 
-![](memory-leak-dialog/memory-leak-dialog-25.png)
+![](2/memory-leak-dialog-25.png)
 
 但是，这个 Message 依然占据着堆内存，而且被一个“游离”着的子线程局部变量 msg 引用着！！于是有了这条引用链：
 
