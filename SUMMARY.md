@@ -56,6 +56,7 @@
       * [Android内存泄露之资源](Memory/MemoryLeak/Android内存泄露之资源.md)
       * [Android内存泄露开篇](Memory/MemoryLeak/Android内存泄露开篇.md)
       * [GCRoot](Memory/MemoryLeak/GCRoot.md)
+      * [InputMethodManager内存泄露现象及解决](Memory/MemoryLeak/InputMethodManager内存泄露现象及解决.md)
       * [一个内存泄漏引发的血案-Square](Memory/MemoryLeak/一个内存泄漏引发的血案-Square.md)
 * [NDK](NDK/README.md)
    * [Android使用NDK-STACK来恢复Cocos2d-x错误堆栈信息](NDK/Android使用NDK-STACK来恢复Cocos2d-x错误堆栈信息.md)
