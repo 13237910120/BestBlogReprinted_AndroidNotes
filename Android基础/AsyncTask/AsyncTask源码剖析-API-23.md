@@ -1,6 +1,6 @@
 # AsyncTask源码剖析(API 23)
 
-来源:[Spark Yuan](http://sparkyuan.me/2016/03/23/AsyncTask%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90(API%2023)/)
+来源:[Spark Yuan](http://sparkyuan.me/2016/03/23/AsyncTask%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90(API%2023/)
 
 Android的UI是线程不安全的，想在子线程中更新UI就必须使用Android的异步操作机制，直接在主线程中更新UI会导致程序崩溃。
 

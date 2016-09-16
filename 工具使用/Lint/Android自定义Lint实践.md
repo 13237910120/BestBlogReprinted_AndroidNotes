@@ -149,7 +149,7 @@ context.report(ISSUE, node, context.getLocation(node), "请使用Ln，避免使�
 
 最后的字符串用来为警告添加解释。对应报告中的位置如下图：
 
-![](meituan-lint/1.png)
+![](1/1.png)
 
 这里还需要说明report会自动处理被suppress(suppressLint)/ignore(tools:ignore)的警告。所以发现问题直接调用report就可以，不用担心其他问题。
 
@@ -178,9 +178,9 @@ public static final Issue ISSUE = Issue.create(
 
 ### 与Lint HTML报告对应关系
 
-![](meituan-lint/2.png)
+![](1/2.png)
 
-![](meituan-lint/3.png)
+![](1/3.png)
 
 ### Category详述
 
