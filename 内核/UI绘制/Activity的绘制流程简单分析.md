@@ -331,7 +331,7 @@ decor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
 
 这个`layoutResource`的值 实际上就代表了窗口修饰的哪些布局文件，你看最后两行代码就知道,当我们确定了这个布局文件以后就把她`add`到`decor`这个对象里。所以我们就能想明白 为啥 我们的`requestWindowFeature`这个方法一定要在`setContentview`前面调用才有作用了~~然后给大家随便看下布局文件吧，就是系统自带的这些根布局。
 
-![](1/setcontentview_root_layout.jpg)
+![](3/setcontentview_root_layout.jpg)
 
 这种大家肯定经常用了，就是上面有个标题 然后下面就放我们自己的布局文件来展示内容,当然了还有人喜欢用全屏的`screen_simple`，他的代码也是很简单的。这里不截图上代码:
 
