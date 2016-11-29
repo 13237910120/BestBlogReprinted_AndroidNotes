@@ -25,7 +25,7 @@ BitmapRegionDecoder
 
 那么综上，本篇博文的目的就是去自定义一个显示巨图的View，支持用户去拖动查看，大概的效果图如下：
 
-![](BitmapRegionDecoder/1.gif)
+![](1/1.gif)
 
 好吧，这清明上河图太长了，想要观看全图，文末下载，图片在assets目录。当然如果你的图，高度也很大，肯定也是可以上下拖动的。
 
@@ -107,7 +107,7 @@ public class LargeImageViewActivity extends AppCompatActivity{
 
 效果图：
 
-![](BitmapRegionDecoder/2.gif)
+![](1/2.gif)
 
 上面的小图显示的即为下面的大图的中间区域。
 
@@ -547,7 +547,7 @@ public class LargeImageViewActivity extends AppCompatActivity{
 
 效果图：
 
-![](BitmapRegionDecoder/3.gif)
+![](1/3.gif)
 
 ok，那么到此，显示巨图的方案以及详细的代码就描述完成了，总体还是非常简单的。 
 
