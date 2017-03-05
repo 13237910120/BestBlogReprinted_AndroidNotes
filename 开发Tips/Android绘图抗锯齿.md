@@ -1,5 +1,7 @@
 # 抗锯齿方法两种（其一：paint.setAntiAlias(ture);paint.setBitmapFilter(true))
 
+来源:[CSDN](http://blog.csdn.net/yixinyouni1314/article/details/7774164)
+
 在Android中，目前，我知道有两种出现锯齿的情况。 
 
 * 当我们用Canvas绘制位图的时候，如果对位图进行了选择，则位图会出现锯齿。 
