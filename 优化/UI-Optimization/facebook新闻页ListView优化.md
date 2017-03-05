@@ -17,13 +17,13 @@ android系统每隔16.7ms发出一个渲染信号，通知ui线程进行界面�
 
 Facebook的新闻页是一个复杂的listview控件，如何使它获得流畅的滚动体验一直困扰我们。 首先，新闻页的每一条新闻的可见区域非常大，包含一系列的文本以及照片；其次，新闻的展现类型也很多样，除了文本以及照片，新闻的附件还可包含链接、音频、视频等。除此之外，新闻还可以被点赞、被转载，导致一个新闻会被其他新闻包含在内。当新闻被大量用户转载时，甚至会出现一条新闻占据两个屏幕的情况。加上android用户的机型多为中低端设备，这使我们在16.7ms内完成新闻页的渲染变的非常困难。
 
-![](facebook-news-listview/1.png)
+![](3/1.png)
 
 ## 新闻页最初架构
 
 在2012年，我们将新闻页从web-view转化成本地控件，在最初的那个版本中，基于View-Model-Binder设计模型，我们为新闻listitem创建了一个自定义StoryView类，这个类有一个bindModel方法，该方法用于和数据进行绑定。代码是这样的：
 
-![](facebook-news-listview/2.png)
+![](3/2.png)
 
 StoryView的包含的子控件都会有一个bindModel方法，例如HeadVIew通过该方法与其相关的数据进行绑定。
 这种设计，代码非常直观清晰，但他的缺点也很明显：
@@ -39,19 +39,19 @@ StoryView的包含的子控件都会有一个bindModel方法，例如HeadVIew通
 
 重构工作大约是一年之前开始的，为了解决前一个架构的问题，首先我们决定将一条新闻分隔成多个listview item。例如，新闻的headerview将是一个独立的listitem。这样，我们可以利用android回收机制，HeaderView新闻子控件将被不同的新闻复用。另外，切分成小view也使得内存占用更小，在之前的架构中，Storyview部分的可见会导致这个Storyview被加载到内存中，而现在，粒度更小，只有可见的子控件才会被加载。
 
-![](facebook-news-listview/3.png)
+![](3/3.png)
 
 另一个大的修改是，我们将视图逻辑和数据逻辑分离，StoryView被分离成两个类： 只负责展现的视图类，以及一个Binder类。视图类仅包含set方法（例如HeaderView包含了setTitle，setSubTitle。setProfiePic等等）。Binder类包含了原来的bindMethod的逻辑，binder类包含三个方法：prepare，bind，unbind。 bind方法调用view的set方法设置数据，unbind清理视图数据，prepare方法在cpu空闲期间做一些预初始化工作，例如进行click事件绑定、数据格式化、创建spannable等等，它会在getView方法之前被调用
 
-![](facebook-news-listview/4.png)
+![](3/4.png)
 
 我们遇到的技术难点是Binder的设计，由于StoryView被拆分不同的子控件，一条新闻可能会包含多个不同的Binder。而在之前，我们只需要根据视图的树结构进行结构化赋值。因此，我们引进了PartDefinition类，PartDefinition负责维护一条新闻包含哪些子控件、包含Binder的类型以及为新闻创建Binder类，有两种类型的PartDefinition：单个PartDefinition以及PartDefinition集合。
 
-![](facebook-news-listview/5.png)
+![](3/5.png)
 
 一个新闻在重构之后的PartDefinition结构是这样的：
 
-![](facebook-news-listview/6.png)
+![](3/6.png)
 
 ## 结论
 * 采取新的架构，内存错误减少了17%，总crash率减少了8%，彻底解决涨溢出问题

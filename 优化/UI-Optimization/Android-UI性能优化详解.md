@@ -39,7 +39,7 @@ Jelly Bean 4.1 (and 4.2) “Project Butter” 做了近一步的提升来避免�
 
 *图4-1*
 
-![](ui-optimization/ui-optimization-1.png)
+![](2/ui-optimization-1.png)
 
 对于app里的每一个view，android系统都会经过三部曲来渲染：measure，layout，draw。可以在脑中回想下你搭建的view的xml布局文件结构，measure从最顶部的节点开始，顺着layout树形结构依次往下：测量每个view需要在屏幕当中展示的尺寸大小（上图当中：LinearLayout；RelativeLayout，LinearLayout；然后是textView0和LinearLayout Row1点分支，该分支又有另外3个子节点）。每个子节点都需要向自己的父节点提供自己的尺寸来决定展示的位置，遇到冲突的时候，父节点可以强制子节点重新measure（由此可能导致measure的时间消耗为原来的2-3倍）。这就是为什么扁平的view结构会性能更好。节点所处位置越深，套嵌带来的measure越多，计算就会越费时。我们来看一些具体的例子，看measure是怎么影响渲染性能的。
 
@@ -59,25 +59,25 @@ Hierarchy Viewer可以很方便可视化的查看屏幕上套嵌view结构，是
 
 *图4-2*
 
-![](ui-optimization/ui-optimization-2.png)
+![](2/ui-optimization-2.png)
 
 在中间的这个窗口，你可以点击任何一个view来查看该view在android设备屏幕上的展示。点击树形图工具栏里红绿紫三色的维恩图图标，还能展示子view的数量，和measure，layout，draw三部曲所花费的时间。这个时间是被选择的view及其所有子节点所花费时间的总和。（图4-3中，我选择了最顶部的view来获取整个view结构的时间）
 
 *图4-3*
 
-![](ui-optimization/ui-optimization-3.png)
+![](2/ui-optimization-3.png)
 
 最顶部的view总共包含181个view，measure的总时间为3.6ms，layout是7ms，draw花了14.5ms（总共大约25ms）。要缩短渲染这些view的总时间，我们先看下app的树形结构图预览，看看所有的view是怎么拼凑到一起的。从树形结构图上可以看出屏幕里有非常多的view，树的结构比较扁平。前面说过，扁平的结构性能好，树的深度对渲染的性能会产生很大的影响。我们的结构虽然是扁平的，却依然花费了26ms的时间来渲染，说明扁平的结构也有可能会卡顿，也需要去考虑怎么优化。
 
 *图4-4*
 
-![](ui-optimization/ui-optimization-4.png)
+![](2/ui-optimization-4.png)
 
 排查一个新闻类app的树形结构，大致可以看三个区域：头部（底部蓝色的方框），文章列表（两个橙色的方框表示两个不同的tab），单篇文章的view是用红色方框来标注的。内部标题view的结构重复出现了九次，5个在上面橙色的方框内，4个在下面的方框内。最后，我们可以看到从边上拉出来的导航栏是用底部绿色的方框标出来的。头部用了22个view，两个文章列表个用了67和44个view（每个标题部分使用了13个view），导航抽屉使用了20个。这样我们还剩下18个view没有计算在内。剩下的这些view其实是在滑动手势动画过程当中生成的。很显然，view的数量很多，要做到不卡顿要让view的绘制非常高效才行。
 
 *图4-5*
 
-![](ui-optimization/ui-optimization-5.png)
+![](2/ui-optimization-5.png)
 
 仔细看下标题部分，一个标题是由13个view组成的。每个标题的结构有5层之深，一共花费0.456ms来measure，0.077ms来layout，2.737ms来draw。第五层是通过第四层的两个RelativeLayouts来连接的（蓝色高亮），这些又是通过第三层的另一个RelativeLayout来连接的（绿色高亮）。如果我们把第四第五层的view都移到第三层来，我们可以少渲染一整层。而且我之前解释过，RelativeLayout里的measure都会发生两次，套嵌的view会导致measure时间的增加。
 
@@ -89,13 +89,13 @@ Hierarchy Viewer可以很方便可视化的查看屏幕上套嵌view结构，是
 
 *图4-6*
 
-![](ui-optimization/ui-optimization-6.png)
+![](2/ui-optimization-6.png)
 
 图4-6里的标题view也有RelativeLayouts（绿色的部分）的问题，一共消耗了1.275ms的measure时间，layout用了0.066ms，draw 3.24ms（总共是4.6ms）。在这些数据基础上，我们再做一些调整，加入一个更大的图片展示和分享按钮，但是整个树形结构变得扁平一点（如图4-7所示）。
 
 *图4-7*
 
-![](ui-optimization/ui-optimization-7.png)
+![](2/ui-optimization-7.png)
 
 容，但节省了400ms！
 
@@ -103,7 +103,7 @@ Hierarchy Viewer可以很方便可视化的查看屏幕上套嵌view结构，是
 
 *图4-8*
 
-![](ui-optimization/ui-optimization-8.png)
+![](2/ui-optimization-8.png)
 
 这个简单的app里有59个view。但是和图4-4里的app不同，这个app的树形结构更扁平，水平方向的view更多一些。叠加的view越多，渲染就会越费时，减少view树形结构的深度，app每一帧的渲染就会变快。
 
@@ -111,33 +111,33 @@ Hierarchy Viewer可以很方便可视化的查看屏幕上套嵌view结构，是
 
 *图4-9*
 
-![](ui-optimization/ui-optimization-9.png)
+![](2/ui-optimization-9.png)
 
 当设备开始measure views的时候，先从右边的子views开始，然后到左边的父views。右边ListView包含6行数据，一共37个view，花了0.012ms来measure。把这个ListView加到中间的LinearLayout之后，变成38个views。有意思的是，measure的时间由于remeasure被触发，瞬间跳到了18.109ms，是原来的三个数量级。LinearLayout左边的RelativeLayout使得measure的时间再次翻倍到33.739ms。再依次往左继续观察（图4-8里红色方框部分），measure的时间叠加到了68ms。但是只要移除上面的一个LinearLayout，measure的时间瞬间降到了1ms。我们可以移除更多的层让树形结构更扁平一些，这样我们可以得到图4-10里的结果，层数减少到了3层。
 
 *图4-10*
 
-![](ui-optimization/ui-optimization-10.png)
+![](2/ui-optimization-10.png)
 
 我们可以继续看下山羊信息到row展示部分，来继续减少view结构的深度。每一行山羊信息有6个view，一个有6行数据在屏幕中展示（图4-8中有一行数据是用紫色方框高亮的）。我们用Hierarchy View看下一行view的结构是怎么样的（图4-11），先看下左边两个view（一个LinearLayout，一个RelativeLayout），这两个view唯一的作用就是加深了树机构的深度。LinearLayout连接了RelativeLayout，但并没有展示其他什么内容。
 
 *图4-11*
 
-![](ui-optimization/ui-optimization-11.png)
+![](2/ui-optimization-11.png)
 
 因为RelativeLayout会measure两次（我们现在关注优化measure的时间），我们先移除RelativeLayout（图4-12）。这样树形结构的深度从4减到了3，渲染立马快了一些。
 
 *图4-12*
 
-![](ui-optimization/ui-optimization-12.png)
+![](2/ui-optimization-12.png)
 
 但效果还并不理想。我们继续移除LinearLayout，同时调整下RelativeLayout来展示整个row的信息（图4-13），这样深度近一步减少到了2。渲染又快了0.1ms。这样看来优化的途径有很多种，多尝试总是有好处的（看下表格4-1里的结果）。
 
 *图4-13*
 
-![](ui-optimization/ui-optimization-13.png)
+![](2/ui-optimization-13.png)
 
-![](ui-optimization/ui-optimization-14.png)
+![](2/ui-optimization-14.png)
 
 每一行减少大约1ms的时间，我们一共可以节省6ms的渲染时间。如果你的app有卡顿，或者你通过工具检测到每次渲染接近16ms了，减少6ms的时间当然会让你的app更快一点。
 
@@ -165,7 +165,7 @@ Hierarchy Viewer对于优化app view的树形结构重要性不言而喻了，�
 
 在我们把app的view结构变扁平，view的总数量减少之后，我们还可以尝试减少每个view里面使用的资源数量。2014年的时候，Instagram把标题栏里的资源数量从29减少到了8个。他们测量后发现app的启动时间增加了10%－20％（因设设备而异）。主要是通过资源上色的方式来进行缩减。比如只加载一个资源，然后在运行的时候通过ColorFilter进行上色。我们看下下面的例子是怎么个一个drawable上色的。
 
-![](ui-optimization/ui-optimization-15.png)
+![](2/ui-optimization-15.png)
 
 这样一个资源文件就可以表示几种不同的状态了（加星或者不加星，在线或者离线等等）。
 
@@ -185,7 +185,7 @@ android提供了一些很好的工具来检测overdraw。Jelly Bean 4.2里，开
 
 *图4-14*
 
-![](ui-optimization/ui-optimization-16.png)
+![](2/ui-optimization-16.png)
 
 另一种查看overdraw的方式是在Debug GPU overdraw菜单里选择“Show Overdraw areas”选项。选择之后，会在app的不同区域覆盖不同的颜色来表示overdraw的次数。比较屏幕上这些不同的颜色，可以快速方便的定位overdraw问题：
 
@@ -195,7 +195,7 @@ android提供了一些很好的工具来检测overdraw。Jelly Bean 4.2里，开
 
 *图4-15*
 
-![](ui-optimization/ui-optimization-17.png)
+![](2/ui-optimization-17.png)
 
 通过减少view的数量（或者去移除重复绘制的view），app的渲染会更快。通过比较父view在优化前后的绘制时间，可以发现优化后带来50％性能的提升，由13.5ms降到6.8ms。
 
@@ -205,13 +205,13 @@ android提供了一些很好的工具来检测overdraw。Jelly Bean 4.2里，开
 
 *图4-16*
 
-![](ui-optimization/ui-optimization-18.png)
+![](2/ui-optimization-18.png)
 
 在图4-17中可以看到另一个逐步隐藏view的办法。从最左边的全屏图片开始，到中间的图片，可以看到我们隐藏了两行山羊的图片展示，每一行下面的出现了一张拉伸的驴子的图片。在这些驴子图片的下面是一张白色的背景图（从最右边的图片可以看出）。再移除这张白色背景可以看到一张大的驴子的图片，在左下角。再往下是另一张白色的全屏背景图。
 
 *图4-17*
 
-![](ui-optimization/ui-optimization-19.png)
+![](2/ui-optimization-19.png)
 
 ### KitKat里的overdraw
 
@@ -229,13 +229,13 @@ android提供了一些很好的工具来检测overdraw。Jelly Bean 4.2里，开
 
 *图4-18*
 
-![](ui-optimization/ui-optimization-20.png)
+![](2/ui-optimization-20.png)
 
 对比下Nexus 6和Moto G的GPU数据可以看出真机测试的重要性。图4-18中，没有优化过的山羊app精确的表示Moto G绘制的时间是Nexus 6的两倍（比较两图中绿线的高度）。这一点可以通过数据采集（adb shell dumpsys gfxinfo）进一步说明。下一个例子当中，优化过的view绘制在Moto G上用了两倍多时间。对于两台设备来说，draw，prepare，process这几步都花了差不多的时间（少于4ms）。差别出现在execute阶段（紫色），Moto G比Nexus 6多用了差不多4ms。说明GPU渲染测试最好是在低端机器上来做，比较容易发现卡顿问题。
 
 *图4-19*
 
-![](ui-optimization/ui-optimization-21.png)
+![](2/ui-optimization-21.png)
 
 一般来说，GPU Profiler可以帮你发现问题。在山羊app里，如果我打开Fibonacci延迟（在创建view多时候进行耗时的递归计算），GPU profiler看不出任何卡顿，因为计算都发生在主线程而且完全阻止了渲染（在低端机上，可能会出现ANR消息）。
 
@@ -243,7 +243,7 @@ android提供了一些很好的工具来检测overdraw。Jelly Bean 4.2里，开
 
 Fibonacci序列是这样一组数的集合：每个数字都是它前面两个数字的和。比如0，1，1，2，3，5，8等等。程序里一般用来表示递归，这里我用了最低效的方式来生成Fibonacci序列。
 
-![](ui-optimization/ui-optimization-22.png)
+![](2/ui-optimization-22.png)
 
 生成这些数字的计算次数呈指数级增长。这样做的目的是在渲染的时候增加CPU的压力，这样渲染事件就无法得到及时处理，出现延迟。计算n＝40就把app变得很慢了（低端机上会crash）。这个例子虽然有点牵强，但我们定位卡顿是由Fibonacci产生的过程会很有意义。
 
@@ -251,7 +251,7 @@ Fibonacci序列是这样一组数的集合：每个数字都是它前面两个�
 
 在android marshmallow里，运行`adb shell dumpsys gfxinfo` . 可以发现一些检测卡顿的新功能。首先，数据报告开头部分能看到每一帧渲染的信息了。
 
-![](ui-optimization/ui-optimization-23.png)
+![](2/ui-optimization-23.png)
 
 从app的启动开始，我们可以看到一共渲染了多少帧，其中多少帧的渲染时间是控制在理想值的90%以内，还能看到渲染比较慢的帧（90%，95%，99%）。最后五行列出的是没有在16ms内渲染完成的原因。注意，这里不止有卡顿的问题，帧率还收到了其他因素的影响。
 
@@ -272,7 +272,7 @@ android marshmallow在gfxinfo库里增加了另一个好用的测试工具，`ad
 
 有时候GPU Profile里看不到超过16ms的数据，但你从屏幕上看到明显的卡顿或跳动。出现这种情况可能是由于CPU在做别的事情被堵住了，从而导致里丢帧。在Monitor或者Android Studio中，可以查看DDMS里的logfiles。通过过滤log更容易查看app的运行情况。可以重点看下类似下图中的log。
 
-![](ui-optimization/ui-optimization-24.png)
+![](2/ui-optimization-24.png)
 
 我们在后面的文章里会讲诉CPU导致的丢帧是怎么产生的。
 
@@ -284,7 +284,7 @@ Systrace和之前的工具不同的是，它记录的是整个android系统的�
 
 *图4-22*
 
-![](ui-optimization/ui-optimization-25.png)
+![](2/ui-optimization-25.png)
 
 trace数据记录在一个html文件里，可以用浏览器打开。这里主要研究屏幕的交互数据，主要收集CPU，graphics和view数据（如图4-22所示）。duration留空（默认是5秒）。点击OK之后，Systrace会马上开始采集设备上的数据（最好马上开始操作）。因为采集的数据非常之多，所以最好一次只针对一个问题。
 
@@ -292,7 +292,7 @@ traces里面的数据看着有点吓人（我们只是勾选里4个选项！）�
 
 *图4-23*
 
-![](ui-optimization/ui-optimization-26.png)
+![](2/ui-optimization-26.png)
 
 ### Systrace进化史
 
@@ -312,7 +312,7 @@ traces里面的数据看着有点吓人（我们只是勾选里4个选项！）�
 
 *图4-24*
 
-![](ui-optimization/ui-optimization-27.png)
+![](2/ui-optimization-27.png)
 
 图4-24底部展示的是app的详情。第二行数据（绿色和紫色的线条）表示的app正在创建view，然后是底部的数据（绿色，蓝色，和一些紫色的条状），表示的是RenderThread，view的渲染和发送到buffer（图中没有画出来）都是在这个线程里做的。注意看可以发现大概1/3的位置，这些条状在该区域集中变粗了，表示app此时由于某种原因发生了卡顿。不同app情况不一样，发生卡顿的原因也不同，但是我们可以根据一些共同的现象推测卡顿的发生。
 
@@ -335,7 +335,7 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-25*
 
-![](ui-optimization/ui-optimization-28.png)
+![](2/ui-optimization-28.png)
 
 再回过头想一下设备能这么短的时间内流畅的渲染屏幕，确实是件很神奇的事情。了解了渲染的过程，我们来找下卡顿的原因。
 
@@ -343,7 +343,7 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-26*
 
-![](ui-optimization/ui-optimization-29.png)
+![](2/ui-optimization-29.png)
 
 为什么会出现这种情况？箭头上方的一行是view buffer，行的高度表示有多少帧缓存在了buffer里面。trace开始的时候，buffer里缓存的数量是1到2交替出现。surfaceflinger每抓取一个view（buffer里的数量减一），又会马上从app里生成一个新的view来填充。但是当surfaceflinger完成第三个动作之后，buffer被清空了，但是没有从app里及时填充新的view。所以，我们从app层面来检查下这期间发生了什么。
 
@@ -351,13 +351,13 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-27*
 
-![](ui-optimization/ui-optimization-30.png)
+![](2/ui-optimization-30.png)
 
 有意思的是app后面马上就速度追了上来。黄色方框内延迟递交的view创建并交给buffer之后，后续的两帧紧接着创建好了（绿色和蓝色的方框）。通过快速的填充新的帧，app就只丢了一帧。这个trace结果是在Nexus 6上运行的（处理器比较快，能快速的跟上）。在三星S4 Mini，Jelly Bean 4.2.2上运行同样的结果得到图4-28.
 
 *图4-28*
 
-![](ui-optimization/ui-optimization-31.png)
+![](2/ui-optimization-31.png)
 
 从总览图上可以清晰的看到有很多帧都丢掉了（trace开始的时候surfacelinger部分有很多的空缺）。而且顶部那一行（view buffer）里的buffer经常是空的（导致里卡顿），buffer里同时有两个view的情况非常少。对于一个GPU性能比较差的设备来说，app能够像Nexus 6一样赶上填满buffer的概率比较小。
 
@@ -369,13 +369,13 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-29*
 
-![](ui-optimization/ui-optimization-32.png)
+![](2/ui-optimization-32.png)
 
 把这块放大能看到更多的细节（图4-30）。每个垂直的红线表示16ms。从图中可以看出，大概有5，6次SurfaceFlinger错过了红线标记。绿色的“performtraversals”线条都几乎有16ms长（这一步是必须做的，有卡顿）。还有两个蓝绿色的 deliverInputEvents（每个都超过了16ms）也阻碍了app的屏幕绘制。
 
 *图4-30*
 
-![](ui-optimization/ui-optimization-33.png)
+![](2/ui-optimization-33.png)
 
 那到底是什么触发了deliverInputEvents呢？这其实是用户在点击屏幕，强制ListView重绘所有的view。这部分影响是CPU，我们接下来简单看下这时候CPU都在干啥。
 
@@ -387,7 +387,7 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-31*
 
-![](ui-optimization/ui-optimization-34.png)
+![](2/ui-optimization-34.png)
 
 展示做了一些修改，CPU和surfaceflinger之间的一些线被去掉了。这个trace里看不到卡顿，surfaceflingers每16ms的间隔很均匀。RenderThread和每一行view填满buffer的表现也很正常。和CPU那一行数据对比一下，可以发现一个新规律。当RenderThread在绘制layout的时候，CPU1正在运行一个蓝色的任务(注意我们看的是窄一点的CPU1，不是CPU1:C－State)。当山羊app的view正在被measure的时候，CPU0有一个相应的紫色的行为。view的layout和绘制是由两个CPU完成的。注意X轴上的点击是每隔10ms发生的，这里每个行为都没有超过2-4ms。
 
@@ -395,7 +395,7 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-32*
 
-![](ui-optimization/ui-optimization-35.png)
+![](2/ui-optimization-35.png)
 
 从Systrace里能看到很多卡顿，在相同的100ms时间范围内，surfaceflinger就画了三帧（上面不卡顿的情况画了7帧）。可以看到RenderThread绘制view还是很快的（从图中可以看出，蓝色的RenderThread是在CPU0上运行的）。但是，measure view的时候，Fibonacci的递归计算就导致了问题。山羊app进程那一行花了大部分的时间在obtainView的状态，而不是measure。同时可以看到CPU1上紫色对应的山羊进程不再是2-4ms宽了，变成了2-17ms宽。Fibonacci计算每次大概用了13-17ms，对app的绘制性能产生了很大的影响。
 
@@ -405,19 +405,19 @@ buffer里面有一些view，线条的高度表示了buffer当中view的数量。
 
 *图4-33*
 
-![](ui-optimization/ui-optimization-36.png)
+![](2/ui-optimization-36.png)
 
 新版本的systrace对于正在发生的行为也有更清晰的描述了。在图4-33中，帧的渲染时间是18.181ms，是用黄色标示的，如果有很多帧超过了16ms就会导致卡顿了。在trace文件下方的描述信息面板上（图4-34），可以看到警告信息，说我的app在重用ListView的item，而不是创建新的item，这样拖慢了view inflation。
 
 *图4-34*
 
-![](ui-optimization/ui-optimization-37.png)
+![](2/ui-optimization-37.png)
 
 在systrace里可以看到其它类似的警告，形状像泡泡或是点，屏幕右边的警告面板也列出了这些信息（图4-35）。
 
 *图4-35*
 
-![](ui-optimization/ui-optimization-38.png)
+![](2/ui-optimization-38.png)
 
 这些新功能让Systrace诊断UI问题更加简单了。
 
